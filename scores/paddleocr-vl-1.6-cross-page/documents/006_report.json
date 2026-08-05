@@ -1,0 +1,5223 @@
+{
+  "inputs": {
+    "gt": "data/gt/primary/006.md",
+    "pred": "predictions/paddleocr-vl-1.6-cross-page/006.md",
+    "gt_table_alt": "data/gt/semi_semantic/006.md",
+    "table_gt_strategy": "max"
+  },
+  "pred_cleanup": {
+    "mode": "prediction_only_header_footer_cleanup",
+    "removed_line_count": 4,
+    "removed_line_examples": [
+      "阿里巴巴集團控股有限公司",
+      "阿里巴巴集團控股有限公司",
+      "阿里巴巴集團控股有限公司",
+      "阿里巴巴集團控股有限公司"
+    ]
+  },
+  "weights": {
+    "table": 0.4,
+    "title_layout": 0.2,
+    "text": 0.4
+  },
+  "config": {
+    "remove_pred_header_footer": true,
+    "normalize_images": true,
+    "normalize_zh": "t2s",
+    "normalize_footnotes": true,
+    "normalize_punctuation": true,
+    "table_structure_weight": 0.6,
+    "table_content_weight": 0.4
+  },
+  "scores": {
+    "final_score": 93.7977,
+    "table_score": 90.7101,
+    "title_layout_score": 92.539,
+    "text_score": 97.5146
+  },
+  "table_evaluation": {
+    "selected_gt": "per_table_max",
+    "selected_table_score": {
+      "table_content_score": 85.98,
+      "table_structure_score": 93.8636,
+      "table_matrix_score": 90.7101,
+      "table_alignment_strategy": "per_table_best_of_primary_alt_one_to_one",
+      "matched_table_count": 49,
+      "missing_table_count": 1,
+      "extra_table_count": 0,
+      "gt_table_count": 50,
+      "pred_table_count": 49,
+      "primary_gt_table_count": 50,
+      "alt_gt_table_count": 55,
+      "reference_table_count": 50,
+      "primary_selected_pair_count": 49,
+      "alt_selected_pair_count": 0,
+      "final_table_score": 90.7101,
+      "matches": [
+        {
+          "gt_index": 0,
+          "pred_index": 0,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 18,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 5
+          },
+          "table_structure_score": 96.2963,
+          "table_content_score": 69.9137,
+          "table_pair_score": 85.7433,
+          "table_keyword_score": 85.0252,
+          "table_match_score": 87.4948,
+          "pred_position": 0,
+          "gt_position": 0,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 85.7433,
+          "alt_pair_score": 85.7433
+        },
+        {
+          "gt_index": 1,
+          "pred_index": 1,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "table_structure_score": 96.8254,
+          "table_content_score": 84.466,
+          "table_pair_score": 91.8816,
+          "table_keyword_score": 87.7733,
+          "table_match_score": 90.8162,
+          "pred_position": 1,
+          "gt_position": 1,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 91.8816,
+          "alt_pair_score": 91.8816
+        },
+        {
+          "gt_index": 2,
+          "pred_index": 2,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 14,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 15,
+            "cols": 5
+          },
+          "table_structure_score": 95.5556,
+          "table_content_score": 84.435,
+          "table_pair_score": 91.1073,
+          "table_keyword_score": 90.3333,
+          "table_match_score": 91.61,
+          "pred_position": 2,
+          "gt_position": 2,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 91.1073,
+          "alt_pair_score": 91.1073
+        },
+        {
+          "gt_index": 3,
+          "pred_index": 3,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 23,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 23,
+            "cols": 7
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 94.0382,
+          "table_pair_score": 97.6153,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.2846,
+          "pred_position": 3,
+          "gt_position": 3,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 97.6153,
+          "alt_pair_score": 53.9942
+        },
+        {
+          "gt_index": 4,
+          "pred_index": 4,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 5
+          },
+          "table_structure_score": 91.6667,
+          "table_content_score": 62.5,
+          "table_pair_score": 80.0,
+          "table_keyword_score": 72.0833,
+          "table_match_score": 78.375,
+          "pred_position": 4,
+          "gt_position": 4,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 80.0,
+          "alt_pair_score": 80.0
+        },
+        {
+          "gt_index": 5,
+          "pred_index": 5,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 91.5152,
+          "table_pair_score": 96.6061,
+          "table_keyword_score": 100.0,
+          "table_match_score": 98.9818,
+          "pred_position": 5,
+          "gt_position": 5,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 96.6061,
+          "alt_pair_score": 96.6061
+        },
+        {
+          "gt_index": 6,
+          "pred_index": 6,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 4
+          },
+          "table_structure_score": 96.2963,
+          "table_content_score": 89.5277,
+          "table_pair_score": 93.5889,
+          "table_keyword_score": 88.2407,
+          "table_match_score": 91.4563,
+          "pred_position": 6,
+          "gt_position": 6,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 93.5889,
+          "alt_pair_score": 93.5889
+        },
+        {
+          "gt_index": 7,
+          "pred_index": 7,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 13,
+            "cols": 4
+          },
+          "table_structure_score": 89.7436,
+          "table_content_score": 80.4878,
+          "table_pair_score": 86.0413,
+          "table_keyword_score": 84.8667,
+          "table_match_score": 86.1945,
+          "pred_position": 7,
+          "gt_position": 7,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 86.0413,
+          "alt_pair_score": 86.0413
+        },
+        {
+          "gt_index": 8,
+          "pred_index": 8,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 14,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 15,
+            "cols": 4
+          },
+          "table_structure_score": 95.5556,
+          "table_content_score": 83.9546,
+          "table_pair_score": 90.9152,
+          "table_keyword_score": 89.6053,
+          "table_match_score": 91.1883,
+          "pred_position": 8,
+          "gt_position": 8,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 90.9152,
+          "alt_pair_score": 90.9152
+        },
+        {
+          "gt_index": 9,
+          "pred_index": 9,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 6,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 4
+          },
+          "table_structure_score": 83.3333,
+          "table_content_score": 76.3485,
+          "table_pair_score": 80.5394,
+          "table_keyword_score": 81.8065,
+          "table_match_score": 81.7317,
+          "pred_position": 9,
+          "gt_position": 9,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 80.5394,
+          "alt_pair_score": 80.5394
+        },
+        {
+          "gt_index": 10,
+          "pred_index": 10,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 67.4497,
+          "table_pair_score": 86.9799,
+          "table_keyword_score": 100.0,
+          "table_match_score": 96.094,
+          "pred_position": 10,
+          "gt_position": 10,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 86.9799,
+          "alt_pair_score": 86.9799
+        },
+        {
+          "gt_index": 11,
+          "pred_index": 11,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 87.0307,
+          "table_pair_score": 94.8123,
+          "table_keyword_score": 100.0,
+          "table_match_score": 98.4437,
+          "pred_position": 11,
+          "gt_position": 11,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 94.8123,
+          "alt_pair_score": 94.8123
+        },
+        {
+          "gt_index": 12,
+          "pred_index": 12,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 23,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 23,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 86.5556,
+          "table_pair_score": 94.6222,
+          "table_keyword_score": 100.0,
+          "table_match_score": 98.3867,
+          "pred_position": 12,
+          "gt_position": 12,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 94.6222,
+          "alt_pair_score": 94.6222
+        },
+        {
+          "gt_index": 13,
+          "pred_index": 13,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 10
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 10
+          },
+          "table_structure_score": 87.8788,
+          "table_content_score": 88.6945,
+          "table_pair_score": 88.2051,
+          "table_keyword_score": 80.0758,
+          "table_match_score": 84.0752,
+          "pred_position": 13,
+          "gt_position": 13,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 88.2051,
+          "alt_pair_score": 88.2051
+        },
+        {
+          "gt_index": 14,
+          "pred_index": 14,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 10
+          },
+          "pred_shape": {
+            "rows": 10,
+            "cols": 10
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 81.9695,
+          "table_pair_score": 92.7878,
+          "table_keyword_score": 90.4545,
+          "table_match_score": 93.0636,
+          "pred_position": 14,
+          "gt_position": 14,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 92.7878,
+          "alt_pair_score": 92.7878
+        },
+        {
+          "gt_index": 15,
+          "pred_index": 15,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 4,
+            "cols": 9
+          },
+          "pred_shape": {
+            "rows": 5,
+            "cols": 9
+          },
+          "table_structure_score": 86.6667,
+          "table_content_score": 55.6619,
+          "table_pair_score": 74.2648,
+          "table_keyword_score": 86.875,
+          "table_match_score": 83.0503,
+          "pred_position": 15,
+          "gt_position": 15,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 74.2648,
+          "alt_pair_score": 74.2648
+        },
+        {
+          "gt_index": 16,
+          "pred_index": 16,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 5,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 5,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 98.1982,
+          "table_pair_score": 99.2793,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.7838,
+          "pred_position": 16,
+          "gt_position": 16,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 99.2793,
+          "alt_pair_score": 99.2793
+        },
+        {
+          "gt_index": 17,
+          "pred_index": 17,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 93.5849,
+          "table_pair_score": 97.434,
+          "table_keyword_score": 94.1667,
+          "table_match_score": 96.3135,
+          "pred_position": 17,
+          "gt_position": 17,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 97.434,
+          "alt_pair_score": 97.434
+        },
+        {
+          "gt_index": 18,
+          "pred_index": 18,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 4,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 4,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 87.2832,
+          "table_pair_score": 94.9133,
+          "table_keyword_score": 86.875,
+          "table_match_score": 91.9115,
+          "pred_position": 18,
+          "gt_position": 18,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 94.9133,
+          "alt_pair_score": 94.9133
+        },
+        {
+          "gt_index": 19,
+          "pred_index": 19,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 2
+          },
+          "table_structure_score": 91.6667,
+          "table_content_score": 98.7805,
+          "table_pair_score": 94.5122,
+          "table_keyword_score": 100.0,
+          "table_match_score": 96.687,
+          "pred_position": 19,
+          "gt_position": 19,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 94.5122,
+          "alt_pair_score": 94.5122
+        },
+        {
+          "gt_index": 20,
+          "pred_index": 20,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 30,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 42,
+            "cols": 4
+          },
+          "table_structure_score": 80.2381,
+          "table_content_score": 70.3481,
+          "table_pair_score": 76.2821,
+          "table_keyword_score": 93.6364,
+          "table_match_score": 85.7505,
+          "pred_position": 20,
+          "gt_position": 20,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 76.2821,
+          "alt_pair_score": 76.2821
+        },
+        {
+          "gt_index": 21,
+          "pred_index": 21,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 15,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 4
+          },
+          "table_structure_score": 92.1569,
+          "table_content_score": 65.6315,
+          "table_pair_score": 81.5467,
+          "table_keyword_score": 88.3725,
+          "table_match_score": 87.0816,
+          "pred_position": 21,
+          "gt_position": 21,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 81.5467,
+          "alt_pair_score": 81.5467
+        },
+        {
+          "gt_index": 22,
+          "pred_index": 22,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 35,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 40,
+            "cols": 4
+          },
+          "table_structure_score": 86.3095,
+          "table_content_score": 79.299,
+          "table_pair_score": 83.5053,
+          "table_keyword_score": 96.8182,
+          "table_match_score": 90.7226,
+          "pred_position": 22,
+          "gt_position": 22,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 83.5053,
+          "alt_pair_score": 83.5053
+        },
+        {
+          "gt_index": 23,
+          "pred_index": 23,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 23,
+            "cols": 4
+          },
+          "table_structure_score": 91.3043,
+          "table_content_score": 97.989,
+          "table_pair_score": 93.9782,
+          "table_keyword_score": 100.0,
+          "table_match_score": 96.4543,
+          "pred_position": 23,
+          "gt_position": 23,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 93.9782,
+          "alt_pair_score": 93.9782
+        },
+        {
+          "gt_index": 24,
+          "pred_index": 24,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 12
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 12
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 92.75,
+          "table_pair_score": 97.1,
+          "table_keyword_score": 88.565,
+          "table_match_score": 93.4125,
+          "pred_position": 24,
+          "gt_position": 24,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 97.1,
+          "alt_pair_score": 97.1
+        },
+        {
+          "gt_index": 25,
+          "pred_index": 25,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 12
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 12
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 92.6887,
+          "table_pair_score": 97.0755,
+          "table_keyword_score": 88.608,
+          "table_match_score": 93.4266,
+          "pred_position": 25,
+          "gt_position": 25,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 97.0755,
+          "alt_pair_score": 97.0755
+        },
+        {
+          "gt_index": 26,
+          "pred_index": 26,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 36,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 37,
+            "cols": 4
+          },
+          "table_structure_score": 98.1982,
+          "table_content_score": 87.2441,
+          "table_pair_score": 93.8166,
+          "table_keyword_score": 98.6538,
+          "table_match_score": 97.1115,
+          "pred_position": 26,
+          "gt_position": 26,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 93.8166,
+          "alt_pair_score": 93.8166
+        },
+        {
+          "gt_index": 27,
+          "pred_index": 27,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 24,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 24,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.3025,
+          "table_pair_score": 98.921,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.6763,
+          "pred_position": 27,
+          "gt_position": 27,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 98.921,
+          "alt_pair_score": 70.6647
+        },
+        {
+          "gt_index": 28,
+          "pred_index": 28,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.3995,
+          "table_pair_score": 98.9598,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.6879,
+          "pred_position": 28,
+          "gt_position": 28,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 98.9598,
+          "alt_pair_score": 98.9598
+        },
+        {
+          "gt_index": 29,
+          "pred_index": 29,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.9899,
+          "table_pair_score": 99.196,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.7588,
+          "pred_position": 29,
+          "gt_position": 29,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 99.196,
+          "alt_pair_score": 99.196
+        },
+        {
+          "gt_index": 30,
+          "pred_index": 30,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 96.2617,
+          "table_pair_score": 98.5047,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.5514,
+          "pred_position": 30,
+          "gt_position": 30,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 98.5047,
+          "alt_pair_score": 98.5047
+        },
+        {
+          "gt_index": 31,
+          "pred_index": 31,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.037,
+          "table_pair_score": 98.8148,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.6444,
+          "pred_position": 31,
+          "gt_position": 31,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 98.8148,
+          "alt_pair_score": 98.8148
+        },
+        {
+          "gt_index": 32,
+          "pred_index": 32,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 3
+          },
+          "table_structure_score": 93.3333,
+          "table_content_score": 86.6405,
+          "table_pair_score": 90.6562,
+          "table_keyword_score": 94.084,
+          "table_match_score": 92.9055,
+          "pred_position": 32,
+          "gt_position": 32,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 90.6562,
+          "alt_pair_score": 90.6562
+        },
+        {
+          "gt_index": 33,
+          "pred_index": 33,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 22,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 22,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 93.2238,
+          "table_pair_score": 97.2895,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.1868,
+          "pred_position": 33,
+          "gt_position": 33,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 97.2895,
+          "alt_pair_score": 58.5626
+        },
+        {
+          "gt_index": 34,
+          "pred_index": 34,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 38,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 39,
+            "cols": 5
+          },
+          "table_structure_score": 98.2906,
+          "table_content_score": 95.097,
+          "table_pair_score": 97.0132,
+          "table_keyword_score": 93.7209,
+          "table_match_score": 95.6225,
+          "pred_position": 34,
+          "gt_position": 34,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 97.0132,
+          "alt_pair_score": 61.2687
+        },
+        {
+          "gt_index": 35,
+          "pred_index": 35,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 2
+          },
+          "table_structure_score": 70.3704,
+          "table_content_score": 48.9691,
+          "table_pair_score": 61.8099,
+          "table_keyword_score": 100.0,
+          "table_match_score": 82.6171,
+          "pred_position": 35,
+          "gt_position": 35,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 61.8099,
+          "alt_pair_score": 61.8099
+        },
+        {
+          "gt_index": 37,
+          "pred_index": 36,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.6415,
+          "table_pair_score": 99.0566,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.717,
+          "pred_position": 36,
+          "gt_position": 37,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 99.0566,
+          "alt_pair_score": 99.0566
+        },
+        {
+          "gt_index": 38,
+          "pred_index": 37,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 8,
+            "cols": 9
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 9
+          },
+          "table_structure_score": 91.6667,
+          "table_content_score": 89.6755,
+          "table_pair_score": 90.8702,
+          "table_keyword_score": 82.5,
+          "table_match_score": 86.8444,
+          "pred_position": 37,
+          "gt_position": 38,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 90.8702,
+          "alt_pair_score": 90.8702
+        },
+        {
+          "gt_index": 39,
+          "pred_index": 38,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 95.9596,
+          "table_pair_score": 98.3838,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.5151,
+          "pred_position": 38,
+          "gt_position": 39,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 98.3838,
+          "alt_pair_score": 98.3838
+        },
+        {
+          "gt_index": 40,
+          "pred_index": 39,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.9487,
+          "table_pair_score": 99.1795,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.7538,
+          "pred_position": 39,
+          "gt_position": 40,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 99.1795,
+          "alt_pair_score": 99.1795
+        },
+        {
+          "gt_index": 41,
+          "pred_index": 40,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 16,
+            "cols": 3
+          },
+          "table_structure_score": 86.6667,
+          "table_content_score": 97.8723,
+          "table_pair_score": 91.1489,
+          "table_keyword_score": 100.0,
+          "table_match_score": 94.678,
+          "pred_position": 40,
+          "gt_position": 41,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 91.1489,
+          "alt_pair_score": 91.1489
+        },
+        {
+          "gt_index": 42,
+          "pred_index": 41,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 99.7199,
+          "table_pair_score": 99.888,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.9664,
+          "pred_position": 41,
+          "gt_position": 42,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 99.888,
+          "alt_pair_score": 99.888
+        },
+        {
+          "gt_index": 43,
+          "pred_index": 42,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.6744,
+          "table_pair_score": 99.0698,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.7209,
+          "pred_position": 42,
+          "gt_position": 43,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 99.0698,
+          "alt_pair_score": 99.0698
+        },
+        {
+          "gt_index": 44,
+          "pred_index": 43,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 95.7143,
+          "table_pair_score": 98.2857,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.4857,
+          "pred_position": 43,
+          "gt_position": 44,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 98.2857,
+          "alt_pair_score": 98.2857
+        },
+        {
+          "gt_index": 45,
+          "pred_index": 44,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.0149,
+          "table_pair_score": 98.806,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.6418,
+          "pred_position": 44,
+          "gt_position": 45,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 98.806,
+          "alt_pair_score": 98.806
+        },
+        {
+          "gt_index": 46,
+          "pred_index": 45,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 11
+          },
+          "table_structure_score": 96.4912,
+          "table_content_score": 85.6918,
+          "table_pair_score": 92.1715,
+          "table_keyword_score": 96.3158,
+          "table_match_score": 95.1076,
+          "pred_position": 45,
+          "gt_position": 46,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 92.1715,
+          "alt_pair_score": 92.1715
+        },
+        {
+          "gt_index": 47,
+          "pred_index": 46,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 96.6667,
+          "table_content_score": 85.9122,
+          "table_pair_score": 92.3649,
+          "table_keyword_score": 93.6612,
+          "table_match_score": 93.8734,
+          "pred_position": 46,
+          "gt_position": 47,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 92.3649,
+          "alt_pair_score": 92.3649
+        },
+        {
+          "gt_index": 48,
+          "pred_index": 47,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
+          "table_keyword_score": 100.0,
+          "table_match_score": 100.0,
+          "pred_position": 47,
+          "gt_position": 48,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 100.0,
+          "alt_pair_score": 100.0
+        },
+        {
+          "gt_index": 49,
+          "pred_index": 48,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 99.9066,
+          "table_pair_score": 99.9627,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.9888,
+          "pred_position": 48,
+          "gt_position": 49,
+          "selected_gt_variant": "primary",
+          "primary_pair_score": 99.9627,
+          "alt_pair_score": 99.9627
+        }
+      ]
+    },
+    "primary_table_score": {
+      "table_content_score": 79.3308,
+      "table_structure_score": 91.799,
+      "table_matrix_score": 86.8118,
+      "table_alignment_strategy": "gt_best_unused_pred_one_to_one_order_aware",
+      "matched_table_count": 49,
+      "missing_table_count": 1,
+      "extra_table_count": 0,
+      "gt_table_count": 50,
+      "pred_table_count": 49,
+      "final_table_score": 86.8118,
+      "matches": [
+        {
+          "gt_index": 0,
+          "pred_index": 0,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 18,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 5
+          },
+          "table_structure_score": 96.2963,
+          "table_content_score": 69.9137,
+          "table_pair_score": 85.7433
+        },
+        {
+          "gt_index": 1,
+          "pred_index": 1,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "table_structure_score": 96.8254,
+          "table_content_score": 84.466,
+          "table_pair_score": 91.8816
+        },
+        {
+          "gt_index": 2,
+          "pred_index": 2,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 14,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 15,
+            "cols": 5
+          },
+          "table_structure_score": 95.5556,
+          "table_content_score": 84.435,
+          "table_pair_score": 91.1073
+        },
+        {
+          "gt_index": 3,
+          "pred_index": 3,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 23,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 23,
+            "cols": 7
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 94.0382,
+          "table_pair_score": 97.6153
+        },
+        {
+          "gt_index": 4,
+          "pred_index": 4,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 5
+          },
+          "table_structure_score": 91.6667,
+          "table_content_score": 62.5,
+          "table_pair_score": 80.0
+        },
+        {
+          "gt_index": 5,
+          "pred_index": 5,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 91.5152,
+          "table_pair_score": 96.6061
+        },
+        {
+          "gt_index": 6,
+          "pred_index": 6,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 4
+          },
+          "table_structure_score": 96.2963,
+          "table_content_score": 89.5277,
+          "table_pair_score": 93.5889
+        },
+        {
+          "gt_index": 7,
+          "pred_index": 7,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 13,
+            "cols": 4
+          },
+          "table_structure_score": 89.7436,
+          "table_content_score": 80.4878,
+          "table_pair_score": 86.0413
+        },
+        {
+          "gt_index": 8,
+          "pred_index": 8,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 14,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 15,
+            "cols": 4
+          },
+          "table_structure_score": 95.5556,
+          "table_content_score": 83.9546,
+          "table_pair_score": 90.9152
+        },
+        {
+          "gt_index": 9,
+          "pred_index": 9,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 6,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 4
+          },
+          "table_structure_score": 83.3333,
+          "table_content_score": 76.3485,
+          "table_pair_score": 80.5394
+        },
+        {
+          "gt_index": 10,
+          "pred_index": 10,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 67.4497,
+          "table_pair_score": 86.9799
+        },
+        {
+          "gt_index": 11,
+          "pred_index": 11,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 87.0307,
+          "table_pair_score": 94.8123
+        },
+        {
+          "gt_index": 12,
+          "pred_index": 12,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 23,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 23,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 86.5556,
+          "table_pair_score": 94.6222
+        },
+        {
+          "gt_index": 13,
+          "pred_index": 13,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 10
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 10
+          },
+          "table_structure_score": 87.8788,
+          "table_content_score": 88.6945,
+          "table_pair_score": 88.2051
+        },
+        {
+          "gt_index": 14,
+          "pred_index": 14,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 10
+          },
+          "pred_shape": {
+            "rows": 10,
+            "cols": 10
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 81.9695,
+          "table_pair_score": 92.7878
+        },
+        {
+          "gt_index": 15,
+          "pred_index": 15,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 4,
+            "cols": 9
+          },
+          "pred_shape": {
+            "rows": 5,
+            "cols": 9
+          },
+          "table_structure_score": 86.6667,
+          "table_content_score": 55.6619,
+          "table_pair_score": 74.2648
+        },
+        {
+          "gt_index": 16,
+          "pred_index": 16,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 5,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 5,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 98.1982,
+          "table_pair_score": 99.2793
+        },
+        {
+          "gt_index": 17,
+          "pred_index": 17,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 93.5849,
+          "table_pair_score": 97.434
+        },
+        {
+          "gt_index": 18,
+          "pred_index": 18,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 4,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 4,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 87.2832,
+          "table_pair_score": 94.9133
+        },
+        {
+          "gt_index": 19,
+          "pred_index": 19,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 2
+          },
+          "table_structure_score": 91.6667,
+          "table_content_score": 98.7805,
+          "table_pair_score": 94.5122
+        },
+        {
+          "gt_index": 20,
+          "pred_index": 20,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 30,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 42,
+            "cols": 4
+          },
+          "table_structure_score": 80.2381,
+          "table_content_score": 70.3481,
+          "table_pair_score": 76.2821
+        },
+        {
+          "gt_index": 21,
+          "pred_index": 21,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 15,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 4
+          },
+          "table_structure_score": 92.1569,
+          "table_content_score": 65.6315,
+          "table_pair_score": 81.5467
+        },
+        {
+          "gt_index": 22,
+          "pred_index": 22,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 35,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 40,
+            "cols": 4
+          },
+          "table_structure_score": 86.3095,
+          "table_content_score": 79.299,
+          "table_pair_score": 83.5053
+        },
+        {
+          "gt_index": 23,
+          "pred_index": 23,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 23,
+            "cols": 4
+          },
+          "table_structure_score": 91.3043,
+          "table_content_score": 97.989,
+          "table_pair_score": 93.9782
+        },
+        {
+          "gt_index": 24,
+          "pred_index": 24,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 12
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 12
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 92.75,
+          "table_pair_score": 97.1
+        },
+        {
+          "gt_index": 25,
+          "pred_index": 25,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 12
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 12
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 92.6887,
+          "table_pair_score": 97.0755
+        },
+        {
+          "gt_index": 26,
+          "pred_index": 26,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 36,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 37,
+            "cols": 4
+          },
+          "table_structure_score": 98.1982,
+          "table_content_score": 87.2441,
+          "table_pair_score": 93.8166
+        },
+        {
+          "gt_index": 27,
+          "pred_index": 27,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 24,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 24,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.3025,
+          "table_pair_score": 98.921
+        },
+        {
+          "gt_index": 28,
+          "pred_index": 28,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.3995,
+          "table_pair_score": 98.9598
+        },
+        {
+          "gt_index": 29,
+          "pred_index": 29,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.9899,
+          "table_pair_score": 99.196
+        },
+        {
+          "gt_index": 30,
+          "pred_index": 30,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 96.2617,
+          "table_pair_score": 98.5047
+        },
+        {
+          "gt_index": 31,
+          "pred_index": 31,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.037,
+          "table_pair_score": 98.8148
+        },
+        {
+          "gt_index": 32,
+          "pred_index": 32,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 3
+          },
+          "table_structure_score": 93.3333,
+          "table_content_score": 86.6405,
+          "table_pair_score": 90.6562
+        },
+        {
+          "gt_index": 33,
+          "pred_index": 33,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 22,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 22,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 93.2238,
+          "table_pair_score": 97.2895
+        },
+        {
+          "gt_index": 34,
+          "pred_index": 34,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 38,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 39,
+            "cols": 5
+          },
+          "table_structure_score": 98.2906,
+          "table_content_score": 95.097,
+          "table_pair_score": 97.0132
+        },
+        {
+          "gt_index": 35,
+          "pred_index": 35,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 2
+          },
+          "table_structure_score": 70.3704,
+          "table_content_score": 48.9691,
+          "table_pair_score": 61.8099
+        },
+        {
+          "gt_index": 36,
+          "pred_index": 38,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "table_structure_score": 77.7778,
+          "table_content_score": 13.1313,
+          "table_pair_score": 51.9192
+        },
+        {
+          "gt_index": 37,
+          "pred_index": 36,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.6415,
+          "table_pair_score": 99.0566
+        },
+        {
+          "gt_index": 38,
+          "pred_index": 37,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 8,
+            "cols": 9
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 9
+          },
+          "table_structure_score": 91.6667,
+          "table_content_score": 89.6755,
+          "table_pair_score": 90.8702
+        },
+        {
+          "gt_index": 39,
+          "pred_index": 44,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 85.1852,
+          "table_content_score": 44.7761,
+          "table_pair_score": 69.0216
+        },
+        {
+          "gt_index": 40,
+          "pred_index": 39,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.9487,
+          "table_pair_score": 99.1795
+        },
+        {
+          "gt_index": 41,
+          "pred_index": 40,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 16,
+            "cols": 3
+          },
+          "table_structure_score": 86.6667,
+          "table_content_score": 97.8723,
+          "table_pair_score": 91.1489
+        },
+        {
+          "gt_index": 42,
+          "pred_index": 41,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 99.7199,
+          "table_pair_score": 99.888
+        },
+        {
+          "gt_index": 43,
+          "pred_index": 42,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.6744,
+          "table_pair_score": 99.0698
+        },
+        {
+          "gt_index": 44,
+          "pred_index": 43,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 95.7143,
+          "table_pair_score": 98.2857
+        },
+        {
+          "gt_index": 45,
+          "pred_index": 45,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 11
+          },
+          "table_structure_score": 30.303,
+          "table_content_score": 7.9755,
+          "table_pair_score": 21.372
+        },
+        {
+          "gt_index": 46,
+          "pred_index": 46,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 56.2893,
+          "table_pair_score": 82.5157
+        },
+        {
+          "gt_index": 47,
+          "pred_index": 47,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 96.6667,
+          "table_content_score": 40.1078,
+          "table_pair_score": 74.0431
+        },
+        {
+          "gt_index": 48,
+          "pred_index": 48,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 69.7479,
+          "table_pair_score": 87.8992
+        }
+      ]
+    },
+    "alt_table_score": {
+      "table_content_score": 49.7567,
+      "table_structure_score": 76.503,
+      "table_matrix_score": 65.8045,
+      "table_alignment_strategy": "gt_best_unused_pred_one_to_one_order_aware",
+      "matched_table_count": 49,
+      "missing_table_count": 6,
+      "extra_table_count": 0,
+      "gt_table_count": 55,
+      "pred_table_count": 49,
+      "final_table_score": 65.8045,
+      "matches": [
+        {
+          "gt_index": 0,
+          "pred_index": 0,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 18,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 5
+          },
+          "table_structure_score": 96.2963,
+          "table_content_score": 69.9137,
+          "table_pair_score": 85.7433
+        },
+        {
+          "gt_index": 1,
+          "pred_index": 1,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "table_structure_score": 96.8254,
+          "table_content_score": 84.466,
+          "table_pair_score": 91.8816
+        },
+        {
+          "gt_index": 2,
+          "pred_index": 2,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 14,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 15,
+            "cols": 5
+          },
+          "table_structure_score": 95.5556,
+          "table_content_score": 84.435,
+          "table_pair_score": 91.1073
+        },
+        {
+          "gt_index": 3,
+          "pred_index": 13,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 10
+          },
+          "table_structure_score": 79.2593,
+          "table_content_score": 17.4966,
+          "table_pair_score": 54.5542
+        },
+        {
+          "gt_index": 4,
+          "pred_index": 37,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 9
+          },
+          "table_structure_score": 85.1852,
+          "table_content_score": 17.6991,
+          "table_pair_score": 58.1908
+        },
+        {
+          "gt_index": 5,
+          "pred_index": 4,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 8,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 5
+          },
+          "table_structure_score": 80.9524,
+          "table_content_score": 15.7377,
+          "table_pair_score": 54.8665
+        },
+        {
+          "gt_index": 6,
+          "pred_index": 17,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 15.8491,
+          "table_pair_score": 66.3396
+        },
+        {
+          "gt_index": 7,
+          "pred_index": 5,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 91.5152,
+          "table_pair_score": 96.6061
+        },
+        {
+          "gt_index": 8,
+          "pred_index": 6,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 4
+          },
+          "table_structure_score": 96.2963,
+          "table_content_score": 89.5277,
+          "table_pair_score": 93.5889
+        },
+        {
+          "gt_index": 9,
+          "pred_index": 7,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 13,
+            "cols": 4
+          },
+          "table_structure_score": 89.7436,
+          "table_content_score": 80.4878,
+          "table_pair_score": 86.0413
+        },
+        {
+          "gt_index": 10,
+          "pred_index": 8,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 14,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 15,
+            "cols": 4
+          },
+          "table_structure_score": 95.5556,
+          "table_content_score": 83.9546,
+          "table_pair_score": 90.9152
+        },
+        {
+          "gt_index": 11,
+          "pred_index": 9,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 6,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 4
+          },
+          "table_structure_score": 83.3333,
+          "table_content_score": 76.3485,
+          "table_pair_score": 80.5394
+        },
+        {
+          "gt_index": 12,
+          "pred_index": 10,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 67.4497,
+          "table_pair_score": 86.9799
+        },
+        {
+          "gt_index": 13,
+          "pred_index": 11,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 87.0307,
+          "table_pair_score": 94.8123
+        },
+        {
+          "gt_index": 14,
+          "pred_index": 12,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 23,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 23,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 86.5556,
+          "table_pair_score": 94.6222
+        },
+        {
+          "gt_index": 15,
+          "pred_index": 14,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 10
+          },
+          "pred_shape": {
+            "rows": 10,
+            "cols": 10
+          },
+          "table_structure_score": 93.9394,
+          "table_content_score": 25.3814,
+          "table_pair_score": 66.5162
+        },
+        {
+          "gt_index": 16,
+          "pred_index": 45,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 10
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 11
+          },
+          "table_structure_score": 65.6566,
+          "table_content_score": 19.1937,
+          "table_pair_score": 47.0714
+        },
+        {
+          "gt_index": 17,
+          "pred_index": 15,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 4,
+            "cols": 9
+          },
+          "pred_shape": {
+            "rows": 5,
+            "cols": 9
+          },
+          "table_structure_score": 86.6667,
+          "table_content_score": 55.6619,
+          "table_pair_score": 74.2648
+        },
+        {
+          "gt_index": 18,
+          "pred_index": 16,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 5,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 5,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 98.1982,
+          "table_pair_score": 99.2793
+        },
+        {
+          "gt_index": 19,
+          "pred_index": 29,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 72.6407,
+          "table_content_score": 18.4739,
+          "table_pair_score": 50.974
+        },
+        {
+          "gt_index": 20,
+          "pred_index": 18,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 4,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 4,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 87.2832,
+          "table_pair_score": 94.9133
+        },
+        {
+          "gt_index": 21,
+          "pred_index": 19,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 2
+          },
+          "table_structure_score": 91.6667,
+          "table_content_score": 98.7805,
+          "table_pair_score": 94.5122
+        },
+        {
+          "gt_index": 22,
+          "pred_index": 20,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 30,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 42,
+            "cols": 4
+          },
+          "table_structure_score": 80.2381,
+          "table_content_score": 70.3481,
+          "table_pair_score": 76.2821
+        },
+        {
+          "gt_index": 23,
+          "pred_index": 21,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 15,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 4
+          },
+          "table_structure_score": 92.1569,
+          "table_content_score": 65.6315,
+          "table_pair_score": 81.5467
+        },
+        {
+          "gt_index": 24,
+          "pred_index": 22,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 35,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 40,
+            "cols": 4
+          },
+          "table_structure_score": 86.3095,
+          "table_content_score": 79.299,
+          "table_pair_score": 83.5053
+        },
+        {
+          "gt_index": 25,
+          "pred_index": 23,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 23,
+            "cols": 4
+          },
+          "table_structure_score": 91.3043,
+          "table_content_score": 97.989,
+          "table_pair_score": 93.9782
+        },
+        {
+          "gt_index": 26,
+          "pred_index": 24,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 12
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 12
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 92.75,
+          "table_pair_score": 97.1
+        },
+        {
+          "gt_index": 27,
+          "pred_index": 25,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 12
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 12
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 92.6887,
+          "table_pair_score": 97.0755
+        },
+        {
+          "gt_index": 28,
+          "pred_index": 26,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 36,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 37,
+            "cols": 4
+          },
+          "table_structure_score": 98.1982,
+          "table_content_score": 87.2441,
+          "table_pair_score": 93.8166
+        },
+        {
+          "gt_index": 29,
+          "pred_index": 40,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 15,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 16,
+            "cols": 3
+          },
+          "table_structure_score": 95.8333,
+          "table_content_score": 20.9677,
+          "table_pair_score": 65.8871
+        },
+        {
+          "gt_index": 30,
+          "pred_index": 31,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 43.4286,
+          "table_pair_score": 77.3714
+        },
+        {
+          "gt_index": 31,
+          "pred_index": 28,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 97.3995,
+          "table_pair_score": 98.9598
+        },
+        {
+          "gt_index": 32,
+          "pred_index": 39,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "table_structure_score": 94.4444,
+          "table_content_score": 41.206,
+          "table_pair_score": 73.1491
+        },
+        {
+          "gt_index": 33,
+          "pred_index": 30,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 96.2617,
+          "table_pair_score": 98.5047
+        },
+        {
+          "gt_index": 34,
+          "pred_index": 42,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 38.9535,
+          "table_pair_score": 75.5814
+        },
+        {
+          "gt_index": 35,
+          "pred_index": 32,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 3
+          },
+          "table_structure_score": 93.3333,
+          "table_content_score": 86.6405,
+          "table_pair_score": 90.6562
+        },
+        {
+          "gt_index": 36,
+          "pred_index": 33,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 22,
+            "cols": 4
+          },
+          "table_structure_score": 66.6667,
+          "table_content_score": 46.4066,
+          "table_pair_score": 58.5626
+        },
+        {
+          "gt_index": 37,
+          "pred_index": 36,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "table_structure_score": 82.8283,
+          "table_content_score": 17.9039,
+          "table_pair_score": 56.8585
+        },
+        {
+          "gt_index": 38,
+          "pred_index": 34,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 18,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 39,
+            "cols": 5
+          },
+          "table_structure_score": 64.1026,
+          "table_content_score": 43.1052,
+          "table_pair_score": 55.7036
+        },
+        {
+          "gt_index": 39,
+          "pred_index": 3,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 23,
+            "cols": 7
+          },
+          "table_structure_score": 73.499,
+          "table_content_score": 19.1226,
+          "table_pair_score": 51.7484
+        },
+        {
+          "gt_index": 40,
+          "pred_index": 35,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 2
+          },
+          "table_structure_score": 70.3704,
+          "table_content_score": 48.9691,
+          "table_pair_score": 61.8099
+        },
+        {
+          "gt_index": 41,
+          "pred_index": 38,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "table_structure_score": 77.7778,
+          "table_content_score": 13.1313,
+          "table_pair_score": 51.9192
+        },
+        {
+          "gt_index": 42,
+          "pred_index": 44,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 83.3333,
+          "table_content_score": 36.3208,
+          "table_pair_score": 64.5283
+        },
+        {
+          "gt_index": 43,
+          "pred_index": 27,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 8,
+            "cols": 9
+          },
+          "pred_shape": {
+            "rows": 24,
+            "cols": 3
+          },
+          "table_structure_score": 55.5556,
+          "table_content_score": 16.185,
+          "table_pair_score": 39.8073
+        },
+        {
+          "gt_index": 44,
+          "pred_index": 43,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 85.1852,
+          "table_content_score": 41.4286,
+          "table_pair_score": 67.6825
+        },
+        {
+          "gt_index": 45,
+          "pred_index": 41,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 3
+          },
+          "table_structure_score": 80.3922,
+          "table_content_score": 29.972,
+          "table_pair_score": 60.2241
+        },
+        {
+          "gt_index": 46,
+          "pred_index": 47,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 50.327,
+          "table_content_score": 15.9266,
+          "table_pair_score": 36.5668
+        },
+        {
+          "gt_index": 47,
+          "pred_index": 48,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 47.0494,
+          "table_content_score": 19.0476,
+          "table_pair_score": 35.8487
+        },
+        {
+          "gt_index": 48,
+          "pred_index": 46,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 29.1866,
+          "table_content_score": 6.8493,
+          "table_pair_score": 20.2517
+        }
+      ]
+    }
+  },
+  "title_layout_evaluation": {
+    "title_scoring_method": "anchor_heading_f1_level_accuracy_order",
+    "title_layout_weights": {
+      "heading_f1": 0.8,
+      "level_accuracy": 0.1,
+      "order": 0.1
+    },
+    "gt_raw_heading_levels": [
+      1,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      3,
+      2,
+      3,
+      3,
+      3,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      3,
+      2,
+      3,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3
+    ],
+    "pred_raw_heading_levels": [
+      2,
+      3,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4,
+      5,
+      4,
+      5,
+      5,
+      4,
+      3,
+      3,
+      5,
+      4,
+      4,
+      3,
+      3,
+      4,
+      5,
+      3,
+      4,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      4,
+      5,
+      3,
+      3,
+      3,
+      3,
+      5,
+      5,
+      5,
+      5,
+      3,
+      4,
+      4,
+      4,
+      3,
+      4,
+      3,
+      5,
+      4,
+      5,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      5,
+      5,
+      4,
+      5,
+      3,
+      3,
+      3,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4,
+      3,
+      5,
+      4,
+      2,
+      5,
+      5,
+      5,
+      5,
+      3,
+      3,
+      4,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      3,
+      3,
+      4,
+      3,
+      3,
+      5,
+      5,
+      3,
+      3,
+      3,
+      3,
+      3,
+      1,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      1,
+      3,
+      1,
+      3,
+      3,
+      3,
+      3,
+      1,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      3,
+      4,
+      4,
+      2
+    ],
+    "gt_relative_heading_levels": [
+      1,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      3,
+      2,
+      3,
+      3,
+      3,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      3,
+      2,
+      3,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3
+    ],
+    "pred_relative_heading_levels": [
+      2,
+      3,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4,
+      5,
+      4,
+      5,
+      5,
+      4,
+      3,
+      3,
+      5,
+      4,
+      4,
+      3,
+      3,
+      4,
+      5,
+      3,
+      4,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      4,
+      5,
+      3,
+      3,
+      3,
+      3,
+      5,
+      5,
+      5,
+      5,
+      3,
+      4,
+      4,
+      4,
+      3,
+      4,
+      3,
+      5,
+      4,
+      5,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      5,
+      5,
+      4,
+      5,
+      3,
+      3,
+      3,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4,
+      3,
+      5,
+      4,
+      2,
+      5,
+      5,
+      5,
+      5,
+      3,
+      3,
+      4,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      3,
+      3,
+      4,
+      3,
+      3,
+      5,
+      5,
+      3,
+      3,
+      3,
+      3,
+      3,
+      1,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      1,
+      3,
+      1,
+      3,
+      3,
+      3,
+      3,
+      1,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      3,
+      4,
+      4,
+      2
+    ],
+    "title_layout_score": 92.539,
+    "heading_f1_score": 93.9597,
+    "level_accuracy_score": 81.6071,
+    "order_score": 92.1053,
+    "alignment_cost": 26.1443,
+    "missing_heading_count": 6,
+    "extra_heading_count": 12,
+    "level_mismatch_count": 63,
+    "issues": [
+      "63 aligned headings have different relative levels.",
+      "6 GT headings are missing.",
+      "12 predicted headings are extra."
+    ],
+    "alignment": [
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 0,
+        "gt_level": 1,
+        "gt_text_preview": "2026 財務年度中期報告"
+      },
+      {
+        "op": "match",
+        "cost": 0.33333333333333326,
+        "gt_index": 1,
+        "pred_index": 0,
+        "gt_level": 3,
+        "pred_level": 2,
+        "text_similarity": 0.6667,
+        "gt_text_preview": "阿里巴巴",
+        "pred_text_preview": "E 阿里巴巴"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 2,
+        "pred_index": 1,
+        "gt_level": 2,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "目錄",
+        "pred_text_preview": "目錄"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 3,
+        "pred_index": 2,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "不同投票權",
+        "pred_text_preview": "不同投票權"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 4,
+        "pred_index": 3,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "匯率資料",
+        "pred_text_preview": "匯率資料"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 5,
+        "pred_index": 4,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "安全港聲明",
+        "pred_text_preview": "安全港聲明"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 6,
+        "pred_index": 5,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "管理層討論與分析",
+        "pred_text_preview": "管理層討論與分析"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 7,
+        "pred_index": 6,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "截至9月份止六個月財務業績概要",
+        "pred_text_preview": "截至9月份止六個月財務業績概要"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 8,
+        "pred_index": 7,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "截至9月份止六個月分部業績",
+        "pred_text_preview": "截至9月份止六個月分部業績"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 9,
+        "pred_index": 8,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "阿里巴巴中國電商集團",
+        "pred_text_preview": "阿里巴巴中國電商集團"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 10,
+        "pred_index": 9,
+        "gt_level": 4,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "(i) 分部收入",
+        "pred_text_preview": "(i) 分部收入"
+      },
+      {
+        "op": "extra",
+        "cost": 1.0,
+        "pred_index": 10,
+        "pred_level": 5,
+        "pred_text_preview": "即時零售"
+      },
+      {
+        "op": "extra",
+        "cost": 1.0,
+        "pred_index": 11,
+        "pred_level": 5,
+        "pred_text_preview": "中國批發商業"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 11,
+        "pred_index": 12,
+        "gt_level": 4,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "(ii) 分部經調整EBITA",
+        "pred_text_preview": "(ii) 分部經調整EBITA"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 12,
+        "pred_index": 13,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "阿里國際數字商業集團",
+        "pred_text_preview": "阿里國際數字商業集團"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 13,
+        "pred_index": 14,
+        "gt_level": 4,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "(i) 分部收入",
+        "pred_text_preview": "(i) 分部收入"
+      },
+      {
+        "op": "extra",
+        "cost": 1.0,
+        "pred_index": 15,
+        "pred_level": 5,
+        "pred_text_preview": "國際零售商業"
+      },
+      {
+        "op": "extra",
+        "cost": 1.0,
+        "pred_index": 16,
+        "pred_level": 4,
+        "pred_text_preview": "國際批發商業"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 14,
+        "pred_index": 17,
+        "gt_level": 4,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "(ii) 分部經調整EBITA",
+        "pred_text_preview": "(ii) 分部經調整EBITA"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 15,
+        "pred_index": 18,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "雲智能集團",
+        "pred_text_preview": "雲智能集團"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 16,
+        "pred_index": 19,
+        "gt_level": 4,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "(i) 分部收入",
+        "pred_text_preview": "(i) 分部收入"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 17,
+        "pred_index": 20,
+        "gt_level": 4,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "(ii) 分部經調整EBITA",
+        "pred_text_preview": "(ii) 分部經調整EBITA"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 18,
+        "pred_index": 21,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "所有其他",
+        "pred_text_preview": "所有其他"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 19,
+        "pred_index": 22,
+        "gt_level": 4,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "(i) 分部收入",
+        "pred_text_preview": "(i) 分部收入"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 20,
+        "pred_index": 23,
+        "gt_level": 4,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "(ii) 分部經調整EBITA",
+        "pred_text_preview": "(ii) 分部經調整EBITA"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 21,
+        "pred_index": 24,
+        "gt_level": 2,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "截至9月份止六個月其他財務業績",
+        "pred_text_preview": "截至9月份止六個月其他財務業績"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 22,
+        "pred_index": 25,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "成本和費用",
+        "pred_text_preview": "成本和費用"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 23,
+        "pred_index": 26,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "經營利潤及經營利潤率",
+        "pred_text_preview": "經營利潤及經營利潤率"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 24,
+        "pred_index": 27,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "經調整EBITDA及經調整EBITA",
+        "pred_text_preview": "經調整EBITDA及經調整EBITA"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 25,
+        "pred_index": 28,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "按分部劃分的經調整EBITA",
+        "pred_text_preview": "按分部劃分的經調整EBITA"
+      },
+      {
+        "op": "match",
+        "cost": 0.19999999999999996,
+        "gt_index": 26,
+        "pred_index": 29,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 0.8,
+        "gt_text_preview": "利息收入和投資淨收益",
+        "pred_text_preview": "利息收入和投资净收益"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 27,
+        "pred_index": 30,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "其他淨收支",
+        "pred_text_preview": "其他淨收支"
+      },
+      {
+        "op": "match",
+        "cost": 0.19999999999999996,
+        "gt_index": 28,
+        "pred_index": 31,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 0.8,
+        "gt_text_preview": "所得稅費用",
+        "pred_text_preview": "所得税費用"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 29,
+        "pred_index": 32,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "權益法核算的投資損益",
+        "pred_text_preview": "權益法核算的投資損益"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 30,
+        "pred_index": 33,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "淨利潤及非公認會計準則淨利潤",
+        "pred_text_preview": "淨利潤及非公認會計準則淨利潤"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 31,
+        "pred_index": 34,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "歸屬於普通股股東的淨利潤",
+        "pred_text_preview": "歸屬於普通股股東的淨利潤"
+      },
+      {
+        "op": "match",
+        "cost": 0.05555555555555558,
+        "gt_index": 32,
+        "pred_index": 35,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 0.9444,
+        "gt_text_preview": "攤薄每股美國存託股／每股收益及非公認會計準則攤薄每股美國存託股／每股收益",
+        "pred_text_preview": "攤薄每股美國存託股/每股收益及非公認會計準則攤薄每股美國存託股/每股收益"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 33,
+        "pred_index": 36,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "現金及現金等價物、短期投資和其他理財投資",
+        "pred_text_preview": "現金及現金等價物、短期投資和其他理財投資"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 34,
+        "pred_index": 37,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "經營活動產生的現金流量淨額及自由現金流",
+        "pred_text_preview": "經營活動產生的現金流量淨額及自由現金流"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 35,
+        "pred_index": 38,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "投資活動所用的現金流量淨額",
+        "pred_text_preview": "投資活動所用的現金流量淨額"
+      },
+      {
+        "op": "match",
+        "cost": 0.07692307692307687,
+        "gt_index": 36,
+        "pred_index": 39,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 0.9231,
+        "gt_text_preview": "融資活動產生的現金流量淨額",
+        "pred_text_preview": "融资活動產生的現金流量淨額"
+      },
+      {
+        "op": "match",
+        "cost": 1.1,
+        "gt_index": 37,
+        "pred_index": 40,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 0.04,
+        "gt_text_preview": "員工",
+        "pred_text_preview": "$ \\underline{\\text{员工}} $"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 38,
+        "pred_index": 41,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節",
+        "pred_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 39,
+        "pred_index": 42,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）",
+        "pred_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 40,
+        "pred_index": 43,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）",
+        "pred_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 41,
+        "pred_index": 44,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）",
+        "pred_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 42,
+        "pred_index": 45,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "非公認會計準則財務指標",
+        "pred_text_preview": "非公認會計準則財務指標"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 43,
+        "pred_index": 46,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "其他財務資料",
+        "pred_text_preview": "其他財務資料"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 44,
+        "pred_index": 47,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "流動資金及資本資源",
+        "pred_text_preview": "流動資金及資本資源"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 45,
+        "pred_index": 48,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "重大投資",
+        "pred_text_preview": "重大投資"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 46,
+        "pred_index": 49,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "重大投資、收購和出售",
+        "pred_text_preview": "重大投資、收購和出售"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 47,
+        "pred_index": 50,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "資產抵押",
+        "pred_text_preview": "資產抵押"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 48,
+        "pred_index": 51,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "匯率風險",
+        "pred_text_preview": "匯率風險"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 49,
+        "pred_index": 52,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "或有負債",
+        "pred_text_preview": "或有負債"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 50,
+        "pred_index": 53,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "資本性支出及資本性支出承諾事項",
+        "pred_text_preview": "資本性支出及資本性支出承諾事項"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 51,
+        "pred_index": 54,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "薪酬政策",
+        "pred_text_preview": "薪酬政策"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 52,
+        "pred_index": 55,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "期後事項",
+        "pred_text_preview": "期後事項"
+      },
+      {
+        "op": "match",
+        "cost": 0.125,
+        "gt_index": 53,
+        "pred_index": 56,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 0.875,
+        "gt_text_preview": "董事及首席執行官",
+        "pred_text_preview": "董事及首席执行官"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 54,
+        "pred_index": 57,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "履歷資料",
+        "pred_text_preview": "履歷資料"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 55,
+        "pred_index": 58,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "董事會委員會",
+        "pred_text_preview": "董事會委員會"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 56,
+        "pred_index": 59,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "審計委員會",
+        "pred_text_preview": "審計委員會"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 57,
+        "pred_index": 60,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "薪酬委員會",
+        "pred_text_preview": "薪酬委員會"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 58,
+        "pred_index": 61,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "提名及公司治理委員會",
+        "pred_text_preview": "提名及公司治理委員會"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 59,
+        "pred_index": 62,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "可持續發展委員會",
+        "pred_text_preview": "可持續發展委員會"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 60,
+        "pred_index": 63,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "合規及風險委員會",
+        "pred_text_preview": "合規及風險委員會"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 61,
+        "pred_index": 64,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "資本管理委員會",
+        "pred_text_preview": "資本管理委員會"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 62,
+        "pred_index": 65,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "權益披露",
+        "pred_text_preview": "權益披露"
+      },
+      {
+        "op": "extra",
+        "cost": 1.0,
+        "pred_index": 66,
+        "pred_level": 5,
+        "pred_text_preview": "下表载列："
+      },
+      {
+        "op": "match",
+        "cost": 1.1,
+        "gt_index": 63,
+        "pred_index": 67,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 0.0,
+        "gt_text_preview": "董事及首席執行官",
+        "pred_text_preview": "主要股東"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 64,
+        "pred_index": 68,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "股權激勵計劃",
+        "pred_text_preview": "股權激勵計劃"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 65,
+        "pred_index": 69,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2014年計劃",
+        "pred_text_preview": "2014年計劃"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 66,
+        "pred_index": 70,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2024年計劃",
+        "pred_text_preview": "2024年計劃"
+      },
+      {
+        "op": "match",
+        "cost": 0.15384615384615385,
+        "gt_index": 67,
+        "pred_index": 71,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 0.8462,
+        "gt_text_preview": "2024年計劃(現有股份)",
+        "pred_text_preview": "2024年計劃（現有股份）"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 68,
+        "pred_index": 72,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "購買、出售或回購本公司上市證券",
+        "pred_text_preview": "購買、出售或回購本公司上市證券"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 69,
+        "pred_index": 73,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "其他信息",
+        "pred_text_preview": "其他信息"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 70,
+        "pred_index": 74,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "企業管治",
+        "pred_text_preview": "企業管治"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 71,
+        "pred_index": 75,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "遵守企業管治守則",
+        "pred_text_preview": "遵守企業管治守則"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 72,
+        "pred_index": 76,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "遵守標準守則",
+        "pred_text_preview": "遵守標準守則"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 73,
+        "pred_index": 77,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "審計委員會審閱",
+        "pred_text_preview": "審計委員會審閱"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 74,
+        "pred_index": 78,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "中期股息",
+        "pred_text_preview": "中期股息"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 75,
+        "pred_index": 79,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "票據發行所得募集資金用途",
+        "pred_text_preview": "票據發行所得募集資金用途"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 76,
+        "pred_index": 80,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2025年9月票據發行",
+        "pred_text_preview": "2025年9月票據發行"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 77,
+        "pred_index": 81,
+        "gt_level": 2,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "釋義",
+        "pred_text_preview": "釋義"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 78,
+        "pred_index": 82,
+        "gt_level": 3,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "適用於本中期報告的定義",
+        "pred_text_preview": "適用於本中期報告的定義"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 79,
+        "gt_level": 2,
+        "gt_text_preview": "阿里巴巴集團控股有限公司"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 80,
+        "gt_level": 3,
+        "gt_text_preview": "簡明合併中期財務報表索引"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 81,
+        "gt_level": 2,
+        "gt_text_preview": "中期財務資料的審閱報告"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 82,
+        "gt_level": 3,
+        "gt_text_preview": "致阿里巴巴集團控股有限公司董事會"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 83,
+        "pred_index": 83,
+        "gt_level": 3,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "引言",
+        "pred_text_preview": "引言"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 84,
+        "pred_index": 84,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "審閱範圍",
+        "pred_text_preview": "審閱範圍"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 85,
+        "pred_index": 85,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 1.0,
+        "gt_text_preview": "結論",
+        "pred_text_preview": "結論"
+      },
+      {
+        "op": "extra",
+        "cost": 1.0,
+        "pred_index": 86,
+        "pred_level": 5,
+        "pred_text_preview": "阿里巴巴集團控股有限公司"
+      },
+      {
+        "op": "match",
+        "cost": 1.1,
+        "gt_index": 86,
+        "pred_index": 87,
+        "gt_level": 3,
+        "pred_level": 5,
+        "text_similarity": 0.0,
+        "gt_text_preview": "羅兵咸永道會計師事務所",
+        "pred_text_preview": "阿里巴巴集團控股有限公司"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 87,
+        "pred_index": 88,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "1. 組織及主要活動",
+        "pred_text_preview": "1. 組織及主要活動"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 88,
+        "pred_index": 89,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2. 重要會計政策摘要",
+        "pred_text_preview": "2. 重要會計政策摘要"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 89,
+        "pred_index": 90,
+        "gt_level": 4,
+        "pred_level": 4,
+        "text_similarity": 1.0,
+        "gt_text_preview": "(a) 列報基礎",
+        "pred_text_preview": "(a) 列報基礎"
+      },
+      {
+        "op": "match",
+        "cost": 0.1428571428571428,
+        "gt_index": 90,
+        "pred_index": 91,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 0.8571,
+        "gt_text_preview": "2. 重要會計政策摘要(續)",
+        "pred_text_preview": "2. 重要會計政策摘要（續）"
+      },
+      {
+        "op": "match",
+        "cost": 0.11111111111111116,
+        "gt_index": 91,
+        "pred_index": 92,
+        "gt_level": 4,
+        "pred_level": 3,
+        "text_similarity": 0.8889,
+        "gt_text_preview": "(b) 估計的使用",
+        "pred_text_preview": "(b) 估计的使用"
+      },
+      {
+        "op": "match",
+        "cost": 0.16666666666666663,
+        "gt_index": 92,
+        "pred_index": 93,
+        "gt_level": 4,
+        "pred_level": 3,
+        "text_similarity": 0.8333,
+        "gt_text_preview": "(c) 合併",
+        "pred_text_preview": "(c) 合并"
+      },
+      {
+        "op": "match",
+        "cost": 0.1428571428571428,
+        "gt_index": 93,
+        "pred_index": 94,
+        "gt_level": 3,
+        "pred_level": 3,
+        "text_similarity": 0.8571,
+        "gt_text_preview": "2. 重要會計政策摘要(續)",
+        "pred_text_preview": "2. 重要會計政策摘要（續）"
+      }
+    ]
+  },
+  "text_evaluation": {
+    "text_mode": "normalized_full_text_preserve_newlines",
+    "text_score": 97.5146,
+    "matched_block_count": 1,
+    "missing_block_count": 0,
+    "extra_block_count": 0,
+    "average_edit_distance": 0.0249,
+    "gt_block_count": 1,
+    "pred_block_count": 1,
+    "worst_matches": [
+      {
+        "op": "match",
+        "distance": 0.0249,
+        "gt_start": 0,
+        "gt_count": 1,
+        "pred_start": 0,
+        "pred_count": 1,
+        "gt_preview": "![]\\n2026财务年度中期报告\\n阿里巴巴\\n\\n阿里巴巴集团控股有限公司\\n\\n纽交所代码:BABA港交所代号:9988(港币柜台)89988(人民币柜台)\\n\\n目录\\n\\n4管理层讨论与分析\\n25董事及首席执行官\\n29权益披露\\n34股权激励计划\\n38购买出...",
+        "pred_preview": "E阿里巴巴\\n\\n阿里巴巴集团控股有限公司\\n\\n纽交所代码:BABA港交所代号:9988(港币柜台)89988(人民币柜台)\\n\\n目录\\n\\n4管理层讨论与分析\\n25董事及首席执行官\\n29权益披露\\n34股权激励计划\\n38购买出售或回购本公司上市证券\\n39其他信..."
+      }
+    ]
+  }
+}
