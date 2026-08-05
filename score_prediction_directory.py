@@ -56,8 +56,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--dataset-root",
         type=Path,
-        default=ROOT,
-        help="Dataset root containing both GT variants; defaults to this script's directory.",
+        default=ROOT / "data" / "gt",
+        help="Dataset root containing both GT variants; defaults to data/gt in this repository.",
     )
     parser.add_argument(
         "--output-dir",

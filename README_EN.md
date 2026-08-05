@@ -53,23 +53,11 @@ The table reports arithmetic means over all six documents. Scores range from 0 t
 | 5 | Self-developed parser (version not recorded) | 90.50 | 89.16 | 84.18 | 95.01 |
 | 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 87.45 | 80.46 | 83.88 | 96.21 |
 
-### Findings
+See [MODEL_METADATA.md](MODEL_METADATA.md) for the evidence behind system names and runtime configurations.
 
-- The Hybrid configuration obtains the highest overall and table scores on this benchmark, followed closely by the VLM configuration; both achieve body-text means above 96.
-- Cross-page merging materially improves PaddleOCR-VL-1.6-0.9B table reconstruction. Against the page-wise output from the same checkpoint, it raises the mean table score by **11.89** points and the overall score by **4.89** points. Both runs have the same 96.21 mean body-text score, indicating that the gain comes from cross-page table post-processing.
-- For all structured outputs, body-text fidelity is generally stronger than table and heading-layout fidelity. The principal remaining errors are table splitting/merging, redundant table output, and flattened multi-level headings.
+For PaddleOCR-VL-1.6-0.9B, cross-page merging raises the mean table score by **11.89** points and the overall score by **4.89** points over page-wise output. Both runs have the same 96.21 mean body-text score, so the difference comes primarily from cross-page table post-processing.
 
 These rankings apply only to this repository's fixed documents, GT variants, and scoring version. They should not be interpreted as a general ranking across layouts, languages, or downstream tasks.
-
-## System names and scope
-
-| System | Confirmed configuration |
-|---|---|
-| MinerU Hybrid | MinerU `3.4.0`, `hybrid` backend, `effort=high`; VLM checkpoint: `MinerU2.5-Pro-2605-1.2B`. |
-| MinerU VLM | MinerU `3.4.4`, `vlm` backend; VLM checkpoint: `MinerU2.5-Pro-2605-1.2B`. |
-| MinerU Pipeline | MinerU `3.4.0`, `pipeline` backend, `method=auto`, `lang=ch`. |
-| PaddleOCR-VL | Checkpoint: `PaddleOCR-VL-1.6-0.9B`; the two collections differ only in cross-page table post-processing. |
-| Self-developed parser | The six outputs are complete, but no publishable checkpoint or version identifier was retained; no architectural claim is made here. |
 
 ## Repository layout
 
@@ -84,20 +72,22 @@ benchmark_scorer.py             # core single-document scorer
 score_prediction_directory.py   # score one new parser
 score_all_benchmark_systems.py  # rescore all published systems
 benchmark_systems.py            # canonical system names
+MODEL_METADATA.md               # model-name and runtime-configuration evidence
 README.md
 README_EN.md
 SCORING_PROTOCOL.md
 ```
 
+## Requirements
+
+Python 3.10 or later. The scoring scripts use only the Python standard library and require no third-party packages.
+
 ## Reproducing the scoring
 
 To score a new parser, place its six Markdown outputs in one directory. The preferred names are `005.md` through `010.md`; longer names beginning with the corresponding identifier are also accepted. Run:
 
-```powershell
-python score_prediction_directory.py `
-  --pred-dir predictions/my_parser `
-  --system-name "My Parser 1.0" `
-  --output-dir scores/my_parser
+```bash
+python score_prediction_directory.py --pred-dir predictions/my_parser --system-name "My Parser 1.0" --output-dir scores/my_parser
 ```
 
 The standard entry point fixes the dual-GT best-single-table strategy and all weights documented above. It writes `summary.csv`, `summary.json`, `summary.md`, and six per-document reports. To rescore all published systems in the repository, run:
@@ -105,8 +95,6 @@ The standard entry point fixes the dual-GT best-single-table strategy and all we
 ```powershell
 python score_all_benchmark_systems.py
 ```
-
-Do not publish model weights, local environments, cloud logs, page-level intermediate files, or files containing access credentials. Redistribution of the PDFs must comply with the terms of the original disclosure sites and copyright holders.
 
 ---
 

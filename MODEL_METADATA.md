@@ -4,7 +4,7 @@
 
 ## 1. MinerU Hybrid high 结果（`pred`）
 
-- 运行方式：`MinerU 3.4.0`、`backend=hybrid`、`effort=high`、`method=auto`。
+- 运行方式：`MinerU 3.4.0`、`backend=hybrid-engine`、`effort=high`、`method=auto`。
 - 2026-08-05 重跑时使用命令参数 `backend=hybrid-engine`、`effort=high`、`method=auto`，六份 PDF 全部使用同一配置。
 - 运行时加载的 VLM checkpoint 为 `OpenDataLab/MinerU2.5-Pro-2605-1.2B`，即参数量为 1.2B 的对应 checkpoint。
 - 因此 `pred` 的正确公开名称是 `MinerU 3.4.0 — Hybrid backend（effort=high；MinerU2.5-Pro-2605-1.2B）`，不是单独的 MinerU2.5 直跑集合。

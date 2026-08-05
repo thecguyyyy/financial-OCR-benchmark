@@ -53,11 +53,9 @@
 | 5 | 自研模型 | 90.50 | 89.16 | 84.18 | 95.01 |
 | 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 87.45 | 80.46 | 83.88 | 96.21 |
 
-### 结果解读
+各系统的命名与运行配置依据见 [MODEL_METADATA.md](MODEL_METADATA.md)。
 
-- Hybrid 设置在本基准上取得最高的总分与表格分；VLM 设置紧随其后，两者正文重建均超过 96 分。
-- PaddleOCR-VL-1.6-0.9B 的跨页合并显著改善表格保真度：相对于同一模型的逐页结果，表格平均分提高 **11.89** 分，总分提高 **4.89** 分；两组正文平均分同为 96.21，表明收益来自跨页表后处理。
-- 各结构化系统的正文分普遍高于表格与标题布局分。主要难点集中在跨页表切分/合并、冗余表输出，以及多级标题被压平。
+PaddleOCR-VL-1.6-0.9B 的跨页合并结果相比逐页结果，表格平均分提高 **11.89** 分，总分提高 **4.89** 分。两组正文平均分同为 96.21，差异主要来自跨页表后处理。
 
 上述排名仅用于比较本仓库中的固定文档、GT 与评分版本；不应直接外推为不同版式、语言或下游任务中的通用模型排名。
 
@@ -74,20 +72,22 @@ benchmark_scorer.py             # 单文档核心评分器
 score_prediction_directory.py   # 评分一个新的解析系统
 score_all_benchmark_systems.py  # 重跑仓库内全部正式系统
 benchmark_systems.py            # 正式系统名称表
+MODEL_METADATA.md               # 模型名称与运行参数核验记录
 README.md
 README_EN.md
 SCORING_PROTOCOL.md
 ```
 
+## 环境要求
+
+Python 3.10 或更高版本。评分脚本仅使用 Python 标准库，无需安装第三方依赖。
+
 ## 复现评分
 
 评分一个新的解析系统时，将它的 6 份 Markdown 放入同一目录。推荐直接命名为 `005.md` 至 `010.md`；以编号开头的更长文件名也可以自动识别。运行：
 
-```powershell
-python score_prediction_directory.py `
-  --pred-dir predictions/my_parser `
-  --system-name "My Parser 1.0" `
-  --output-dir scores/my_parser
+```bash
+python score_prediction_directory.py --pred-dir predictions/my_parser --system-name "My Parser 1.0" --output-dir scores/my_parser
 ```
 
 标准脚本固定启用双 GT 单表最高匹配和本报告中的全部评分权重，输出 `summary.csv`、`summary.json`、`summary.md` 及 6 份逐文档报告。要重新评分仓库中全部正式系统，可运行：
@@ -95,8 +95,6 @@ python score_prediction_directory.py `
 ```powershell
 python score_all_benchmark_systems.py
 ```
-
-发布时请勿提交模型权重、运行环境、云端日志、页面级中间产物，或任何包含访问凭据的文件；PDF 的再分发亦应遵守原始披露网站和版权方的条款。
 
 ---
 
