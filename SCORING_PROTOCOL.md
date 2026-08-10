@@ -19,8 +19,12 @@ Final Score = Table Score * 0.40 + Title Layout Score * 0.20 + Text Score * 0.40
 对一组新的 6 份解析结果进行标准评分：
 
 ```powershell
+python normalizers/normalize_my_parser.py `
+  --input-dir predictions/my_parser `
+  --output-dir normalized_predictions/my_parser
+
 python score_prediction_directory.py `
-  --pred-dir predictions/my_parser `
+  --pred-dir normalized_predictions/my_parser `
   --system-name "My Parser 1.0" `
   --output-dir scores/my_parser
 ```
@@ -33,6 +37,7 @@ python benchmark_scorer.py \
   --pred pred.md \
   --gt-table-alt gt_non_cross_page.md \
   --table-gt-strategy max \
+  --remove-pred-header-footer off \
   --normalize-zh t2s \
   --normalize-images on \
   --normalize-footnotes on \
@@ -46,21 +51,26 @@ python benchmark_scorer.py \
 脚本的实际流程如下：
 
 ```text
-1. 读取 GT Markdown 和 Prediction Markdown
-2. 仅对 Prediction Markdown 做无信息页眉页脚清洗，GT 不做该类删除
-3. 抽取 HTML table 与 Markdown pipe table
-4. 从正文评分输入中移除表格，避免表格内容重复进入正文分
-5. 从移除表格后的 Markdown 中抽取标题等级序列
-6. 标题布局评分比较标题层级，并用标题文字辅助锚点对齐
-7. 正文评分只删除标题前缀 #，保留标题文字
-8. 正文不做段落合并，换行按一个字符保留，再计算 normalized edit distance
-9. 汇总表格分、标题布局分、正文分和总分
-10. 输出 Markdown 报告和 JSON 报告
+1. 使用该解析系统的独立、GT 无关适配器，把原始 Prediction 转为素 Markdown
+2. 校验表格矩阵、非噪声标题序列与适配器幂等性，并写入 manifest
+3. 读取 GT Markdown 和已归一化的 Prediction Markdown；标准评分关闭隐藏的 Prediction 专属清洗
+4. 抽取 HTML table 与 Markdown pipe table
+5. 从正文评分输入中移除表格，避免表格内容重复进入正文分
+6. 从移除表格后的 Markdown 中抽取标题等级序列
+7. 标题布局评分比较标题层级，并用标题文字辅助锚点对齐
+8. 正文评分只删除标题前缀 #，保留标题文字
+9. 正文不做段落合并，换行按一个字符保留，再计算 normalized edit distance
+10. 汇总表格分、标题布局分、正文分和总分
+11. 输出 Markdown 报告和 JSON 报告
 ```
+
+### Prediction 独立适配器
+
+每个模型/版本必须提交自己的适配脚本。适配器只能处理该模型稳定的表示层差异，不能读取 GT、PDF 或评分结果，不能按文档 ID/公司名分支，也不能修正文字、数字、表格数据、标题或阅读顺序。表格不得合并、拆分或重排；纯视觉内容可转为 `![]`，有信息量的图表文字必须保留。标准评分要求适配器生成 `normalization_manifest.json`，详细规则见 [PREDICTION_NORMALIZATION.md](PREDICTION_NORMALIZATION.md)。
 
 ## 3. 表格抽取
 
-在表格抽取前，脚本会先对 Prediction Markdown 做一次轻量清洗。该清洗只删除明显无信息价值的页眉页脚类噪声，例如孤立页码、目录点线页码、重复出现的报告名、重复出现的纯公司名。清洗不会作用于 GT，也不会删除 `<table>` 行或 Markdown pipe table 行。
+页眉页脚、分页标签、图片坐标和模型容器必须由公开的模型专属适配器处理。标准批量入口将 `--remove-pred-header-footer` 固定为 `off`，评分器不再参照 GT 对 Prediction 做隐藏删除。正文的共享语义等价归一化仍会对 GT 和 Prediction 一视同仁地执行。
 
 脚本支持两类表格：
 
@@ -98,6 +108,8 @@ table_structure_score = average(row_score, col_score, cell_count_score) * 100
 ```
 
 单表内容分比较：
+
+GT 与 Pred 的每个表格单元格在比较前复用正文的语义归一化，包括 Markdown/HTML 外壳、全半角、繁简体、脚注/上标、低价值标点和图片占位；行、列及单元格边界仍然保留。
 
 ```text
 1. 按最大行列数对齐 GT / Pred cell matrix
@@ -242,9 +254,9 @@ title_layout_score = heading_f1 * 0.80 + level_accuracy * 0.10 + order_score * 0
 6. 使用 OpenCC 时将繁体 / 简体统一到简体；如果 OpenCC 不可用，则跳过该步骤但脚本不报错
 7. 删除目录点线页码行，例如“第一节 ...... 2”
 8. 过滤孤立页码和常见页脚，例如“12”“- 12 -”“Page 12 of 90”“第12页/共90页”
-9. GT 正文不做重复页眉页脚删除；无信息页眉页脚只在 Prediction Markdown 进入评分前清洗
+9. 重复页眉页脚只允许由该模型的公开适配器根据 Prediction 自身判断；统一评分器不参照 GT 做 Prediction 专属删除
 10. 弱化行首列表符号差异，例如 `-`、`*`、`•`、`>` 等
-11. 普通 Markdown 图片、HTML `<img>`、常见 image 占位统一归一化为 `![]`，只保留图片占位，不比较路径和 alt 文本
+11. 普通 Markdown 图片、HTML `<img>`、成对的 `<image>...</image>` 坐标容器及常见 image 占位统一归一化为 `![]`，只保留图片占位，不比较路径、alt 文本和版面坐标
 12. 自然图片、流程图、mermaid 图结构统一归一化为 `![]`，不把 `graph LR` / `graph TD` 等代码放入正文比较
 13. 对 `text_image`、带表格数据的 chart/details 等仍去掉外层 HTML 包装并保留内部信息
 14. 删除散落的自然图片英文 caption，例如 “Illustration of ... (no text or symbols)”
@@ -307,7 +319,7 @@ JSON 报告包含同样核心字段，适合后续批量评测。
 
 ## 9. 可配置参数
 
-脚本默认启用当前优化后的评分口径，也可以通过 CLI 关闭部分归一化或调整表格 pair 权重：
+脚本默认启用共享语义等价归一化，并默认关闭旧式 Prediction 专属页眉页脚清洗。也可以通过 CLI 调试或调整表格 pair 权重：
 
 ```text
 --remove-pred-header-footer on/off
@@ -319,7 +331,7 @@ JSON 报告包含同样核心字段，适合后续批量评测。
 --table-content-weight 0.40
 ```
 
-其中表格 pair 权重会自动归一化；例如 `0.60 + 0.40` 和 `6 + 4` 等价。
+其中 `--remove-pred-header-footer on` 仅为旧结果复核/调试保留，不得用于正式主榜。表格 pair 权重会自动归一化；例如 `0.60 + 0.40` 和 `6 + 4` 等价。
 
 ## 10. 依赖说明
 

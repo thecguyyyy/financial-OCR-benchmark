@@ -5,3 +5,7 @@ venv/
 *.log
 .DS_Store
 Thumbs.db
+
+# Local comparison candidates; the official collection uses 006.md/010.md.
+predictions/self-developed-parser/006a.md
+predictions/self-developed-parser/010a.md

@@ -24,6 +24,15 @@ PUBLIC_SYSTEMS = [
     ),
 ]
 
+NORMALIZER_SCRIPTS = {
+    "mineru-3.4.0-hybrid-high": "normalize_mineru_hybrid.py",
+    "mineru-3.4.4-vlm": "normalize_mineru_vlm.py",
+    "mineru-3.4.0-pipeline": "normalize_mineru_pipeline.py",
+    "self-developed-parser": "normalize_self_developed.py",
+    "paddleocr-vl-1.6-pagewise": "normalize_paddleocr_pagewise.py",
+    "paddleocr-vl-1.6-cross-page": "normalize_paddleocr_cross_page.py",
+}
+
 COLLECTION_LABELS = {
     "gt_self_check": "GT 自检",
     "pred": "MinerU 3.4.0 — Hybrid backend（effort=high；MinerU2.5-Pro-2605-1.2B）",

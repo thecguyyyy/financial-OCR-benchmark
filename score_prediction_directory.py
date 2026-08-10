@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Score one external parser's six Markdown outputs against this benchmark.
+"""Score one parser's six normalized Markdown outputs against this benchmark.
 
 Expected prediction identifiers are 005 through 010. The preferred file names
 are 005.md, ..., 010.md; longer names beginning with the same identifier are
@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import re
 import subprocess
@@ -70,7 +71,43 @@ def parse_args() -> argparse.Namespace:
         default=4,
         help="Number of documents scored in parallel (default: 4).",
     )
+    parser.add_argument(
+        "--allow-unmanifested",
+        action="store_true",
+        help="Debug only: score a directory without normalization_manifest.json.",
+    )
     return parser.parse_args()
+
+
+def load_normalization_manifest(pred_dir: Path, allow_unmanifested: bool) -> dict:
+    path = pred_dir / "normalization_manifest.json"
+    if not path.is_file():
+        if allow_unmanifested:
+            return {
+                "adapter": "unmanifested-debug-input",
+                "manifest_path": "",
+            }
+        raise FileNotFoundError(
+            f"{path} is required. Run a parser-specific adapter before standard scoring; "
+            "use --allow-unmanifested only for local debugging."
+        )
+    manifest = json.loads(path.read_text(encoding="utf-8"))
+    constraints = manifest.get("constraints", {})
+    forbidden = {
+        "uses_ground_truth": constraints.get("uses_ground_truth"),
+        "uses_pdf": constraints.get("uses_pdf"),
+        "uses_document_id_rules": constraints.get("uses_document_id_rules"),
+        "merges_or_splits_tables": constraints.get("merges_or_splits_tables"),
+        "reorders_content": constraints.get("reorders_content"),
+    }
+    violations = [name for name, value in forbidden.items() if value is not False]
+    if violations:
+        raise ValueError(
+            "normalization manifest must explicitly set these constraints to false: "
+            + ", ".join(violations)
+        )
+    manifest["manifest_path"] = portable_path(path)
+    return manifest
 
 
 def one(paths: list[Path], description: str) -> Path:
@@ -88,6 +125,9 @@ def find_gt(dataset_root: Path, doc_id: str, semi_semantic: bool) -> Path:
     standard_path = dataset_root / standard_subdir / f"{doc_id}.md"
     if standard_path.is_file():
         return standard_path.resolve()
+    prefix_candidates = sorted((dataset_root / standard_subdir).glob(f"{doc_id}*.md"))
+    if len(prefix_candidates) == 1:
+        return prefix_candidates[0].resolve()
     suffix = (
         "*_gold_md_semi_semantic_tables.md" if semi_semantic else "*_gold_md.md"
     )
@@ -125,6 +165,24 @@ def slugify(name: str) -> str:
     return slug or "external_parser"
 
 
+def portable_path(path: Path) -> str:
+    """Use repository-relative POSIX paths for files published with the benchmark."""
+
+    resolved = path.resolve()
+    try:
+        return resolved.relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return str(resolved)
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def run_document(
     dataset_root: Path,
     pred_dir: Path,
@@ -132,6 +190,8 @@ def run_document(
     system_name: str,
     doc_id: str,
     document_name: str,
+    normalization_adapter: str,
+    normalization_manifest: str,
 ) -> dict:
     primary_gt = find_gt(dataset_root, doc_id, semi_semantic=False)
     semi_gt = find_gt(dataset_root, doc_id, semi_semantic=True)
@@ -146,28 +206,52 @@ def run_document(
         sys.executable,
         str(SCORER),
         "--gt",
-        str(primary_gt),
+        portable_path(primary_gt),
         "--gt-table-alt",
-        str(semi_gt),
+        portable_path(semi_gt),
         "--pred",
-        str(prediction),
+        portable_path(prediction),
         "--table-gt-strategy",
         "max",
+        "--remove-pred-header-footer",
+        "off",
         "--json-out",
-        str(json_report),
+        portable_path(json_report),
         "--md-out",
-        str(markdown_report),
+        portable_path(markdown_report),
     ]
-    completed = subprocess.run(command, capture_output=True, text=True, encoding="utf-8")
+    completed = subprocess.run(
+        command,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        cwd=ROOT,
+    )
     log_path.write_text(completed.stdout + completed.stderr, encoding="utf-8")
     if completed.returncode:
         raise RuntimeError(f"scorer failed; see {log_path}")
 
     result = json.loads(json_report.read_text(encoding="utf-8"))
+    result["inputs"].update(
+        {
+            "gt": f"data/gt/primary/{doc_id}.md",
+            "gt_table_alt": f"data/gt/semi_semantic/{doc_id}.md",
+            "pred": portable_path(prediction),
+            "gt_sha256": sha256_file(primary_gt),
+            "gt_table_alt_sha256": sha256_file(semi_gt),
+            "pred_sha256": sha256_file(prediction),
+            "normalization_adapter": normalization_adapter,
+            "normalization_manifest": normalization_manifest,
+        }
+    )
+    json_report.write_text(
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     scores = result["scores"]
     tables = result["table_evaluation"]["selected_table_score"]
     return {
-        "system": system_name,
+        "system": output_dir.name,
+        "system_name": system_name,
         "id": doc_id,
         "document": document_name,
         "final_score": scores["final_score"],
@@ -181,19 +265,20 @@ def run_document(
         "extra_table_count": tables["extra_table_count"],
         "primary_selected_pair_count": tables["primary_selected_pair_count"],
         "semi_semantic_selected_pair_count": tables["alt_selected_pair_count"],
-        "prediction": str(prediction),
-        "primary_gt": str(primary_gt),
-        "semi_semantic_gt": str(semi_gt),
-        "report": str(markdown_report),
+        "prediction": portable_path(prediction),
+        "normalization_adapter": normalization_adapter,
+        "normalization_manifest": normalization_manifest,
+        "report": portable_path(markdown_report),
     }
 
 
 def write_outputs(output_dir: Path, system_name: str, rows: list[dict], errors: list[str]) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     rows.sort(key=lambda row: row["id"])
-    (output_dir / "errors.json").write_text(
-        json.dumps(errors, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    if errors:
+        (output_dir / "errors.json").write_text(
+            json.dumps(errors, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
     (output_dir / "summary.json").write_text(
         json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8"
     )
@@ -210,6 +295,7 @@ def write_outputs(output_dir: Path, system_name: str, rows: list[dict], errors: 
         "",
         "评分协议：双 GT 单表最高匹配；总分 = 表格 40% + 标题布局 20% + 正文 40%；"
         "标题布局 = F1 80% + 相对层级 10% + 顺序 10%。",
+        "输入协议：先执行该系统的独立、GT 无关归一化脚本；评分器不再做隐藏的 Prediction 专属页眉页脚清洗。",
         "",
     ]
     if rows:
@@ -254,6 +340,9 @@ def main() -> int:
         raise NotADirectoryError(dataset_root)
     if args.workers < 1:
         raise ValueError("--workers must be at least 1")
+    normalization_manifest = load_normalization_manifest(pred_dir, args.allow_unmanifested)
+    normalization_adapter = str(normalization_manifest.get("adapter", "unknown"))
+    normalization_manifest_path = str(normalization_manifest.get("manifest_path", ""))
 
     output_dir = (
         args.output_dir.resolve()
@@ -272,6 +361,8 @@ def main() -> int:
                 args.system_name,
                 doc_id,
                 document_name,
+                normalization_adapter,
+                normalization_manifest_path,
             ): doc_id
             for doc_id, document_name in DOCUMENTS
         }

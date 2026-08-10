@@ -1,0 +1,188 @@
+{
+  "system": "mineru-3.4.0-hybrid-high",
+  "adapter": "normalize_mineru_hybrid.py",
+  "constraints": {
+    "uses_ground_truth": false,
+    "uses_pdf": false,
+    "uses_document_id_rules": false,
+    "merges_or_splits_tables": false,
+    "reorders_content": false
+  },
+  "rules": [
+    "unwrap MinerU details/summary containers while retaining text_image and chart text",
+    "replace natural images, flowcharts, Mermaid blocks, and image paths with ![]",
+    "remove generated decorative-image captions and presentation-only sup/sub wrappers",
+    "remove duplicate running headers and isolated page numbers using prediction-only repetition"
+  ],
+  "totals": {
+    "comments_removed": 0,
+    "details_wrappers_removed": 208,
+    "duplicate_running_headers_removed": 37,
+    "html_images_normalized": 17,
+    "markdown_images_normalized": 211,
+    "mermaid_blocks_normalized": 0,
+    "standalone_page_numbers_removed": 5,
+    "sub_wrappers_removed": 0,
+    "sup_wrappers_removed": 0,
+    "text_details_unwrapped": 27,
+    "visual_details_to_image_marker": 181
+  },
+  "files": [
+    {
+      "id": "005",
+      "source": "predictions/mineru-3.4.0-hybrid-high/005.md",
+      "output": "normalized_predictions/mineru-3.4.0-hybrid-high/005.md",
+      "source_sha256": "a679ece6412c5ac9b288fc86d1e8074b0f95cda578124c72982dcd716820a82d",
+      "output_sha256": "e97606b56907a7e6c43b2b6234328a883e156c9d4997546180997f9520e50b55",
+      "changes": {
+        "comments_removed": 0,
+        "details_wrappers_removed": 28,
+        "duplicate_running_headers_removed": 1,
+        "html_images_normalized": 17,
+        "markdown_images_normalized": 28,
+        "mermaid_blocks_normalized": 0,
+        "standalone_page_numbers_removed": 1,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0,
+        "text_details_unwrapped": 23,
+        "visual_details_to_image_marker": 5
+      },
+      "validation": {
+        "table_count": 209,
+        "heading_count": 477,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "006",
+      "source": "predictions/mineru-3.4.0-hybrid-high/006.md",
+      "output": "normalized_predictions/mineru-3.4.0-hybrid-high/006.md",
+      "source_sha256": "201dc8aafcb3494bedf834cab4fe594963c48031919249821a1d385dcfc0a512",
+      "output_sha256": "f33a0d5150427e2307e1cb5d92dcf644e1714f7cfa340f4fca655f600009391b",
+      "changes": {
+        "comments_removed": 0,
+        "duplicate_running_headers_removed": 5,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 2,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 50,
+        "heading_count": 147,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "007",
+      "source": "predictions/mineru-3.4.0-hybrid-high/007.md",
+      "output": "normalized_predictions/mineru-3.4.0-hybrid-high/007.md",
+      "source_sha256": "5f8f6467a896f6df7c5eb2222b21eb24eca7abb245510800522de1350ba14c87",
+      "output_sha256": "a410089821305eca08dddebc7fed9909bf779aae220e80033e06ac7d2fb68189",
+      "changes": {
+        "comments_removed": 0,
+        "details_wrappers_removed": 176,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 177,
+        "mermaid_blocks_normalized": 0,
+        "standalone_page_numbers_removed": 4,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0,
+        "text_details_unwrapped": 3,
+        "visual_details_to_image_marker": 173
+      },
+      "validation": {
+        "table_count": 177,
+        "heading_count": 954,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "008",
+      "source": "predictions/mineru-3.4.0-hybrid-high/008.md",
+      "output": "normalized_predictions/mineru-3.4.0-hybrid-high/008.md",
+      "source_sha256": "bcabfeb72b66db9d24860ac9f99800abb5bfc7300226776518046265843dc1b0",
+      "output_sha256": "542fb2d7f9147dac45006d52ba7433942a76f6ce617d041119d73116fa4f0ccf",
+      "changes": {
+        "comments_removed": 0,
+        "duplicate_running_headers_removed": 13,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 0,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 229,
+        "heading_count": 388,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "009",
+      "source": "predictions/mineru-3.4.0-hybrid-high/009.md",
+      "output": "normalized_predictions/mineru-3.4.0-hybrid-high/009.md",
+      "source_sha256": "ffa806e9a0d2d1a6ad4f1b4c8bbe6d156584a19160ee7d7cfeaab3b8d7a2ea5d",
+      "output_sha256": "a131c4dec27b7d897b80f64adb94fb67e90d29c7f7b68f83b7987de0d239cd59",
+      "changes": {
+        "comments_removed": 0,
+        "details_wrappers_removed": 2,
+        "duplicate_running_headers_removed": 1,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 2,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0,
+        "visual_details_to_image_marker": 2
+      },
+      "validation": {
+        "table_count": 182,
+        "heading_count": 423,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "010",
+      "source": "predictions/mineru-3.4.0-hybrid-high/010.md",
+      "output": "normalized_predictions/mineru-3.4.0-hybrid-high/010.md",
+      "source_sha256": "72eadb1987bffe784ce188809b6f9f34c15ba69eb626a361d6562b86676e1d0f",
+      "output_sha256": "1e7587fe5bfecaab0365034a2ad7c458f1fc967607fec5292bb2e177bf9ffbab",
+      "changes": {
+        "comments_removed": 0,
+        "details_wrappers_removed": 2,
+        "duplicate_running_headers_removed": 17,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 2,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0,
+        "text_details_unwrapped": 1,
+        "visual_details_to_image_marker": 1
+      },
+      "validation": {
+        "table_count": 236,
+        "heading_count": 500,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    }
+  ]
+}

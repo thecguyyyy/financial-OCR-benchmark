@@ -1,18 +1,19 @@
 {
   "inputs": {
     "gt": "data/gt/primary/006.md",
-    "pred": "predictions/mineru-3.4.0-hybrid-high/006.md",
+    "pred": "normalized_predictions/mineru-3.4.0-hybrid-high/006.md",
     "gt_table_alt": "data/gt/semi_semantic/006.md",
-    "table_gt_strategy": "max"
+    "table_gt_strategy": "max",
+    "gt_sha256": "2b94f3c3c9fd49d7f427943e791322eb5be560f17c4f1a8eaf6a9215a4a3e894",
+    "gt_table_alt_sha256": "4585f018e2d5aaf8a5485dc24a6d2224ad1be068d936889c9131350c21b88467",
+    "pred_sha256": "f33a0d5150427e2307e1cb5d92dcf644e1714f7cfa340f4fca655f600009391b",
+    "normalization_adapter": "normalize_mineru_hybrid.py",
+    "normalization_manifest": "normalized_predictions/mineru-3.4.0-hybrid-high/normalization_manifest.json"
   },
   "pred_cleanup": {
-    "mode": "prediction_only_header_footer_cleanup",
-    "removed_line_count": 3,
-    "removed_line_examples": [
-      "阿里巴巴集團控股有限公司",
-      "阿里巴巴集團控股有限公司",
-      "阿里巴巴集團控股有限公司"
-    ]
+    "mode": "disabled_after_explicit_adapter",
+    "removed_line_count": 0,
+    "removed_line_examples": []
   },
   "weights": {
     "table": 0.4,
@@ -20,7 +21,7 @@
     "text": 0.4
   },
   "config": {
-    "remove_pred_header_footer": true,
+    "remove_pred_header_footer": false,
     "normalize_images": true,
     "normalize_zh": "t2s",
     "normalize_footnotes": true,
@@ -29,29 +30,29 @@
     "table_content_weight": 0.4
   },
   "scores": {
-    "final_score": 96.7176,
-    "table_score": 99.233,
-    "title_layout_score": 89.8078,
-    "text_score": 97.6571
+    "final_score": 92.5123,
+    "table_score": 94.015,
+    "title_layout_score": 82.4568,
+    "text_score": 96.0374
   },
   "table_evaluation": {
     "selected_gt": "per_table_max",
     "selected_table_score": {
-      "table_content_score": 98.7535,
-      "table_structure_score": 99.5527,
-      "table_matrix_score": 99.233,
+      "table_content_score": 92.5707,
+      "table_structure_score": 94.9778,
+      "table_matrix_score": 94.015,
       "table_alignment_strategy": "per_table_best_of_primary_alt_one_to_one",
       "matched_table_count": 50,
-      "missing_table_count": 0,
+      "missing_table_count": 1,
       "extra_table_count": 0,
-      "gt_table_count": 50,
+      "gt_table_count": 51,
       "pred_table_count": 50,
-      "primary_gt_table_count": 50,
-      "alt_gt_table_count": 55,
-      "reference_table_count": 50,
-      "primary_selected_pair_count": 50,
-      "alt_selected_pair_count": 0,
-      "final_table_score": 99.233,
+      "primary_gt_table_count": 51,
+      "alt_gt_table_count": 53,
+      "reference_table_count": 51,
+      "primary_selected_pair_count": 46,
+      "alt_selected_pair_count": 4,
+      "final_table_score": 94.015,
       "matches": [
         {
           "gt_index": 0,
@@ -71,15 +72,15 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_content_score": 98.4825,
+          "table_pair_score": 99.393,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 99.8179,
           "pred_position": 0,
           "gt_position": 0,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 99.393,
+          "alt_pair_score": 99.393
         },
         {
           "gt_index": 1,
@@ -99,15 +100,15 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_content_score": 95.7066,
+          "table_pair_score": 98.2826,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 99.4848,
           "pred_position": 1,
           "gt_position": 1,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 98.2826,
+          "alt_pair_score": 98.2826
         },
         {
           "gt_index": 2,
@@ -127,15 +128,15 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_content_score": 94.5205,
+          "table_pair_score": 97.8082,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 99.3425,
           "pred_position": 2,
           "gt_position": 2,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 97.8082,
+          "alt_pair_score": 97.8082
         },
         {
           "gt_index": 3,
@@ -155,15 +156,15 @@
             "cols": 7
           },
           "table_structure_score": 97.1014,
-          "table_content_score": 94.7743,
-          "table_pair_score": 96.1706,
+          "table_content_score": 91.3143,
+          "table_pair_score": 94.7866,
           "table_keyword_score": 93.8288,
-          "table_match_score": 95.1859,
+          "table_match_score": 94.7707,
           "pred_position": 3,
           "gt_position": 3,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 96.1706,
-          "alt_pair_score": 53.0039
+          "primary_pair_score": 94.7866,
+          "alt_pair_score": 94.7866
         },
         {
           "gt_index": 4,
@@ -183,15 +184,15 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 91.8033,
-          "table_pair_score": 96.7213,
+          "table_content_score": 79.4737,
+          "table_pair_score": 91.7895,
           "table_keyword_score": 100.0,
-          "table_match_score": 99.0164,
+          "table_match_score": 97.5369,
           "pred_position": 4,
           "gt_position": 4,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 96.7213,
-          "alt_pair_score": 96.7213
+          "primary_pair_score": 91.7895,
+          "alt_pair_score": 91.7895
         },
         {
           "gt_index": 5,
@@ -211,15 +212,15 @@
             "cols": 4
           },
           "table_structure_score": 92.5926,
-          "table_content_score": 92.5466,
-          "table_pair_score": 92.5742,
+          "table_content_score": 87.1345,
+          "table_pair_score": 90.4094,
           "table_keyword_score": 77.6852,
-          "table_match_score": 85.1334,
+          "table_match_score": 84.4839,
           "pred_position": 5,
           "gt_position": 5,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 92.5742,
-          "alt_pair_score": 92.5742
+          "primary_pair_score": 90.4094,
+          "alt_pair_score": 90.4094
         },
         {
           "gt_index": 6,
@@ -239,15 +240,15 @@
             "cols": 4
           },
           "table_structure_score": 96.0784,
-          "table_content_score": 98.1693,
-          "table_pair_score": 96.9148,
+          "table_content_score": 96.2306,
+          "table_pair_score": 96.1393,
           "table_keyword_score": 91.0185,
-          "table_match_score": 93.7994,
+          "table_match_score": 93.5667,
           "pred_position": 6,
           "gt_position": 6,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 96.9148,
-          "alt_pair_score": 96.9148
+          "primary_pair_score": 96.1393,
+          "alt_pair_score": 96.1393
         },
         {
           "gt_index": 7,
@@ -259,23 +260,23 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 11,
+            "rows": 12,
             "cols": 4
           },
           "pred_shape": {
             "rows": 11,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
-          "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_structure_score": 94.4444,
+          "table_content_score": 93.3099,
+          "table_pair_score": 93.9906,
+          "table_keyword_score": 88.2667,
+          "table_match_score": 91.2194,
           "pred_position": 7,
           "gt_position": 7,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 93.9906,
+          "alt_pair_score": 93.9906
         },
         {
           "gt_index": 8,
@@ -295,15 +296,15 @@
             "cols": 4
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_content_score": 99.6226,
+          "table_pair_score": 99.8491,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 99.9547,
           "pred_position": 8,
           "gt_position": 8,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 99.8491,
+          "alt_pair_score": 99.8491
         },
         {
           "gt_index": 9,
@@ -315,23 +316,23 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 6,
+            "rows": 7,
             "cols": 4
           },
           "pred_shape": {
             "rows": 6,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
-          "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_structure_score": 90.4762,
+          "table_content_score": 91.7073,
+          "table_pair_score": 90.9686,
+          "table_keyword_score": 90.9032,
+          "table_match_score": 90.8374,
           "pred_position": 9,
           "gt_position": 9,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 90.9686,
+          "alt_pair_score": 90.9686
         },
         {
           "gt_index": 10,
@@ -351,15 +352,15 @@
             "cols": 3
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_content_score": 99.5146,
+          "table_pair_score": 99.8058,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 99.9417,
           "pred_position": 10,
           "gt_position": 10,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 99.8058,
+          "alt_pair_score": 99.8058
         },
         {
           "gt_index": 11,
@@ -379,15 +380,15 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_content_score": 99.4118,
+          "table_pair_score": 99.7647,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 99.9294,
           "pred_position": 11,
           "gt_position": 11,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 99.7647,
+          "alt_pair_score": 99.7647
         },
         {
           "gt_index": 12,
@@ -407,15 +408,15 @@
             "cols": 5
           },
           "table_structure_score": 97.1014,
-          "table_content_score": 96.9966,
-          "table_pair_score": 97.0595,
+          "table_content_score": 96.7918,
+          "table_pair_score": 96.9776,
           "table_keyword_score": 94.0909,
-          "table_match_score": 95.5836,
+          "table_match_score": 95.559,
           "pred_position": 12,
           "gt_position": 12,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 97.0595,
-          "alt_pair_score": 97.0595
+          "primary_pair_score": 96.9776,
+          "alt_pair_score": 96.9776
         },
         {
           "gt_index": 13,
@@ -435,15 +436,15 @@
             "cols": 10
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_content_score": 99.8571,
+          "table_pair_score": 99.9429,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 99.9829,
           "pred_position": 13,
           "gt_position": 13,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 99.9429,
+          "alt_pair_score": 99.9429
         },
         {
           "gt_index": 14,
@@ -463,15 +464,15 @@
             "cols": 10
           },
           "table_structure_score": 100.0,
-          "table_content_score": 99.6815,
-          "table_pair_score": 99.8726,
+          "table_content_score": 99.5223,
+          "table_pair_score": 99.8089,
           "table_keyword_score": 100.0,
-          "table_match_score": 99.9618,
+          "table_match_score": 99.9427,
           "pred_position": 14,
           "gt_position": 14,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 99.8726,
-          "alt_pair_score": 99.8726
+          "primary_pair_score": 99.8089,
+          "alt_pair_score": 99.8089
         },
         {
           "gt_index": 15,
@@ -491,15 +492,15 @@
             "cols": 9
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_content_score": 99.7167,
+          "table_pair_score": 99.8867,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 99.966,
           "pred_position": 15,
           "gt_position": 15,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 99.8867,
+          "alt_pair_score": 99.8867
         },
         {
           "gt_index": 16,
@@ -567,23 +568,23 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 4,
+            "rows": 5,
             "cols": 4
           },
           "pred_shape": {
             "rows": 4,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
-          "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_structure_score": 86.6667,
+          "table_content_score": 77.4194,
+          "table_pair_score": 82.9677,
+          "table_keyword_score": 91.8548,
+          "table_match_score": 88.151,
           "pred_position": 18,
           "gt_position": 18,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 82.9677,
+          "alt_pair_score": 82.9677
         },
         {
           "gt_index": 19,
@@ -623,23 +624,23 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 30,
+            "rows": 32,
             "cols": 5
           },
           "pred_shape": {
             "rows": 30,
             "cols": 5
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 99.8801,
-          "table_pair_score": 99.952,
-          "table_keyword_score": 100.0,
-          "table_match_score": 99.9856,
+          "table_structure_score": 95.8333,
+          "table_content_score": 94.47,
+          "table_pair_score": 95.288,
+          "table_keyword_score": 96.5,
+          "table_match_score": 96.0031,
           "pred_position": 20,
           "gt_position": 20,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 99.952,
-          "alt_pair_score": 99.952
+          "primary_pair_score": 95.288,
+          "alt_pair_score": 95.288
         },
         {
           "gt_index": 21,
@@ -651,23 +652,23 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 15,
+            "rows": 16,
             "cols": 4
           },
           "pred_shape": {
             "rows": 15,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_structure_score": 95.8333,
+          "table_content_score": 95.1009,
+          "table_pair_score": 95.5403,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 97.8288,
           "pred_position": 21,
           "gt_position": 21,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 95.5403,
+          "alt_pair_score": 95.5403
         },
         {
           "gt_index": 22,
@@ -679,23 +680,23 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 35,
+            "rows": 36,
             "cols": 5
           },
           "pred_shape": {
             "rows": 34,
             "cols": 5
           },
-          "table_structure_score": 98.0952,
-          "table_content_score": 97.2767,
-          "table_pair_score": 97.7678,
+          "table_structure_score": 96.2963,
+          "table_content_score": 97.0684,
+          "table_pair_score": 96.6051,
           "table_keyword_score": 96.8182,
-          "table_match_score": 97.3585,
+          "table_match_score": 96.6499,
           "pred_position": 22,
           "gt_position": 22,
-          "selected_gt_variant": "primary",
-          "primary_pair_score": 97.7678,
-          "alt_pair_score": 97.7678
+          "selected_gt_variant": "alt",
+          "primary_pair_score": 72.1913,
+          "alt_pair_score": 96.6051
         },
         {
           "gt_index": 23,
@@ -715,15 +716,15 @@
             "cols": 4
           },
           "table_structure_score": 96.6667,
-          "table_content_score": 99.2687,
-          "table_pair_score": 97.7075,
+          "table_content_score": 96.2025,
+          "table_pair_score": 96.481,
           "table_keyword_score": 100.0,
-          "table_match_score": 98.6456,
+          "table_match_score": 98.2776,
           "pred_position": 23,
           "gt_position": 23,
-          "selected_gt_variant": "primary",
-          "primary_pair_score": 97.7075,
-          "alt_pair_score": 97.7075
+          "selected_gt_variant": "alt",
+          "primary_pair_score": 50.2772,
+          "alt_pair_score": 96.481
         },
         {
           "gt_index": 24,
@@ -743,15 +744,15 @@
             "cols": 12
           },
           "table_structure_score": 100.0,
-          "table_content_score": 85.75,
-          "table_pair_score": 94.3,
-          "table_keyword_score": 85.7698,
-          "table_match_score": 91.1749,
+          "table_content_score": 88.4979,
+          "table_pair_score": 95.3991,
+          "table_keyword_score": 89.6987,
+          "table_match_score": 93.4691,
           "pred_position": 24,
           "gt_position": 24,
-          "selected_gt_variant": "primary",
-          "primary_pair_score": 94.3,
-          "alt_pair_score": 94.3
+          "selected_gt_variant": "alt",
+          "primary_pair_score": null,
+          "alt_pair_score": 95.3991
         },
         {
           "gt_index": 25,
@@ -771,18 +772,18 @@
             "cols": 12
           },
           "table_structure_score": 100.0,
-          "table_content_score": 91.7808,
-          "table_pair_score": 96.7123,
-          "table_keyword_score": 89.3772,
-          "table_match_score": 93.7023,
+          "table_content_score": 92.6324,
+          "table_pair_score": 97.053,
+          "table_keyword_score": 89.7323,
+          "table_match_score": 93.982,
           "pred_position": 25,
           "gt_position": 25,
-          "selected_gt_variant": "primary",
-          "primary_pair_score": 96.7123,
-          "alt_pair_score": 96.7123
+          "selected_gt_variant": "alt",
+          "primary_pair_score": 65.403,
+          "alt_pair_score": 97.053
         },
         {
-          "gt_index": 26,
+          "gt_index": 24,
           "pred_index": 26,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -791,26 +792,26 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 36,
+            "rows": 37,
             "cols": 4
           },
           "pred_shape": {
             "rows": 36,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_structure_score": 98.1982,
+          "table_content_score": 98.542,
+          "table_pair_score": 98.3357,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 99.1403,
           "pred_position": 26,
-          "gt_position": 26,
+          "gt_position": 24,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 100.0
+          "primary_pair_score": 98.3357,
+          "alt_pair_score": 98.3357
         },
         {
-          "gt_index": 27,
+          "gt_index": 25,
           "pred_index": 27,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -819,26 +820,26 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 24,
+            "rows": 15,
             "cols": 3
           },
           "pred_shape": {
             "rows": 24,
             "cols": 3
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
-          "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_structure_score": 75.0,
+          "table_content_score": 66.0232,
+          "table_pair_score": 71.4093,
+          "table_keyword_score": 96.8182,
+          "table_match_score": 84.8319,
           "pred_position": 27,
-          "gt_position": 27,
+          "gt_position": 25,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 71.4355
+          "primary_pair_score": 71.4093,
+          "alt_pair_score": 71.4093
         },
         {
-          "gt_index": 28,
+          "gt_index": 27,
           "pred_index": 28,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -860,13 +861,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 28,
-          "gt_position": 28,
+          "gt_position": 27,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 29,
+          "gt_index": 28,
           "pred_index": 29,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -888,13 +889,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 29,
-          "gt_position": 29,
+          "gt_position": 28,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 30,
+          "gt_index": 29,
           "pred_index": 30,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -916,13 +917,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 30,
-          "gt_position": 30,
+          "gt_position": 29,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 31,
+          "gt_index": 30,
           "pred_index": 31,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -944,13 +945,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 31,
-          "gt_position": 31,
+          "gt_position": 30,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 32,
+          "gt_index": 31,
           "pred_index": 32,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -972,13 +973,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 32,
-          "gt_position": 32,
+          "gt_position": 31,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 33,
+          "gt_index": 32,
           "pred_index": 33,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -987,23 +988,23 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 22,
+            "rows": 11,
             "cols": 4
           },
           "pred_shape": {
             "rows": 22,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_structure_score": 66.6667,
+          "table_content_score": 47.5054,
+          "table_pair_score": 59.0022,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 81.034,
           "pred_position": 33,
-          "gt_position": 33,
+          "gt_position": 32,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
-          "alt_pair_score": 60.0434
+          "primary_pair_score": 59.0022,
+          "alt_pair_score": 59.0022
         },
         {
           "gt_index": 34,
@@ -1015,26 +1016,26 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 38,
+            "rows": 18,
             "cols": 5
           },
           "pred_shape": {
             "rows": 38,
             "cols": 5
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0,
+          "table_structure_score": 64.9123,
+          "table_content_score": 45.3276,
+          "table_pair_score": 57.0784,
           "table_keyword_score": 100.0,
-          "table_match_score": 100.0,
+          "table_match_score": 80.106,
           "pred_position": 34,
           "gt_position": 34,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 100.0,
+          "primary_pair_score": 57.0784,
           "alt_pair_score": 57.0784
         },
         {
-          "gt_index": 35,
+          "gt_index": 36,
           "pred_index": 35,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1056,13 +1057,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 35,
-          "gt_position": 35,
+          "gt_position": 36,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 36,
+          "gt_index": 37,
           "pred_index": 36,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1084,13 +1085,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 36,
-          "gt_position": 36,
+          "gt_position": 37,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 37,
+          "gt_index": 38,
           "pred_index": 37,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1112,13 +1113,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 37,
-          "gt_position": 37,
+          "gt_position": 38,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 38,
+          "gt_index": 39,
           "pred_index": 38,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1135,18 +1136,18 @@
             "cols": 9
           },
           "table_structure_score": 100.0,
-          "table_content_score": 90.0277,
-          "table_pair_score": 96.0111,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
           "table_keyword_score": 100.0,
-          "table_match_score": 98.8033,
+          "table_match_score": 100.0,
           "pred_position": 38,
-          "gt_position": 38,
+          "gt_position": 39,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 96.0111,
-          "alt_pair_score": 96.0111
+          "primary_pair_score": 100.0,
+          "alt_pair_score": 100.0
         },
         {
-          "gt_index": 39,
+          "gt_index": 40,
           "pred_index": 39,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1168,13 +1169,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 39,
-          "gt_position": 39,
+          "gt_position": 40,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 40,
+          "gt_index": 41,
           "pred_index": 40,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1196,13 +1197,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 40,
-          "gt_position": 40,
+          "gt_position": 41,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 41,
+          "gt_index": 42,
           "pred_index": 41,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1224,13 +1225,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 41,
-          "gt_position": 41,
+          "gt_position": 42,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 42,
+          "gt_index": 43,
           "pred_index": 42,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1247,18 +1248,18 @@
             "cols": 3
           },
           "table_structure_score": 100.0,
-          "table_content_score": 99.7199,
-          "table_pair_score": 99.888,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
           "table_keyword_score": 100.0,
-          "table_match_score": 99.9664,
+          "table_match_score": 100.0,
           "pred_position": 42,
-          "gt_position": 42,
+          "gt_position": 43,
           "selected_gt_variant": "primary",
-          "primary_pair_score": 99.888,
-          "alt_pair_score": 99.888
+          "primary_pair_score": 100.0,
+          "alt_pair_score": 100.0
         },
         {
-          "gt_index": 43,
+          "gt_index": 44,
           "pred_index": 43,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1280,13 +1281,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 43,
-          "gt_position": 43,
+          "gt_position": 44,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 44,
+          "gt_index": 45,
           "pred_index": 44,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1308,13 +1309,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 44,
-          "gt_position": 44,
+          "gt_position": 45,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 45,
+          "gt_index": 46,
           "pred_index": 45,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1336,13 +1337,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 45,
-          "gt_position": 45,
+          "gt_position": 46,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 46,
+          "gt_index": 47,
           "pred_index": 46,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1364,13 +1365,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 46,
-          "gt_position": 46,
+          "gt_position": 47,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 47,
+          "gt_index": 48,
           "pred_index": 47,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1392,13 +1393,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 47,
-          "gt_position": 47,
+          "gt_position": 48,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 48,
+          "gt_index": 49,
           "pred_index": 48,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1420,13 +1421,13 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 48,
-          "gt_position": 48,
+          "gt_position": 49,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
         },
         {
-          "gt_index": 49,
+          "gt_index": 50,
           "pred_index": 49,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -1448,7 +1449,7 @@
           "table_keyword_score": 100.0,
           "table_match_score": 100.0,
           "pred_position": 49,
-          "gt_position": 49,
+          "gt_position": 50,
           "selected_gt_variant": "primary",
           "primary_pair_score": 100.0,
           "alt_pair_score": 100.0
@@ -1456,16 +1457,16 @@
       ]
     },
     "primary_table_score": {
-      "table_content_score": 98.7535,
-      "table_structure_score": 99.5527,
-      "table_matrix_score": 99.233,
+      "table_content_score": 72.4172,
+      "table_structure_score": 89.1998,
+      "table_matrix_score": 82.4868,
       "table_alignment_strategy": "gt_best_unused_pred_one_to_one_order_aware",
       "matched_table_count": 50,
-      "missing_table_count": 0,
+      "missing_table_count": 1,
       "extra_table_count": 0,
-      "gt_table_count": 50,
+      "gt_table_count": 51,
       "pred_table_count": 50,
-      "final_table_score": 99.233,
+      "final_table_score": 82.4868,
       "matches": [
         {
           "gt_index": 0,
@@ -1485,8 +1486,8 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_content_score": 98.4825,
+          "table_pair_score": 99.393
         },
         {
           "gt_index": 1,
@@ -1506,8 +1507,8 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_content_score": 95.7066,
+          "table_pair_score": 98.2826
         },
         {
           "gt_index": 2,
@@ -1527,8 +1528,8 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_content_score": 94.5205,
+          "table_pair_score": 97.8082
         },
         {
           "gt_index": 3,
@@ -1548,8 +1549,8 @@
             "cols": 7
           },
           "table_structure_score": 97.1014,
-          "table_content_score": 94.7743,
-          "table_pair_score": 96.1706
+          "table_content_score": 91.3143,
+          "table_pair_score": 94.7866
         },
         {
           "gt_index": 4,
@@ -1569,8 +1570,8 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 91.8033,
-          "table_pair_score": 96.7213
+          "table_content_score": 79.4737,
+          "table_pair_score": 91.7895
         },
         {
           "gt_index": 5,
@@ -1590,8 +1591,8 @@
             "cols": 4
           },
           "table_structure_score": 92.5926,
-          "table_content_score": 92.5466,
-          "table_pair_score": 92.5742
+          "table_content_score": 87.1345,
+          "table_pair_score": 90.4094
         },
         {
           "gt_index": 6,
@@ -1611,8 +1612,8 @@
             "cols": 4
           },
           "table_structure_score": 96.0784,
-          "table_content_score": 98.1693,
-          "table_pair_score": 96.9148
+          "table_content_score": 96.2306,
+          "table_pair_score": 96.1393
         },
         {
           "gt_index": 7,
@@ -1624,16 +1625,16 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 11,
+            "rows": 12,
             "cols": 4
           },
           "pred_shape": {
             "rows": 11,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_structure_score": 94.4444,
+          "table_content_score": 93.3099,
+          "table_pair_score": 93.9906
         },
         {
           "gt_index": 8,
@@ -1653,8 +1654,8 @@
             "cols": 4
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_content_score": 99.6226,
+          "table_pair_score": 99.8491
         },
         {
           "gt_index": 9,
@@ -1666,16 +1667,16 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 6,
+            "rows": 7,
             "cols": 4
           },
           "pred_shape": {
             "rows": 6,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_structure_score": 90.4762,
+          "table_content_score": 91.7073,
+          "table_pair_score": 90.9686
         },
         {
           "gt_index": 10,
@@ -1695,8 +1696,8 @@
             "cols": 3
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_content_score": 99.5146,
+          "table_pair_score": 99.8058
         },
         {
           "gt_index": 11,
@@ -1716,8 +1717,8 @@
             "cols": 5
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_content_score": 99.4118,
+          "table_pair_score": 99.7647
         },
         {
           "gt_index": 12,
@@ -1737,8 +1738,8 @@
             "cols": 5
           },
           "table_structure_score": 97.1014,
-          "table_content_score": 96.9966,
-          "table_pair_score": 97.0595
+          "table_content_score": 96.7918,
+          "table_pair_score": 96.9776
         },
         {
           "gt_index": 13,
@@ -1758,8 +1759,8 @@
             "cols": 10
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_content_score": 99.8571,
+          "table_pair_score": 99.9429
         },
         {
           "gt_index": 14,
@@ -1779,8 +1780,8 @@
             "cols": 10
           },
           "table_structure_score": 100.0,
-          "table_content_score": 99.6815,
-          "table_pair_score": 99.8726
+          "table_content_score": 99.5223,
+          "table_pair_score": 99.8089
         },
         {
           "gt_index": 15,
@@ -1800,8 +1801,8 @@
             "cols": 9
           },
           "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_content_score": 99.7167,
+          "table_pair_score": 99.8867
         },
         {
           "gt_index": 16,
@@ -1855,16 +1856,16 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 4,
+            "rows": 5,
             "cols": 4
           },
           "pred_shape": {
             "rows": 4,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_structure_score": 86.6667,
+          "table_content_score": 77.4194,
+          "table_pair_score": 82.9677
         },
         {
           "gt_index": 19,
@@ -1897,16 +1898,16 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 30,
+            "rows": 32,
             "cols": 5
           },
           "pred_shape": {
             "rows": 30,
             "cols": 5
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 99.8801,
-          "table_pair_score": 99.952
+          "table_structure_score": 95.8333,
+          "table_content_score": 94.47,
+          "table_pair_score": 95.288
         },
         {
           "gt_index": 21,
@@ -1918,1125 +1919,19 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 15,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 15,
-            "cols": 4
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 22,
-          "pred_index": 22,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 35,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 34,
-            "cols": 5
-          },
-          "table_structure_score": 98.0952,
-          "table_content_score": 97.2767,
-          "table_pair_score": 97.7678
-        },
-        {
-          "gt_index": 23,
-          "pred_index": 23,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 20,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 19,
-            "cols": 4
-          },
-          "table_structure_score": 96.6667,
-          "table_content_score": 99.2687,
-          "table_pair_score": 97.7075
-        },
-        {
-          "gt_index": 24,
-          "pred_index": 24,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 19,
-            "cols": 12
-          },
-          "pred_shape": {
-            "rows": 19,
-            "cols": 12
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 85.75,
-          "table_pair_score": 94.3
-        },
-        {
-          "gt_index": 25,
-          "pred_index": 25,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 21,
-            "cols": 12
-          },
-          "pred_shape": {
-            "rows": 21,
-            "cols": 12
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 91.7808,
-          "table_pair_score": 96.7123
-        },
-        {
-          "gt_index": 26,
-          "pred_index": 26,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 36,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 36,
-            "cols": 4
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 27,
-          "pred_index": 27,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 24,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 24,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 28,
-          "pred_index": 28,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 21,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 21,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 29,
-          "pred_index": 29,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 11,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 11,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 30,
-          "pred_index": 30,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 7,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 7,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 31,
-          "pred_index": 31,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 9,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 9,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 32,
-          "pred_index": 32,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 20,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 20,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 33,
-          "pred_index": 33,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 22,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 22,
-            "cols": 4
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 34,
-          "pred_index": 34,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 38,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 38,
-            "cols": 5
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 35,
-          "pred_index": 35,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 10,
-            "cols": 2
-          },
-          "pred_shape": {
-            "rows": 10,
-            "cols": 2
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 36,
-          "pred_index": 36,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 7,
-            "cols": 2
-          },
-          "pred_shape": {
-            "rows": 7,
-            "cols": 2
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 37,
-          "pred_index": 37,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 12,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 12,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 38,
-          "pred_index": 38,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 8,
-            "cols": 9
-          },
-          "pred_shape": {
-            "rows": 8,
-            "cols": 9
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 90.0277,
-          "table_pair_score": 96.0111
-        },
-        {
-          "gt_index": 39,
-          "pred_index": 39,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 7,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 7,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 40,
-          "pred_index": 40,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 12,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 12,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 41,
-          "pred_index": 41,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 20,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 20,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 42,
-          "pred_index": 42,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 17,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 17,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 99.7199,
-          "table_pair_score": 99.888
-        },
-        {
-          "gt_index": 43,
-          "pred_index": 43,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 9,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 9,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 44,
-          "pred_index": 44,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 9,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 9,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 45,
-          "pred_index": 45,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 9,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 9,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 46,
-          "pred_index": 46,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 19,
-            "cols": 11
-          },
-          "pred_shape": {
-            "rows": 19,
-            "cols": 11
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 47,
-          "pred_index": 47,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 20,
-            "cols": 11
-          },
-          "pred_shape": {
-            "rows": 20,
-            "cols": 11
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 48,
-          "pred_index": 48,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 19,
-            "cols": 11
-          },
-          "pred_shape": {
-            "rows": 19,
-            "cols": 11
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 49,
-          "pred_index": 49,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 19,
-            "cols": 11
-          },
-          "pred_shape": {
-            "rows": 19,
-            "cols": 11
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        }
-      ]
-    },
-    "alt_table_score": {
-      "table_content_score": 55.7246,
-      "table_structure_score": 79.1914,
-      "table_matrix_score": 69.8047,
-      "table_alignment_strategy": "gt_best_unused_pred_one_to_one_order_aware",
-      "matched_table_count": 50,
-      "missing_table_count": 5,
-      "extra_table_count": 0,
-      "gt_table_count": 55,
-      "pred_table_count": 50,
-      "final_table_score": 69.8047,
-      "matches": [
-        {
-          "gt_index": 0,
-          "pred_index": 0,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 18,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 18,
-            "cols": 5
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 1,
-          "pred_index": 1,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 20,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 20,
-            "cols": 5
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 2,
-          "pred_index": 2,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 14,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 14,
-            "cols": 5
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 3,
-          "pred_index": 38,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 10,
-            "cols": 7
-          },
-          "pred_shape": {
-            "rows": 8,
-            "cols": 9
-          },
-          "table_structure_score": 85.0,
-          "table_content_score": 16.0858,
-          "table_pair_score": 57.4343
-        },
-        {
-          "gt_index": 4,
-          "pred_index": 4,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 7,
-            "cols": 7
-          },
-          "pred_shape": {
-            "rows": 7,
-            "cols": 5
-          },
-          "table_structure_score": 80.9524,
-          "table_content_score": 22.6415,
-          "table_pair_score": 57.628
-        },
-        {
-          "gt_index": 5,
-          "pred_index": 17,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 8,
-            "cols": 7
-          },
-          "pred_shape": {
-            "rows": 7,
-            "cols": 5
-          },
-          "table_structure_score": 73.8095,
-          "table_content_score": 18.6885,
-          "table_pair_score": 51.7611
-        },
-        {
-          "gt_index": 6,
-          "pred_index": 5,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 7,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 8,
-            "cols": 4
-          },
-          "table_structure_score": 86.3095,
-          "table_content_score": 23.2143,
-          "table_pair_score": 61.0714
-        },
-        {
-          "gt_index": 7,
-          "pred_index": 7,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 9,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 11,
-            "cols": 4
-          },
-          "table_structure_score": 87.8788,
-          "table_content_score": 28.6245,
-          "table_pair_score": 64.1771
-        },
-        {
-          "gt_index": 8,
-          "pred_index": 6,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 17,
-            "cols": 4
-          },
-          "pred_shape": {
             "rows": 16,
             "cols": 4
           },
-          "table_structure_score": 96.0784,
-          "table_content_score": 98.1693,
-          "table_pair_score": 96.9148
-        },
-        {
-          "gt_index": 9,
-          "pred_index": 8,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 11,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 14,
-            "cols": 4
-          },
-          "table_structure_score": 85.7143,
-          "table_content_score": 21.3884,
-          "table_pair_score": 59.9839
-        },
-        {
-          "gt_index": 10,
-          "pred_index": 21,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 14,
-            "cols": 4
-          },
           "pred_shape": {
             "rows": 15,
             "cols": 4
           },
-          "table_structure_score": 95.5556,
-          "table_content_score": 19.6998,
-          "table_pair_score": 65.2133
-        },
-        {
-          "gt_index": 11,
-          "pred_index": 9,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 6,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 6,
-            "cols": 4
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 12,
-          "pred_index": 10,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 11,
-            "cols": 3
-          },
-          "pred_shape": {
-            "rows": 11,
-            "cols": 3
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 13,
-          "pred_index": 11,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 21,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 21,
-            "cols": 5
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 14,
-          "pred_index": 12,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 23,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 22,
-            "cols": 5
-          },
-          "table_structure_score": 97.1014,
-          "table_content_score": 96.9966,
-          "table_pair_score": 97.0595
-        },
-        {
-          "gt_index": 15,
-          "pred_index": 13,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 11,
-            "cols": 10
-          },
-          "pred_shape": {
-            "rows": 11,
-            "cols": 10
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 16,
-          "pred_index": 14,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 10,
-            "cols": 10
-          },
-          "pred_shape": {
-            "rows": 10,
-            "cols": 10
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 99.6815,
-          "table_pair_score": 99.8726
-        },
-        {
-          "gt_index": 17,
-          "pred_index": 15,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 4,
-            "cols": 9
-          },
-          "pred_shape": {
-            "rows": 4,
-            "cols": 9
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 18,
-          "pred_index": 16,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 5,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 5,
-            "cols": 5
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 19,
-          "pred_index": 29,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 7,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 11,
-            "cols": 3
-          },
-          "table_structure_score": 72.6407,
-          "table_content_score": 19.2771,
-          "table_pair_score": 51.2953
-        },
-        {
-          "gt_index": 20,
-          "pred_index": 18,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 4,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 4,
-            "cols": 4
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
-        },
-        {
-          "gt_index": 21,
-          "pred_index": 19,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 7,
-            "cols": 2
-          },
-          "pred_shape": {
-            "rows": 7,
-            "cols": 2
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_structure_score": 95.8333,
+          "table_content_score": 95.1009,
+          "table_pair_score": 95.5403
         },
         {
           "gt_index": 22,
-          "pred_index": 20,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 30,
-            "cols": 5
-          },
-          "pred_shape": {
-            "rows": 30,
-            "cols": 5
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 99.8801,
-          "table_pair_score": 99.952
-        },
-        {
-          "gt_index": 23,
-          "pred_index": 23,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 15,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 19,
-            "cols": 4
-          },
-          "table_structure_score": 85.9649,
-          "table_content_score": 23.9488,
-          "table_pair_score": 61.1585
-        },
-        {
-          "gt_index": 24,
           "pred_index": 22,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3045,61 +1940,19 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 35,
+            "rows": 51,
             "cols": 5
           },
           "pred_shape": {
             "rows": 34,
             "cols": 5
           },
-          "table_structure_score": 98.0952,
-          "table_content_score": 97.2767,
-          "table_pair_score": 97.7678
+          "table_structure_score": 77.7778,
+          "table_content_score": 63.8116,
+          "table_pair_score": 72.1913
         },
         {
-          "gt_index": 25,
-          "pred_index": 33,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 20,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 22,
-            "cols": 4
-          },
-          "table_structure_score": 93.9394,
-          "table_content_score": 18.5662,
-          "table_pair_score": 63.7901
-        },
-        {
-          "gt_index": 26,
-          "pred_index": 24,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 19,
-            "cols": 12
-          },
-          "pred_shape": {
-            "rows": 19,
-            "cols": 12
-          },
-          "table_structure_score": 100.0,
-          "table_content_score": 85.75,
-          "table_pair_score": 94.3
-        },
-        {
-          "gt_index": 27,
+          "gt_index": 23,
           "pred_index": 25,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3108,19 +1961,19 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 21,
+            "rows": 36,
             "cols": 12
           },
           "pred_shape": {
             "rows": 21,
             "cols": 12
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 91.7808,
-          "table_pair_score": 96.7123
+          "table_structure_score": 72.2222,
+          "table_content_score": 55.1741,
+          "table_pair_score": 65.403
         },
         {
-          "gt_index": 28,
+          "gt_index": 24,
           "pred_index": 26,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3129,19 +1982,19 @@
           "gt_is_cross_page": false,
           "pred_is_cross_page": false,
           "gt_shape": {
-            "rows": 36,
+            "rows": 37,
             "cols": 4
           },
           "pred_shape": {
             "rows": 36,
             "cols": 4
           },
-          "table_structure_score": 100.0,
-          "table_content_score": 100.0,
-          "table_pair_score": 100.0
+          "table_structure_score": 98.1982,
+          "table_content_score": 98.542,
+          "table_pair_score": 98.3357
         },
         {
-          "gt_index": 29,
+          "gt_index": 25,
           "pred_index": 42,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3158,11 +2011,11 @@
             "cols": 3
           },
           "table_structure_score": 92.1569,
-          "table_content_score": 21.2885,
-          "table_pair_score": 63.8095
+          "table_content_score": 21.5686,
+          "table_pair_score": 63.9216
         },
         {
-          "gt_index": 30,
+          "gt_index": 26,
           "pred_index": 31,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3183,7 +2036,7 @@
           "table_pair_score": 78.2857
         },
         {
-          "gt_index": 31,
+          "gt_index": 27,
           "pred_index": 28,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3204,8 +2057,8 @@
           "table_pair_score": 100.0
         },
         {
-          "gt_index": 32,
-          "pred_index": 40,
+          "gt_index": 28,
+          "pred_index": 29,
           "gt_kind": "html",
           "pred_kind": "html",
           "gt_span_pages": null,
@@ -3217,15 +2070,15 @@
             "cols": 3
           },
           "pred_shape": {
-            "rows": 12,
+            "rows": 11,
             "cols": 3
           },
-          "table_structure_score": 94.4444,
-          "table_content_score": 43.2161,
-          "table_pair_score": 73.9531
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
         },
         {
-          "gt_index": 33,
+          "gt_index": 29,
           "pred_index": 30,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3246,7 +2099,7 @@
           "table_pair_score": 100.0
         },
         {
-          "gt_index": 34,
+          "gt_index": 30,
           "pred_index": 43,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3267,7 +2120,7 @@
           "table_pair_score": 76.5116
         },
         {
-          "gt_index": 35,
+          "gt_index": 31,
           "pred_index": 32,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3288,7 +2141,28 @@
           "table_pair_score": 100.0
         },
         {
-          "gt_index": 36,
+          "gt_index": 32,
+          "pred_index": 40,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "table_structure_score": 82.8283,
+          "table_content_score": 24.6914,
+          "table_pair_score": 59.5735
+        },
+        {
+          "gt_index": 33,
           "pred_index": 37,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3305,33 +2179,12 @@
             "cols": 3
           },
           "table_structure_score": 82.8283,
-          "table_content_score": 18.6147,
-          "table_pair_score": 57.1429
+          "table_content_score": 20.332,
+          "table_pair_score": 57.8297
         },
         {
-          "gt_index": 37,
-          "pred_index": 45,
-          "gt_kind": "html",
-          "pred_kind": "html",
-          "gt_span_pages": null,
-          "pred_span_pages": null,
-          "gt_is_cross_page": false,
-          "pred_is_cross_page": false,
-          "gt_shape": {
-            "rows": 11,
-            "cols": 4
-          },
-          "pred_shape": {
-            "rows": 9,
-            "cols": 3
-          },
-          "table_structure_score": 72.7273,
-          "table_content_score": 27.9476,
-          "table_pair_score": 54.8154
-        },
-        {
-          "gt_index": 38,
-          "pred_index": 34,
+          "gt_index": 34,
+          "pred_index": 23,
           "gt_kind": "html",
           "pred_kind": "html",
           "gt_span_pages": null,
@@ -3343,16 +2196,16 @@
             "cols": 5
           },
           "pred_shape": {
-            "rows": 38,
-            "cols": 5
+            "rows": 19,
+            "cols": 4
           },
-          "table_structure_score": 64.9123,
-          "table_content_score": 45.3276,
-          "table_pair_score": 57.0784
+          "table_structure_score": 86.3938,
+          "table_content_score": 19.4495,
+          "table_pair_score": 59.6161
         },
         {
-          "gt_index": 39,
-          "pred_index": 41,
+          "gt_index": 35,
+          "pred_index": 34,
           "gt_kind": "html",
           "pred_kind": "html",
           "gt_span_pages": null,
@@ -3364,15 +2217,15 @@
             "cols": 5
           },
           "pred_shape": {
-            "rows": 20,
-            "cols": 3
+            "rows": 38,
+            "cols": 5
           },
-          "table_structure_score": 73.3333,
-          "table_content_score": 24.0157,
-          "table_pair_score": 53.6063
+          "table_structure_score": 68.4211,
+          "table_content_score": 54.565,
+          "table_pair_score": 62.8786
         },
         {
-          "gt_index": 40,
+          "gt_index": 36,
           "pred_index": 35,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3393,7 +2246,7 @@
           "table_pair_score": 100.0
         },
         {
-          "gt_index": 41,
+          "gt_index": 37,
           "pred_index": 36,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3414,8 +2267,8 @@
           "table_pair_score": 100.0
         },
         {
-          "gt_index": 42,
-          "pred_index": 44,
+          "gt_index": 38,
+          "pred_index": 45,
           "gt_kind": "html",
           "pred_kind": "html",
           "gt_span_pages": null,
@@ -3431,12 +2284,12 @@
             "cols": 3
           },
           "table_structure_score": 83.3333,
-          "table_content_score": 36.7925,
-          "table_pair_score": 64.717
+          "table_content_score": 38.3886,
+          "table_pair_score": 65.3555
         },
         {
-          "gt_index": 43,
-          "pred_index": 27,
+          "gt_index": 39,
+          "pred_index": 38,
           "gt_kind": "html",
           "pred_kind": "html",
           "gt_span_pages": null,
@@ -3448,15 +2301,15 @@
             "cols": 9
           },
           "pred_shape": {
-            "rows": 24,
-            "cols": 3
+            "rows": 8,
+            "cols": 9
           },
-          "table_structure_score": 55.5556,
-          "table_content_score": 16.5703,
-          "table_pair_score": 39.9615
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
         },
         {
-          "gt_index": 44,
+          "gt_index": 40,
           "pred_index": 39,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3477,8 +2330,8 @@
           "table_pair_score": 100.0
         },
         {
-          "gt_index": 45,
-          "pred_index": 3,
+          "gt_index": 41,
+          "pred_index": 44,
           "gt_kind": "html",
           "pred_kind": "html",
           "gt_span_pages": null,
@@ -3490,16 +2343,16 @@
             "cols": 3
           },
           "pred_shape": {
-            "rows": 22,
-            "cols": 7
+            "rows": 9,
+            "cols": 3
           },
-          "table_structure_score": 40.2597,
-          "table_content_score": 10.7975,
-          "table_pair_score": 28.4749
+          "table_structure_score": 83.3333,
+          "table_content_score": 33.3333,
+          "table_pair_score": 63.3333
         },
         {
-          "gt_index": 46,
-          "pred_index": 47,
+          "gt_index": 42,
+          "pred_index": 41,
           "gt_kind": "html",
           "pred_kind": "html",
           "gt_span_pages": null,
@@ -3512,15 +2365,15 @@
           },
           "pred_shape": {
             "rows": 20,
-            "cols": 11
+            "cols": 3
           },
-          "table_structure_score": 51.5152,
-          "table_content_score": 14.3187,
-          "table_pair_score": 36.6366
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
         },
         {
-          "gt_index": 47,
-          "pred_index": 48,
+          "gt_index": 43,
+          "pred_index": 27,
           "gt_kind": "html",
           "pred_kind": "html",
           "gt_span_pages": null,
@@ -3532,15 +2385,57 @@
             "cols": 3
           },
           "pred_shape": {
+            "rows": 24,
+            "cols": 3
+          },
+          "table_structure_score": 80.5556,
+          "table_content_score": 24.1313,
+          "table_pair_score": 57.9858
+        },
+        {
+          "gt_index": 44,
+          "pred_index": 33,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 22,
+            "cols": 4
+          },
+          "table_structure_score": 48.8636,
+          "table_content_score": 15.4013,
+          "table_pair_score": 35.4787
+        },
+        {
+          "gt_index": 45,
+          "pred_index": 48,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
             "rows": 19,
             "cols": 11
           },
-          "table_structure_score": 47.0494,
-          "table_content_score": 21.0425,
-          "table_pair_score": 36.6467
+          "table_structure_score": 29.1866,
+          "table_content_score": 8.8803,
+          "table_pair_score": 21.0641
         },
         {
-          "gt_index": 48,
+          "gt_index": 46,
           "pred_index": 46,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3557,11 +2452,1096 @@
             "cols": 11
           },
           "table_structure_score": 29.1866,
-          "table_content_score": 7.9403,
-          "table_pair_score": 20.6881
+          "table_content_score": 8.4252,
+          "table_pair_score": 20.882
+        },
+        {
+          "gt_index": 47,
+          "pred_index": 47,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 20,
+            "cols": 11
+          },
+          "table_structure_score": 96.6667,
+          "table_content_score": 69.6993,
+          "table_pair_score": 85.8797
+        },
+        {
+          "gt_index": 48,
+          "pred_index": 49,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 96.6667,
+          "table_content_score": 38.8589,
+          "table_pair_score": 73.5436
         },
         {
           "gt_index": 49,
+          "pred_index": 24,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 12
+          },
+          "table_structure_score": 94.4444,
+          "table_content_score": 21.7225,
+          "table_pair_score": 65.3557
+        }
+      ]
+    },
+    "alt_table_score": {
+      "table_content_score": 73.3674,
+      "table_structure_score": 85.7031,
+      "table_matrix_score": 80.7688,
+      "table_alignment_strategy": "gt_best_unused_pred_one_to_one_order_aware",
+      "matched_table_count": 50,
+      "missing_table_count": 3,
+      "extra_table_count": 0,
+      "gt_table_count": 53,
+      "pred_table_count": 50,
+      "final_table_score": 80.7688,
+      "matches": [
+        {
+          "gt_index": 0,
+          "pred_index": 0,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 18,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 98.4825,
+          "table_pair_score": 99.393
+        },
+        {
+          "gt_index": 1,
+          "pred_index": 1,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 20,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 95.7066,
+          "table_pair_score": 98.2826
+        },
+        {
+          "gt_index": 2,
+          "pred_index": 2,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 14,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 14,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 94.5205,
+          "table_pair_score": 97.8082
+        },
+        {
+          "gt_index": 3,
+          "pred_index": 3,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 23,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 22,
+            "cols": 7
+          },
+          "table_structure_score": 97.1014,
+          "table_content_score": 91.3143,
+          "table_pair_score": 94.7866
+        },
+        {
+          "gt_index": 4,
+          "pred_index": 4,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 79.4737,
+          "table_pair_score": 91.7895
+        },
+        {
+          "gt_index": 5,
+          "pred_index": 5,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 4
+          },
+          "table_structure_score": 92.5926,
+          "table_content_score": 87.1345,
+          "table_pair_score": 90.4094
+        },
+        {
+          "gt_index": 6,
+          "pred_index": 6,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 16,
+            "cols": 4
+          },
+          "table_structure_score": 96.0784,
+          "table_content_score": 96.2306,
+          "table_pair_score": 96.1393
+        },
+        {
+          "gt_index": 7,
+          "pred_index": 7,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 12,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 4
+          },
+          "table_structure_score": 94.4444,
+          "table_content_score": 93.3099,
+          "table_pair_score": 93.9906
+        },
+        {
+          "gt_index": 8,
+          "pred_index": 8,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 14,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 14,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 99.6226,
+          "table_pair_score": 99.8491
+        },
+        {
+          "gt_index": 9,
+          "pred_index": 9,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 6,
+            "cols": 4
+          },
+          "table_structure_score": 90.4762,
+          "table_content_score": 91.7073,
+          "table_pair_score": 90.9686
+        },
+        {
+          "gt_index": 10,
+          "pred_index": 10,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 99.5146,
+          "table_pair_score": 99.8058
+        },
+        {
+          "gt_index": 11,
+          "pred_index": 11,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 99.4118,
+          "table_pair_score": 99.7647
+        },
+        {
+          "gt_index": 12,
+          "pred_index": 12,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 23,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 22,
+            "cols": 5
+          },
+          "table_structure_score": 97.1014,
+          "table_content_score": 96.7918,
+          "table_pair_score": 96.9776
+        },
+        {
+          "gt_index": 13,
+          "pred_index": 13,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 10
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 10
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 99.8571,
+          "table_pair_score": 99.9429
+        },
+        {
+          "gt_index": 14,
+          "pred_index": 14,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 10
+          },
+          "pred_shape": {
+            "rows": 10,
+            "cols": 10
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 99.5223,
+          "table_pair_score": 99.8089
+        },
+        {
+          "gt_index": 15,
+          "pred_index": 15,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 4,
+            "cols": 9
+          },
+          "pred_shape": {
+            "rows": 4,
+            "cols": 9
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 99.7167,
+          "table_pair_score": 99.8867
+        },
+        {
+          "gt_index": 16,
+          "pred_index": 16,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 5,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 5,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 17,
+          "pred_index": 17,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 18,
+          "pred_index": 18,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 5,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 4,
+            "cols": 4
+          },
+          "table_structure_score": 86.6667,
+          "table_content_score": 77.4194,
+          "table_pair_score": 82.9677
+        },
+        {
+          "gt_index": 19,
+          "pred_index": 19,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 2
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 20,
+          "pred_index": 20,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 32,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 30,
+            "cols": 5
+          },
+          "table_structure_score": 95.8333,
+          "table_content_score": 94.47,
+          "table_pair_score": 95.288
+        },
+        {
+          "gt_index": 21,
+          "pred_index": 21,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 16,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 15,
+            "cols": 4
+          },
+          "table_structure_score": 95.8333,
+          "table_content_score": 95.1009,
+          "table_pair_score": 95.5403
+        },
+        {
+          "gt_index": 22,
+          "pred_index": 22,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 36,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 34,
+            "cols": 5
+          },
+          "table_structure_score": 96.2963,
+          "table_content_score": 97.0684,
+          "table_pair_score": 96.6051
+        },
+        {
+          "gt_index": 23,
+          "pred_index": 23,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 4
+          },
+          "table_structure_score": 96.6667,
+          "table_content_score": 96.2025,
+          "table_pair_score": 96.481
+        },
+        {
+          "gt_index": 24,
+          "pred_index": 24,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 12
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 12
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 88.4979,
+          "table_pair_score": 95.3991
+        },
+        {
+          "gt_index": 25,
+          "pred_index": 25,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 12
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 12
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 92.6324,
+          "table_pair_score": 97.053
+        },
+        {
+          "gt_index": 26,
+          "pred_index": 26,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 37,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 36,
+            "cols": 4
+          },
+          "table_structure_score": 98.1982,
+          "table_content_score": 98.542,
+          "table_pair_score": 98.3357
+        },
+        {
+          "gt_index": 27,
+          "pred_index": 42,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 15,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 3
+          },
+          "table_structure_score": 92.1569,
+          "table_content_score": 21.5686,
+          "table_pair_score": 63.9216
+        },
+        {
+          "gt_index": 28,
+          "pred_index": 31,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 45.7143,
+          "table_pair_score": 78.2857
+        },
+        {
+          "gt_index": 29,
+          "pred_index": 28,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 21,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 21,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 30,
+          "pred_index": 29,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 31,
+          "pred_index": 30,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 32,
+          "pred_index": 43,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 41.2791,
+          "table_pair_score": 76.5116
+        },
+        {
+          "gt_index": 33,
+          "pred_index": 32,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 34,
+          "pred_index": 40,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "table_structure_score": 82.8283,
+          "table_content_score": 24.6914,
+          "table_pair_score": 59.5735
+        },
+        {
+          "gt_index": 35,
+          "pred_index": 33,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 22,
+            "cols": 4
+          },
+          "table_structure_score": 66.6667,
+          "table_content_score": 49.4577,
+          "table_pair_score": 59.7831
+        },
+        {
+          "gt_index": 36,
+          "pred_index": 34,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 18,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 38,
+            "cols": 5
+          },
+          "table_structure_score": 64.9123,
+          "table_content_score": 45.3276,
+          "table_pair_score": 57.0784
+        },
+        {
+          "gt_index": 37,
+          "pred_index": 41,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "table_structure_score": 73.3333,
+          "table_content_score": 24.0157,
+          "table_pair_score": 53.6063
+        },
+        {
+          "gt_index": 38,
+          "pred_index": 35,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 10,
+            "cols": 2
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 39,
+          "pred_index": 36,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 2
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 2
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 40,
+          "pred_index": 37,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 41,
+          "pred_index": 38,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 8,
+            "cols": 9
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 9
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 42,
+          "pred_index": 39,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0
+        },
+        {
+          "gt_index": 43,
+          "pred_index": 44,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 12,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 83.3333,
+          "table_content_score": 33.3333,
+          "table_pair_score": 63.3333
+        },
+        {
+          "gt_index": 44,
+          "pred_index": 27,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 20,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 24,
+            "cols": 3
+          },
+          "table_structure_score": 88.8889,
+          "table_content_score": 21.4286,
+          "table_pair_score": 61.9048
+        },
+        {
+          "gt_index": 45,
+          "pred_index": 45,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "table_structure_score": 68.6275,
+          "table_content_score": 24.6499,
+          "table_pair_score": 51.0364
+        },
+        {
+          "gt_index": 46,
+          "pred_index": 46,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 29.1866,
+          "table_content_score": 7.9528,
+          "table_pair_score": 20.6931
+        },
+        {
+          "gt_index": 47,
+          "pred_index": 48,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "table_structure_score": 29.1866,
+          "table_content_score": 8.8803,
+          "table_pair_score": 21.0641
+        },
+        {
+          "gt_index": 48,
           "pred_index": 49,
           "gt_kind": "html",
           "pred_kind": "html",
@@ -3578,8 +3558,29 @@
             "cols": 11
           },
           "table_structure_score": 29.1866,
-          "table_content_score": 8.3178,
-          "table_pair_score": 20.8391
+          "table_content_score": 8.2243,
+          "table_pair_score": 20.8017
+        },
+        {
+          "gt_index": 49,
+          "pred_index": 47,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 19,
+            "cols": 11
+          },
+          "pred_shape": {
+            "rows": 20,
+            "cols": 11
+          },
+          "table_structure_score": 96.6667,
+          "table_content_score": 69.6993,
+          "table_pair_score": 85.8797
         }
       ]
     }
@@ -3593,14 +3594,12 @@
     },
     "gt_raw_heading_levels": [
       1,
-      3,
+      1,
+      1,
+      1,
+      1,
       2,
       2,
-      2,
-      2,
-      2,
-      3,
-      3,
       3,
       4,
       4,
@@ -3630,21 +3629,8 @@
       3,
       3,
       3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
+      2,
+      2,
       2,
       3,
       3,
@@ -3654,12 +3640,8 @@
       3,
       3,
       3,
-      2,
       3,
-      2,
-      3,
-      3,
-      3,
+      1,
       2,
       2,
       3,
@@ -3668,52 +3650,49 @@
       3,
       3,
       3,
-      3,
+      1,
       2,
       3,
       2,
-      3,
+      1,
+      2,
+      2,
+      2,
+      1,
+      1,
       2,
       3,
       3,
       3,
+      2,
+      2,
+      3,
+      1,
+      2,
+      1,
+      2,
+      2,
       3,
       3,
       3,
-      3,
-      4,
-      3,
-      4,
-      4,
-      3,
-      4,
-      4,
-      4,
-      3,
-      4,
-      4,
-      3,
-      4,
-      3,
-      3,
-      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
       3,
       3,
       4,
       4,
+      4,
+      4,
+      5,
+      5,
+      4,
+      4,
       3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
+      4,
       3,
       3,
       3,
@@ -3727,20 +3706,28 @@
       3,
       3,
       3,
+      3,
+      3,
+      3,
+      3,
+      3,
       4,
+      4,
+      3,
+      3,
       3,
       4,
       4,
       4,
       4,
       4,
-      3,
       4,
       4,
-      3
+      4,
+      4,
+      4
     ],
     "pred_raw_heading_levels": [
-      2,
       2,
       2,
       2,
@@ -3891,14 +3878,12 @@
     ],
     "gt_relative_heading_levels": [
       1,
-      3,
+      1,
+      1,
+      1,
+      1,
       2,
       2,
-      2,
-      2,
-      2,
-      3,
-      3,
       3,
       4,
       4,
@@ -3928,21 +3913,8 @@
       3,
       3,
       3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
+      2,
+      2,
       2,
       3,
       3,
@@ -3952,12 +3924,8 @@
       3,
       3,
       3,
-      2,
       3,
-      2,
-      3,
-      3,
-      3,
+      1,
       2,
       2,
       3,
@@ -3966,52 +3934,49 @@
       3,
       3,
       3,
-      3,
+      1,
       2,
       3,
       2,
-      3,
+      1,
+      2,
+      2,
+      2,
+      1,
+      1,
       2,
       3,
       3,
       3,
+      2,
+      2,
+      3,
+      1,
+      2,
+      1,
+      2,
+      2,
       3,
       3,
       3,
-      3,
-      4,
-      3,
-      4,
-      4,
-      3,
-      4,
-      4,
-      4,
-      3,
-      4,
-      4,
-      3,
-      4,
-      3,
-      3,
-      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
       3,
       3,
       4,
       4,
+      4,
+      4,
+      5,
+      5,
+      4,
+      4,
       3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
-      3,
+      4,
       3,
       3,
       3,
@@ -4025,17 +3990,26 @@
       3,
       3,
       3,
+      3,
+      3,
+      3,
+      3,
+      3,
       4,
+      4,
+      3,
+      3,
       3,
       4,
       4,
       4,
       4,
       4,
-      3,
       4,
       4,
-      3
+      4,
+      4,
+      4
     ],
     "pred_relative_heading_levels": [
       1,
@@ -4184,47 +4158,35 @@
       1,
       1,
       1,
-      1,
       1
     ],
-    "title_layout_score": 89.8078,
-    "heading_f1_score": 96.5986,
-    "level_accuracy_score": 29.3427,
-    "order_score": 95.9459,
-    "alignment_cost": 11.425,
-    "missing_heading_count": 4,
-    "extra_heading_count": 6,
-    "level_mismatch_count": 142,
+    "title_layout_score": 82.4568,
+    "heading_f1_score": 86.4286,
+    "level_accuracy_score": 50.8264,
+    "order_score": 82.3129,
+    "alignment_cost": 43.1677,
+    "missing_heading_count": 12,
+    "extra_heading_count": 26,
+    "level_mismatch_count": 111,
     "issues": [
-      "142 aligned headings have different relative levels.",
-      "4 GT headings are missing.",
-      "6 predicted headings are extra."
+      "111 aligned headings have different relative levels.",
+      "12 GT headings are missing.",
+      "26 predicted headings are extra."
     ],
     "alignment": [
       {
-        "op": "missing",
+        "op": "extra",
         "cost": 1.0,
-        "gt_index": 0,
-        "gt_level": 1,
-        "gt_text_preview": "2026 財務年度中期報告"
-      },
-      {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 1,
         "pred_index": 0,
-        "gt_level": 3,
         "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "阿里巴巴",
         "pred_text_preview": "阿里巴巴"
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 2,
+        "gt_index": 0,
         "pred_index": 1,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "目錄",
@@ -4233,9 +4195,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 3,
+        "gt_index": 1,
         "pred_index": 2,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "不同投票權",
@@ -4244,9 +4206,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 4,
+        "gt_index": 2,
         "pred_index": 3,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "匯率資料",
@@ -4255,9 +4217,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 5,
+        "gt_index": 3,
         "pred_index": 4,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "安全港聲明",
@@ -4266,23 +4228,23 @@
       {
         "op": "missing",
         "cost": 1.0,
-        "gt_index": 6,
-        "gt_level": 2,
+        "gt_index": 4,
+        "gt_level": 1,
         "gt_text_preview": "管理層討論與分析"
       },
       {
         "op": "missing",
         "cost": 1.0,
-        "gt_index": 7,
-        "gt_level": 3,
+        "gt_index": 5,
+        "gt_level": 2,
         "gt_text_preview": "截至9月份止六個月財務業績概要"
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 8,
+        "gt_index": 6,
         "pred_index": 5,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "截至9月份止六個月分部業績",
@@ -4291,7 +4253,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 9,
+        "gt_index": 7,
         "pred_index": 6,
         "gt_level": 3,
         "pred_level": 1,
@@ -4302,7 +4264,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 10,
+        "gt_index": 8,
         "pred_index": 7,
         "gt_level": 4,
         "pred_level": 1,
@@ -4334,7 +4296,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 11,
+        "gt_index": 9,
         "pred_index": 11,
         "gt_level": 4,
         "pred_level": 1,
@@ -4345,7 +4307,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 12,
+        "gt_index": 10,
         "pred_index": 12,
         "gt_level": 3,
         "pred_level": 1,
@@ -4356,7 +4318,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 13,
+        "gt_index": 11,
         "pred_index": 13,
         "gt_level": 4,
         "pred_level": 1,
@@ -4381,7 +4343,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 14,
+        "gt_index": 12,
         "pred_index": 16,
         "gt_level": 4,
         "pred_level": 1,
@@ -4392,7 +4354,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 15,
+        "gt_index": 13,
         "pred_index": 17,
         "gt_level": 3,
         "pred_level": 1,
@@ -4403,7 +4365,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 16,
+        "gt_index": 14,
         "pred_index": 18,
         "gt_level": 4,
         "pred_level": 1,
@@ -4414,7 +4376,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 17,
+        "gt_index": 15,
         "pred_index": 19,
         "gt_level": 4,
         "pred_level": 1,
@@ -4425,7 +4387,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 18,
+        "gt_index": 16,
         "pred_index": 20,
         "gt_level": 3,
         "pred_level": 1,
@@ -4436,7 +4398,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 19,
+        "gt_index": 17,
         "pred_index": 21,
         "gt_level": 4,
         "pred_level": 1,
@@ -4447,7 +4409,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 20,
+        "gt_index": 18,
         "pred_index": 22,
         "gt_level": 4,
         "pred_level": 1,
@@ -4458,14 +4420,14 @@
       {
         "op": "missing",
         "cost": 1.0,
-        "gt_index": 21,
+        "gt_index": 19,
         "gt_level": 2,
         "gt_text_preview": "截至9月份止六個月其他財務業績"
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 22,
+        "gt_index": 20,
         "pred_index": 23,
         "gt_level": 3,
         "pred_level": 1,
@@ -4476,7 +4438,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 23,
+        "gt_index": 21,
         "pred_index": 24,
         "gt_level": 3,
         "pred_level": 1,
@@ -4487,7 +4449,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 24,
+        "gt_index": 22,
         "pred_index": 25,
         "gt_level": 3,
         "pred_level": 1,
@@ -4498,7 +4460,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 25,
+        "gt_index": 23,
         "pred_index": 26,
         "gt_level": 3,
         "pred_level": 1,
@@ -4509,7 +4471,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 26,
+        "gt_index": 24,
         "pred_index": 27,
         "gt_level": 3,
         "pred_level": 1,
@@ -4520,7 +4482,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 27,
+        "gt_index": 25,
         "pred_index": 28,
         "gt_level": 3,
         "pred_level": 1,
@@ -4531,7 +4493,7 @@
       {
         "op": "match",
         "cost": 0.19999999999999996,
-        "gt_index": 28,
+        "gt_index": 26,
         "pred_index": 29,
         "gt_level": 3,
         "pred_level": 1,
@@ -4542,7 +4504,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 29,
+        "gt_index": 27,
         "pred_index": 30,
         "gt_level": 3,
         "pred_level": 1,
@@ -4553,7 +4515,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 30,
+        "gt_index": 28,
         "pred_index": 31,
         "gt_level": 3,
         "pred_level": 1,
@@ -4564,7 +4526,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 31,
+        "gt_index": 29,
         "pred_index": 32,
         "gt_level": 3,
         "pred_level": 1,
@@ -4574,19 +4536,19 @@
       },
       {
         "op": "match",
-        "cost": 0.0,
-        "gt_index": 32,
+        "cost": 0.05555555555555558,
+        "gt_index": 30,
         "pred_index": 33,
         "gt_level": 3,
         "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "攤薄每股美國存託股／每股收益及非公認會計準則攤薄每股美國存託股／每股收益",
+        "text_similarity": 0.9444,
+        "gt_text_preview": "攤薄每股美國存託股╱每股收益及非公認會計準則攤薄每股美國存託股╱每股收益",
         "pred_text_preview": "攤薄每股美國存託股／每股收益及非公認會計準則攤薄每股美國存託股／每股收益"
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 33,
+        "gt_index": 31,
         "pred_index": 34,
         "gt_level": 3,
         "pred_level": 1,
@@ -4597,7 +4559,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 34,
+        "gt_index": 32,
         "pred_index": 35,
         "gt_level": 3,
         "pred_level": 1,
@@ -4608,7 +4570,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 35,
+        "gt_index": 33,
         "pred_index": 36,
         "gt_level": 3,
         "pred_level": 1,
@@ -4619,7 +4581,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 36,
+        "gt_index": 34,
         "pred_index": 37,
         "gt_level": 3,
         "pred_level": 1,
@@ -4630,7 +4592,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 37,
+        "gt_index": 35,
         "pred_index": 38,
         "gt_level": 3,
         "pred_level": 1,
@@ -4641,53 +4603,41 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 38,
+        "gt_index": 36,
         "pred_index": 39,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節",
         "pred_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節"
       },
       {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 39,
+        "op": "extra",
+        "cost": 1.0,
         "pred_index": 40,
-        "gt_level": 3,
         "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）",
         "pred_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）"
       },
       {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 40,
+        "op": "extra",
+        "cost": 1.0,
         "pred_index": 41,
-        "gt_level": 3,
         "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）",
         "pred_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）"
       },
       {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 41,
+        "op": "extra",
+        "cost": 1.0,
         "pred_index": 42,
-        "gt_level": 3,
         "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）",
         "pred_text_preview": "非公認會計準則財務指標與其最接近的可比美國公認會計準則指標之間的調節（續）"
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 42,
+        "gt_index": 37,
         "pred_index": 43,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "非公認會計準則財務指標",
@@ -4696,9 +4646,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 43,
+        "gt_index": 38,
         "pred_index": 44,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "其他財務資料",
@@ -4707,7 +4657,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 44,
+        "gt_index": 39,
         "pred_index": 45,
         "gt_level": 3,
         "pred_level": 1,
@@ -4718,7 +4668,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 45,
+        "gt_index": 40,
         "pred_index": 46,
         "gt_level": 3,
         "pred_level": 1,
@@ -4729,7 +4679,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 46,
+        "gt_index": 41,
         "pred_index": 47,
         "gt_level": 3,
         "pred_level": 1,
@@ -4740,7 +4690,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 47,
+        "gt_index": 42,
         "pred_index": 48,
         "gt_level": 3,
         "pred_level": 1,
@@ -4751,7 +4701,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 48,
+        "gt_index": 43,
         "pred_index": 49,
         "gt_level": 3,
         "pred_level": 1,
@@ -4762,7 +4712,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 49,
+        "gt_index": 44,
         "pred_index": 50,
         "gt_level": 3,
         "pred_level": 1,
@@ -4773,7 +4723,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 50,
+        "gt_index": 45,
         "pred_index": 51,
         "gt_level": 3,
         "pred_level": 1,
@@ -4784,7 +4734,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 51,
+        "gt_index": 46,
         "pred_index": 52,
         "gt_level": 3,
         "pred_level": 1,
@@ -4795,7 +4745,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 52,
+        "gt_index": 47,
         "pred_index": 53,
         "gt_level": 3,
         "pred_level": 1,
@@ -4806,9 +4756,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 53,
+        "gt_index": 48,
         "pred_index": 54,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "董事及首席執行官",
@@ -4817,9 +4767,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 54,
+        "gt_index": 49,
         "pred_index": 55,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "履歷資料",
@@ -4828,9 +4778,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 55,
+        "gt_index": 50,
         "pred_index": 56,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "董事會委員會",
@@ -4839,7 +4789,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 56,
+        "gt_index": 51,
         "pred_index": 57,
         "gt_level": 3,
         "pred_level": 1,
@@ -4850,7 +4800,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 57,
+        "gt_index": 52,
         "pred_index": 58,
         "gt_level": 3,
         "pred_level": 1,
@@ -4861,7 +4811,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 58,
+        "gt_index": 53,
         "pred_index": 59,
         "gt_level": 3,
         "pred_level": 1,
@@ -4872,7 +4822,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 59,
+        "gt_index": 54,
         "pred_index": 60,
         "gt_level": 3,
         "pred_level": 1,
@@ -4883,7 +4833,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 60,
+        "gt_index": 55,
         "pred_index": 61,
         "gt_level": 3,
         "pred_level": 1,
@@ -4894,7 +4844,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 61,
+        "gt_index": 56,
         "pred_index": 62,
         "gt_level": 3,
         "pred_level": 1,
@@ -4905,31 +4855,45 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 62,
+        "gt_index": 57,
         "pred_index": 63,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "權益披露",
         "pred_text_preview": "權益披露"
       },
       {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 58,
+        "gt_level": 2,
+        "gt_text_preview": "董事及首席執行官"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 59,
+        "gt_level": 3,
+        "gt_text_preview": "於本公司的權益"
+      },
+      {
         "op": "match",
         "cost": 1.1,
-        "gt_index": 63,
+        "gt_index": 60,
         "pred_index": 64,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 0.0,
-        "gt_text_preview": "董事及首席執行官",
+        "gt_text_preview": "主要股東",
         "pred_text_preview": "下表載列："
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 64,
+        "gt_index": 61,
         "pred_index": 65,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "股權激勵計劃",
@@ -4938,9 +4902,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 65,
+        "gt_index": 62,
         "pred_index": 66,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "2014年計劃",
@@ -4956,9 +4920,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 66,
+        "gt_index": 63,
         "pred_index": 68,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "2024年計劃",
@@ -4966,21 +4930,21 @@
       },
       {
         "op": "match",
-        "cost": 0.0,
-        "gt_index": 67,
+        "cost": 0.15384615384615385,
+        "gt_index": 64,
         "pred_index": 69,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "2024年計劃(現有股份)",
+        "text_similarity": 0.8462,
+        "gt_text_preview": "2024年計劃（現有股份）",
         "pred_text_preview": "2024年計劃(現有股份)"
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 68,
+        "gt_index": 65,
         "pred_index": 70,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "購買、出售或回購本公司上市證券",
@@ -4989,9 +4953,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 69,
+        "gt_index": 66,
         "pred_index": 71,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "其他信息",
@@ -5000,9 +4964,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 70,
+        "gt_index": 67,
         "pred_index": 72,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "企業管治",
@@ -5011,7 +4975,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 71,
+        "gt_index": 68,
         "pred_index": 73,
         "gt_level": 3,
         "pred_level": 1,
@@ -5022,7 +4986,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 72,
+        "gt_index": 69,
         "pred_index": 74,
         "gt_level": 3,
         "pred_level": 1,
@@ -5033,7 +4997,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 73,
+        "gt_index": 70,
         "pred_index": 75,
         "gt_level": 3,
         "pred_level": 1,
@@ -5044,9 +5008,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 74,
+        "gt_index": 71,
         "pred_index": 76,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "中期股息",
@@ -5055,9 +5019,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 75,
+        "gt_index": 72,
         "pred_index": 77,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "票據發行所得募集資金用途",
@@ -5066,7 +5030,7 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 76,
+        "gt_index": 73,
         "pred_index": 78,
         "gt_level": 3,
         "pred_level": 1,
@@ -5077,9 +5041,9 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 77,
+        "gt_index": 74,
         "pred_index": 79,
-        "gt_level": 2,
+        "gt_level": 1,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "釋義",
@@ -5088,31 +5052,27 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 78,
+        "gt_index": 75,
         "pred_index": 80,
-        "gt_level": 3,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "適用於本中期報告的定義",
         "pred_text_preview": "適用於本中期報告的定義"
       },
       {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 79,
-        "pred_index": 81,
-        "gt_level": 2,
-        "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "阿里巴巴集團控股有限公司",
-        "pred_text_preview": "阿里巴巴集團控股有限公司"
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 76,
+        "gt_level": 1,
+        "gt_text_preview": "財務報表"
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 80,
-        "pred_index": 82,
-        "gt_level": 3,
+        "gt_index": 77,
+        "pred_index": 81,
+        "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "簡明合併中期財務報表索引",
@@ -5121,8 +5081,8 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 81,
-        "pred_index": 83,
+        "gt_index": 78,
+        "pred_index": 82,
         "gt_level": 2,
         "pred_level": 1,
         "text_similarity": 1.0,
@@ -5130,21 +5090,17 @@
         "pred_text_preview": "中期財務資料的審閱報告"
       },
       {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 82,
-        "pred_index": 84,
-        "gt_level": 3,
+        "op": "extra",
+        "cost": 1.0,
+        "pred_index": 83,
         "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "致阿里巴巴集團控股有限公司董事會",
         "pred_text_preview": "致阿里巴巴集團控股有限公司董事會"
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 83,
-        "pred_index": 85,
+        "gt_index": 79,
+        "pred_index": 84,
         "gt_level": 3,
         "pred_level": 1,
         "text_similarity": 1.0,
@@ -5154,8 +5110,8 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 84,
-        "pred_index": 86,
+        "gt_index": 80,
+        "pred_index": 85,
         "gt_level": 3,
         "pred_level": 1,
         "text_similarity": 1.0,
@@ -5165,8 +5121,8 @@
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 85,
-        "pred_index": 87,
+        "gt_index": 81,
+        "pred_index": 86,
         "gt_level": 3,
         "pred_level": 1,
         "text_similarity": 1.0,
@@ -5174,113 +5130,82 @@
         "pred_text_preview": "結論"
       },
       {
-        "op": "match",
-        "cost": 0.0,
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 82,
+        "gt_level": 2,
+        "gt_text_preview": "未經審計簡明合併利潤表"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 83,
+        "gt_level": 2,
+        "gt_text_preview": "未經審計簡明合併綜合收益表"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 84,
+        "gt_level": 2,
+        "gt_text_preview": "未經審計簡明合併資產負債表"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 85,
+        "gt_level": 2,
+        "gt_text_preview": "未經審計簡明合併股東權益變動表"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
         "gt_index": 86,
-        "pred_index": 88,
-        "gt_level": 3,
+        "gt_level": 2,
+        "gt_text_preview": "未經審計簡明合併現金流量表"
+      },
+      {
+        "op": "match",
+        "cost": 1.1,
+        "gt_index": 87,
+        "pred_index": 87,
+        "gt_level": 2,
         "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "羅兵咸永道會計師事務所",
+        "text_similarity": 0.0714,
+        "gt_text_preview": "未經審計簡明合併財務報表附註",
         "pred_text_preview": "羅兵咸永道會計師事務所"
       },
       {
         "op": "match",
         "cost": 0.0,
-        "gt_index": 87,
-        "pred_index": 89,
+        "gt_index": 88,
+        "pred_index": 88,
         "gt_level": 3,
         "pred_level": 1,
         "text_similarity": 1.0,
         "gt_text_preview": "1. 組織及主要活動",
         "pred_text_preview": "1. 組織及主要活動"
-      },
-      {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 88,
-        "pred_index": 90,
-        "gt_level": 3,
-        "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "2. 重要會計政策摘要",
-        "pred_text_preview": "2. 重要會計政策摘要"
-      },
-      {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 89,
-        "pred_index": 91,
-        "gt_level": 4,
-        "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "(a) 列報基礎",
-        "pred_text_preview": "(a) 列報基礎"
-      },
-      {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 90,
-        "pred_index": 92,
-        "gt_level": 3,
-        "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "2. 重要會計政策摘要(續)",
-        "pred_text_preview": "2. 重要會計政策摘要(續)"
-      },
-      {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 91,
-        "pred_index": 93,
-        "gt_level": 4,
-        "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "(b) 估計的使用",
-        "pred_text_preview": "(b) 估計的使用"
-      },
-      {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 92,
-        "pred_index": 94,
-        "gt_level": 4,
-        "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "(c) 合併",
-        "pred_text_preview": "(c) 合併"
-      },
-      {
-        "op": "match",
-        "cost": 0.0,
-        "gt_index": 93,
-        "pred_index": 95,
-        "gt_level": 3,
-        "pred_level": 1,
-        "text_similarity": 1.0,
-        "gt_text_preview": "2. 重要會計政策摘要(續)",
-        "pred_text_preview": "2. 重要會計政策摘要(續)"
       }
     ]
   },
   "text_evaluation": {
     "text_mode": "normalized_full_text_preserve_newlines",
-    "text_score": 97.6571,
+    "text_score": 96.0374,
     "matched_block_count": 1,
     "missing_block_count": 0,
     "extra_block_count": 0,
-    "average_edit_distance": 0.0234,
+    "average_edit_distance": 0.0396,
     "gt_block_count": 1,
     "pred_block_count": 1,
     "worst_matches": [
       {
         "op": "match",
-        "distance": 0.0234,
+        "distance": 0.0396,
         "gt_start": 0,
         "gt_count": 1,
         "pred_start": 0,
         "pred_count": 1,
-        "gt_preview": "![]\\n2026财务年度中期报告\\n阿里巴巴\\n\\n阿里巴巴集团控股有限公司\\n\\n纽交所代码:BABA港交所代号:9988(港币柜台)89988(人民币柜台)\\n\\n目录\\n\\n4管理层讨论与分析\\n25董事及首席执行官\\n29权益披露\\n34股权激励计划\\n38购买出...",
+        "gt_preview": "![]\\n目录\\n\\n4管理层讨论与分析\\n25董事及首席执行官\\n29权益披露\\n34股权激励计划\\n38购买出售或回购本公司上市证券\\n39其他信息\\n42释义\\n44财务报表\\n\\n不同投票权\\n\\n我们只有单一类别的股份每一股份对应一份表决权。然而根据《公司章程》,...",
         "pred_preview": "![]\\n阿里巴巴\\n\\n阿里巴巴集团控股有限公司\\n\\n纽交所代码:BABA港交所代号:9988(港币柜台)89988(人民币柜台)\\n\\n目录\\n\\n4管理层讨论与分析\\n25董事及首席执行官\\n29权益披露\\n34股权激励计划\\n38购买出售或回购本公司上市证券\\n3..."
       }
     ]

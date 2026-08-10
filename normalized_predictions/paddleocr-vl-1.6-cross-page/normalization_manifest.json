@@ -1,0 +1,172 @@
+{
+  "system": "paddleocr-vl-1.6-cross-page",
+  "adapter": "normalize_paddleocr_cross_page.py",
+  "constraints": {
+    "uses_ground_truth": false,
+    "uses_pdf": false,
+    "uses_document_id_rules": false,
+    "merges_or_splits_tables": false,
+    "reorders_content": false
+  },
+  "rules": [
+    "unwrap PaddleOCR alignment divs while retaining text",
+    "replace image paths with ![]",
+    "unwrap presentation-only sup/sub tags and remove parser comments",
+    "remove duplicate running headers and isolated page numbers; preserve the supplied cross-page table boundaries"
+  ],
+  "totals": {
+    "comments_removed": 0,
+    "div_wrappers_removed": 277,
+    "duplicate_running_headers_removed": 22,
+    "html_images_normalized": 108,
+    "markdown_images_normalized": 0,
+    "standalone_page_numbers_removed": 1,
+    "sub_wrappers_removed": 0,
+    "sup_wrappers_removed": 0
+  },
+  "files": [
+    {
+      "id": "005",
+      "source": "predictions/paddleocr-vl-1.6-cross-page/005.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-cross-page/005.md",
+      "source_sha256": "e4d3a132407d0e5ba85a21ea72766fc94a6462a84a5119d3d30fe581791b2984",
+      "output_sha256": "aff2aa459e950669d05a02ccbc0bcd306e0926c1adfa52cdfdfbd1b9ea561d1d",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 91,
+        "html_images_normalized": 50,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 186,
+        "heading_count": 511,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "006",
+      "source": "predictions/paddleocr-vl-1.6-cross-page/006.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-cross-page/006.md",
+      "source_sha256": "c14911380868bcdc3c2cb7b509c51c2ba905fc9e52e5dad800107b8c1487c482",
+      "output_sha256": "0f74a9f232973b90d8a710e60666c60923c604d277c83d887d5726cd3bbda7a0",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 22,
+        "duplicate_running_headers_removed": 7,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 49,
+        "heading_count": 150,
+        "artifact_headings_removed": 2,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "007",
+      "source": "predictions/paddleocr-vl-1.6-cross-page/007.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-cross-page/007.md",
+      "source_sha256": "f55aab68efd8e9878093fcc5e88a8d8bf568263ccd3838362670b3d314fcdafc",
+      "output_sha256": "60230b1c67d310db4cac9fa241797f4ca7cd8b7a2c739e0ae89172a7d4c1794c",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 80,
+        "html_images_normalized": 55,
+        "markdown_images_normalized": 0,
+        "standalone_page_numbers_removed": 1,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 161,
+        "heading_count": 1034,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "008",
+      "source": "predictions/paddleocr-vl-1.6-cross-page/008.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-cross-page/008.md",
+      "source_sha256": "b08fb0609dce055c34b69a659a57334b7e430e338a99880bfc6d0db6b75d1e8c",
+      "output_sha256": "d129be078644b12cb4d1b38f1f689828e7580911aaf9922228ed52c286eb96c3",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 66,
+        "duplicate_running_headers_removed": 13,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 228,
+        "heading_count": 439,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "009",
+      "source": "predictions/paddleocr-vl-1.6-cross-page/009.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-cross-page/009.md",
+      "source_sha256": "c2cef51207f716c6add8cbdc613dbca740b006eb8667f577a5b712c87d382a6d",
+      "output_sha256": "4bf10924dccd709ada0da13a5ec7c247a025e8715e6bdcf640015b92c2dd5133",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 11,
+        "duplicate_running_headers_removed": 1,
+        "html_images_normalized": 2,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 188,
+        "heading_count": 455,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "010",
+      "source": "predictions/paddleocr-vl-1.6-cross-page/010.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-cross-page/010.md",
+      "source_sha256": "038a8581c25c5031bc986ebacb37a1ebce1c62008328448fe5157e0ad7847907",
+      "output_sha256": "0faf87760c5a3de8acd92cbdeed2246351ad98e3c6f050a11dcb4c60385dd626",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 7,
+        "duplicate_running_headers_removed": 1,
+        "html_images_normalized": 1,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 225,
+        "heading_count": 530,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    }
+  ]
+}

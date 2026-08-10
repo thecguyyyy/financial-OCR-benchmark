@@ -1,0 +1,188 @@
+{
+  "system": "mineru-3.4.4-vlm",
+  "adapter": "normalize_mineru_vlm.py",
+  "constraints": {
+    "uses_ground_truth": false,
+    "uses_pdf": false,
+    "uses_document_id_rules": false,
+    "merges_or_splits_tables": false,
+    "reorders_content": false
+  },
+  "rules": [
+    "unwrap MinerU details/summary containers while retaining text_image and chart text",
+    "replace natural images, flowcharts, Mermaid blocks, and image paths with ![]",
+    "remove generated decorative-image captions and presentation-only sup/sub wrappers",
+    "remove duplicate running headers and isolated page numbers using prediction-only repetition"
+  ],
+  "totals": {
+    "comments_removed": 0,
+    "details_wrappers_removed": 208,
+    "duplicate_running_headers_removed": 37,
+    "html_images_normalized": 17,
+    "markdown_images_normalized": 211,
+    "mermaid_blocks_normalized": 0,
+    "standalone_page_numbers_removed": 5,
+    "sub_wrappers_removed": 0,
+    "sup_wrappers_removed": 0,
+    "text_details_unwrapped": 27,
+    "visual_details_to_image_marker": 181
+  },
+  "files": [
+    {
+      "id": "005",
+      "source": "predictions/mineru-3.4.4-vlm/005.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/005.md",
+      "source_sha256": "e9e379f6b309ea5375660ca0d0f647b05a7c04f5c0660e2458f1e7b256f42a7c",
+      "output_sha256": "df3c938dd344c52bbcc8c41c7392012782327329b98b216ad4091fc7e5316b41",
+      "changes": {
+        "comments_removed": 0,
+        "details_wrappers_removed": 28,
+        "duplicate_running_headers_removed": 1,
+        "html_images_normalized": 17,
+        "markdown_images_normalized": 28,
+        "mermaid_blocks_normalized": 0,
+        "standalone_page_numbers_removed": 1,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0,
+        "text_details_unwrapped": 23,
+        "visual_details_to_image_marker": 5
+      },
+      "validation": {
+        "table_count": 209,
+        "heading_count": 478,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "006",
+      "source": "predictions/mineru-3.4.4-vlm/006.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/006.md",
+      "source_sha256": "8302d449b8d274c7a670475d9f3fa8236c24a66e830c2693feb25a23d70faccf",
+      "output_sha256": "e74b9addc5178805765eb8569b89cb1a00c3ecd378a9d06a20bc62428d2aa86f",
+      "changes": {
+        "comments_removed": 0,
+        "duplicate_running_headers_removed": 5,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 2,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 50,
+        "heading_count": 147,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "007",
+      "source": "predictions/mineru-3.4.4-vlm/007.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/007.md",
+      "source_sha256": "c2709bb5e4d3b7102c82913a2aad936b282f3d0510ec578ad07921e94317eceb",
+      "output_sha256": "d210dc993f006ebb16c7f86f7506237a4ca5910826338d2e0b51b3e1203438fd",
+      "changes": {
+        "comments_removed": 0,
+        "details_wrappers_removed": 176,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 177,
+        "mermaid_blocks_normalized": 0,
+        "standalone_page_numbers_removed": 4,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0,
+        "text_details_unwrapped": 3,
+        "visual_details_to_image_marker": 173
+      },
+      "validation": {
+        "table_count": 177,
+        "heading_count": 957,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "008",
+      "source": "predictions/mineru-3.4.4-vlm/008.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/008.md",
+      "source_sha256": "30ddafa81b9986f977e60e84ac152916f3ea82f2c0b434b8010a010bc7230ff9",
+      "output_sha256": "cefe9f8cf6d85436e6837f948a5b3ac7445300dfe5f9d31026483ce4f35c61dc",
+      "changes": {
+        "comments_removed": 0,
+        "duplicate_running_headers_removed": 13,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 0,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 229,
+        "heading_count": 388,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "009",
+      "source": "predictions/mineru-3.4.4-vlm/009.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/009.md",
+      "source_sha256": "e84437d7983522966297711c48d08164050057cc35f0456a13a8c52f02de384b",
+      "output_sha256": "c71182c615cbca9639dc66df92ec563a5863dbffa24d23aadb0a51ee18d846c3",
+      "changes": {
+        "comments_removed": 0,
+        "details_wrappers_removed": 2,
+        "duplicate_running_headers_removed": 1,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 2,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0,
+        "visual_details_to_image_marker": 2
+      },
+      "validation": {
+        "table_count": 182,
+        "heading_count": 423,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "010",
+      "source": "predictions/mineru-3.4.4-vlm/010.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/010.md",
+      "source_sha256": "654a41ed8c0262c9f7cd325d8ee1cb027bf059a766432d70cc742a809023937d",
+      "output_sha256": "0cf52976db00676d247d7729ef89a6a1f3cbe6ed0e60a65967f49a608927f9c6",
+      "changes": {
+        "comments_removed": 0,
+        "details_wrappers_removed": 2,
+        "duplicate_running_headers_removed": 17,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 2,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0,
+        "text_details_unwrapped": 1,
+        "visual_details_to_image_marker": 1
+      },
+      "validation": {
+        "table_count": 236,
+        "heading_count": 499,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    }
+  ]
+}

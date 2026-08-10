@@ -40,22 +40,26 @@
 
 完整算法、归一化规则与已知局限见 [SCORING_PROTOCOL.md](SCORING_PROTOCOL.md)。
 
+GT 已转换为不依赖具体解析器的素 Markdown：删除分页协议、内部图片路径和图表容器，同时保留可评分的正文、标题、表格与图表信息。处理原则见 [GT_NORMALIZATION.md](GT_NORMALIZATION.md)。
+
+Prediction 也不直接进入评分器。每个模型/版本必须提供一个独立、GT 无关的格式适配器，先生成 `normalized_predictions/` 中的素 Markdown，再使用统一评分器。适配器不得读取 GT/PDF、按文档特判或改变表格边界；完整规则、当前 6 个脚本及校验方法见 [PREDICTION_NORMALIZATION.md](PREDICTION_NORMALIZATION.md)。
+
 ## 已完成系统与结果
 
 下表为各系统在全部 6 份文档上的算术平均分，范围均为 0–100。所有结果均使用上文同一评分协议，表格匹配启用双 GT 最高匹配策略。
 
 | 排名 | 系统 | 总分 | 表格 | 标题布局 | 正文 |
 |---:|---|---:|---:|---:|---:|
-| 1 | MinerU 3.4.0 — Hybrid backend（`effort=high`；MinerU2.5-Pro-2605-1.2B） | **94.25** | **95.41** | **85.69** | **97.39** |
-| 2 | MinerU 3.4.4 — VLM backend（MinerU2.5-Pro-2605-1.2B） | 93.70 | 95.36 | 84.25 | 96.77 |
-| 3 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 92.33 | 92.35 | 84.53 | 96.21 |
-| 4 | MinerU 3.4.0 — Pipeline backend（`method=auto`，`lang=ch`） | 90.77 | 89.36 | 84.30 | 95.40 |
-| 5 | 自研模型 | 90.50 | 89.16 | 84.18 | 95.01 |
-| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 87.45 | 80.46 | 83.88 | 96.21 |
+| 1 | MinerU 3.4.0 — Hybrid backend（`effort=high`；MinerU2.5-Pro-2605-1.2B） | **92.73** | **94.25** | 81.98 | **96.58** |
+| 2 | MinerU 3.4.4 — VLM backend（MinerU2.5-Pro-2605-1.2B） | 92.19 | 94.19 | 80.64 | 95.97 |
+| 3 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 91.80 | 91.94 | **83.88** | 95.61 |
+| 4 | 自研解析模型（版本未记录） | 90.67 | 89.36 | 83.46 | 95.60 |
+| 5 | MinerU 3.4.0 — Pipeline backend（`method=auto`，`lang=ch`） | 90.31 | 88.76 | 83.70 | 95.17 |
+| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 86.77 | 80.10 | 82.43 | 95.61 |
 
 各系统的命名与运行配置依据见 [MODEL_METADATA.md](MODEL_METADATA.md)。
 
-PaddleOCR-VL-1.6-0.9B 的跨页合并结果相比逐页结果，表格平均分提高 **11.89** 分，总分提高 **4.89** 分。两组正文平均分同为 96.21，差异主要来自跨页表后处理。
+PaddleOCR-VL-1.6-0.9B 的跨页合并结果相比逐页结果，表格平均分提高 **11.84** 分，总分提高 **5.03** 分。两组正文平均分同为 95.61，差异来自跨页表后处理。
 
 上述排名仅用于比较本仓库中的固定文档、GT 与评分版本；不应直接外推为不同版式、语言或下游任务中的通用模型排名。
 
@@ -67,12 +71,18 @@ data/
   gt/primary/                  # Primary GT
   gt/semi_semantic/            # Semi-semantic GT
 predictions/<system>/          # 每个系统的 6 份 Markdown 输出
+normalized_predictions/<system>/ # 适配后的素 Markdown 与 manifest
 scores/<system>/               # summary 与逐文档评分报告
+normalizers/                    # 6 个独立模型适配器、公共工具和新模型模板
+normalize_all_predictions.py    # 生成并校验全部归一化 Prediction
 benchmark_scorer.py             # 单文档核心评分器
 score_prediction_directory.py   # 评分一个新的解析系统
 score_all_benchmark_systems.py  # 重跑仓库内全部正式系统
 benchmark_systems.py            # 正式系统名称表
+normalize_gt_markdown.py         # GT 素 Markdown 规范化与检查
 MODEL_METADATA.md               # 模型名称与运行参数核验记录
+GT_NORMALIZATION.md              # GT 规范化原则与复现说明
+PREDICTION_NORMALIZATION.md      # Prediction 独立适配器协议
 README.md
 README_EN.md
 SCORING_PROTOCOL.md
@@ -80,17 +90,23 @@ SCORING_PROTOCOL.md
 
 ## 环境要求
 
-Python 3.10 或更高版本。评分脚本仅使用 Python 标准库，无需安装第三方依赖。
+Python 3.10 或更高版本。评分脚本提供纯 Python 回退，无强制第三方依赖；为启用主榜使用的繁简归一化并加快全量评分，建议安装 `opencc-python-reimplemented` 和 `python-Levenshtein`。
 
 ## 复现评分
 
-评分一个新的解析系统时，将它的 6 份 Markdown 放入同一目录。推荐直接命名为 `005.md` 至 `010.md`；以编号开头的更长文件名也可以自动识别。运行：
+评分一个新系统时，将 6 份原始 Markdown 命名为 `005.md` 至 `010.md` 并放入同一目录。复制 `normalizers/normalize_parser_template.py`，为该系统实现独立适配器，然后先生成带 manifest 的素 Markdown：
 
 ```bash
-python score_prediction_directory.py --pred-dir predictions/my_parser --system-name "My Parser 1.0" --output-dir scores/my_parser
+python normalizers/normalize_my_parser.py --input-dir predictions/my_parser --output-dir normalized_predictions/my_parser
 ```
 
-标准脚本固定启用双 GT 单表最高匹配和本报告中的全部评分权重，输出 `summary.csv`、`summary.json`、`summary.md` 及 6 份逐文档报告。要重新评分仓库中全部正式系统，可运行：
+再评分归一化目录：
+
+```bash
+python score_prediction_directory.py --pred-dir normalized_predictions/my_parser --system-name "My Parser 1.0" --output-dir scores/my_parser
+```
+
+标准脚本要求 `normalization_manifest.json`，固定启用双 GT 单表最高匹配，并关闭隐藏的 Prediction 专属清洗。要重新生成 6 组归一化结果并评分全部 36 份文档，可运行：
 
 ```powershell
 python score_all_benchmark_systems.py

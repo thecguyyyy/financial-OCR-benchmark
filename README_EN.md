@@ -40,22 +40,26 @@ For tables, the score uses the **best single-table match across the two GT varia
 
 See [SCORING_PROTOCOL.md](SCORING_PROTOCOL.md) for the complete algorithm, normalization rules, and known limitations.
 
+The GT has also been converted into parser-neutral, plain Markdown: page-control metadata, internal image paths, and parser-specific chart wrappers are removed, while scoreable prose, headings, tables, and chart information are retained. See [GT_NORMALIZATION.md](GT_NORMALIZATION.md) for the transformation policy.
+
+Predictions do not enter the scorer directly. Every parser/version must provide an independent, GT-blind format adapter that writes plain Markdown to `normalized_predictions/`; only then is the shared scorer run. Adapters may not read GT/PDF files, branch on document identity, or alter table boundaries. See [PREDICTION_NORMALIZATION_EN.md](PREDICTION_NORMALIZATION_EN.md) for the policy, six current scripts, and validation checks.
+
 ## Completed systems and results
 
 The table reports arithmetic means over all six documents. Scores range from 0 to 100 and use the protocol above, including the best-match-across-two-GTs table strategy.
 
 | Rank | System | Overall | Tables | Heading layout | Body text |
 |---:|---|---:|---:|---:|---:|
-| 1 | MinerU 3.4.0 — Hybrid backend (`effort=high`; MinerU2.5-Pro-2605-1.2B) | **94.25** | **95.41** | **85.69** | **97.39** |
-| 2 | MinerU 3.4.4 — VLM backend (MinerU2.5-Pro-2605-1.2B) | 93.70 | 95.36 | 84.25 | 96.77 |
-| 3 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 92.33 | 92.35 | 84.53 | 96.21 |
-| 4 | MinerU 3.4.0 — Pipeline backend (`method=auto`, `lang=ch`) | 90.77 | 89.36 | 84.30 | 95.40 |
-| 5 | Self-developed parser (version not recorded) | 90.50 | 89.16 | 84.18 | 95.01 |
-| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 87.45 | 80.46 | 83.88 | 96.21 |
+| 1 | MinerU 3.4.0 — Hybrid backend (`effort=high`; MinerU2.5-Pro-2605-1.2B) | **92.73** | **94.25** | 81.98 | **96.58** |
+| 2 | MinerU 3.4.4 — VLM backend (MinerU2.5-Pro-2605-1.2B) | 92.19 | 94.19 | 80.64 | 95.97 |
+| 3 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 91.80 | 91.94 | **83.88** | 95.61 |
+| 4 | Self-developed parser (version not recorded) | 90.67 | 89.36 | 83.46 | 95.60 |
+| 5 | MinerU 3.4.0 — Pipeline backend (`method=auto`, `lang=ch`) | 90.31 | 88.76 | 83.70 | 95.17 |
+| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 86.77 | 80.10 | 82.43 | 95.61 |
 
 See [MODEL_METADATA.md](MODEL_METADATA.md) for the evidence behind system names and runtime configurations.
 
-For PaddleOCR-VL-1.6-0.9B, cross-page merging raises the mean table score by **11.89** points and the overall score by **4.89** points over page-wise output. Both runs have the same 96.21 mean body-text score, so the difference comes primarily from cross-page table post-processing.
+For PaddleOCR-VL-1.6-0.9B, cross-page merging raises the mean table score by **11.84** points and the overall score by **5.03** points over page-wise output. Both runs have the same 95.61 mean body-text score, so the difference comes from cross-page table post-processing.
 
 These rankings apply only to this repository's fixed documents, GT variants, and scoring version. They should not be interpreted as a general ranking across layouts, languages, or downstream tasks.
 
@@ -67,12 +71,19 @@ data/
   gt/primary/                  # Primary GT
   gt/semi_semantic/            # Semi-semantic GT
 predictions/<system>/          # six Markdown files per system
+normalized_predictions/<system>/ # adapted plain Markdown plus manifest
 scores/<system>/               # summary and per-document reports
+normalizers/                    # six independent adapters, shared utilities, and template
+normalize_all_predictions.py    # generate and validate all normalized predictions
 benchmark_scorer.py             # core single-document scorer
 score_prediction_directory.py   # score one new parser
 score_all_benchmark_systems.py  # rescore all published systems
 benchmark_systems.py            # canonical system names
+normalize_gt_markdown.py         # normalize and check plain GT Markdown
 MODEL_METADATA.md               # model-name and runtime-configuration evidence
+GT_NORMALIZATION.md              # GT normalization policy and reproduction notes
+PREDICTION_NORMALIZATION.md      # parser-specific prediction-adapter protocol
+PREDICTION_NORMALIZATION_EN.md   # English prediction-adapter protocol
 README.md
 README_EN.md
 SCORING_PROTOCOL.md
@@ -80,17 +91,23 @@ SCORING_PROTOCOL.md
 
 ## Requirements
 
-Python 3.10 or later. The scoring scripts use only the Python standard library and require no third-party packages.
+Python 3.10 or later. The scorer has a pure-Python fallback and no mandatory third-party dependency. Install `opencc-python-reimplemented` to reproduce the leaderboard's Traditional-to-Simplified normalization and `python-Levenshtein` to accelerate full rescoring.
 
 ## Reproducing the scoring
 
-To score a new parser, place its six Markdown outputs in one directory. The preferred names are `005.md` through `010.md`; longer names beginning with the corresponding identifier are also accepted. Run:
+To score a new parser, place its six raw Markdown outputs in one directory as `005.md` through `010.md`. Copy `normalizers/normalize_parser_template.py`, implement a dedicated adapter for that parser, and first generate plain Markdown plus a manifest:
 
 ```bash
-python score_prediction_directory.py --pred-dir predictions/my_parser --system-name "My Parser 1.0" --output-dir scores/my_parser
+python normalizers/normalize_my_parser.py --input-dir predictions/my_parser --output-dir normalized_predictions/my_parser
 ```
 
-The standard entry point fixes the dual-GT best-single-table strategy and all weights documented above. It writes `summary.csv`, `summary.json`, `summary.md`, and six per-document reports. To rescore all published systems in the repository, run:
+Then score the normalized directory:
+
+```bash
+python score_prediction_directory.py --pred-dir normalized_predictions/my_parser --system-name "My Parser 1.0" --output-dir scores/my_parser
+```
+
+The standard entry point requires `normalization_manifest.json`, fixes the dual-GT best-single-table strategy, and disables hidden prediction-only cleanup. To regenerate all six normalized collections and score all 36 documents, run:
 
 ```powershell
 python score_all_benchmark_systems.py

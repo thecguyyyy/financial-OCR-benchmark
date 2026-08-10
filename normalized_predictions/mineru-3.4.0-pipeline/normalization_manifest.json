@@ -1,0 +1,162 @@
+{
+  "system": "mineru-3.4.0-pipeline",
+  "adapter": "normalize_mineru_pipeline.py",
+  "constraints": {
+    "uses_ground_truth": false,
+    "uses_pdf": false,
+    "uses_document_id_rules": false,
+    "merges_or_splits_tables": false,
+    "reorders_content": false
+  },
+  "rules": [
+    "replace Markdown/HTML image paths with ![]",
+    "unwrap presentation-only sup/sub tags while retaining their text",
+    "remove parser comments, duplicate running headers, and isolated page numbers"
+  ],
+  "totals": {
+    "comments_removed": 0,
+    "duplicate_running_headers_removed": 16,
+    "html_images_normalized": 7,
+    "markdown_images_normalized": 189,
+    "sub_wrappers_removed": 30,
+    "sup_wrappers_removed": 19
+  },
+  "files": [
+    {
+      "id": "005",
+      "source": "predictions/mineru-3.4.0-pipeline/005.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/005.md",
+      "source_sha256": "b361b39aea117a865591c25f113238c7213cc27b5bb2394ad98326179e865a20",
+      "output_sha256": "183b5f59570b7241ce15b33f6ed3537a50d895131339d0daa9912072e547026a",
+      "changes": {
+        "comments_removed": 0,
+        "duplicate_running_headers_removed": 1,
+        "html_images_normalized": 7,
+        "markdown_images_normalized": 35,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 17
+      },
+      "validation": {
+        "table_count": 182,
+        "heading_count": 457,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "006",
+      "source": "predictions/mineru-3.4.0-pipeline/006.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/006.md",
+      "source_sha256": "055c3499fd7357af7d4825316c3700d1e3a6be012b501d33c305bb223cbbc63f",
+      "output_sha256": "787a7b27461d0487f3747e30ce837fd5590a28de27568587eb38f032b7ce6085",
+      "changes": {
+        "comments_removed": 0,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 49,
+        "heading_count": 143,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "007",
+      "source": "predictions/mineru-3.4.0-pipeline/007.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/007.md",
+      "source_sha256": "a4a06f17ed575ea2327fee054f95d000392fc301fd5dc023160a59affbaf8557",
+      "output_sha256": "4608d001a3b272d03b96d5d458818cc93e90a4d5553e5a93e61d3d565f257dbd",
+      "changes": {
+        "comments_removed": 0,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 150,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 161,
+        "heading_count": 923,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "008",
+      "source": "predictions/mineru-3.4.0-pipeline/008.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/008.md",
+      "source_sha256": "b2db7a250bbda6e25a78e306c014cecd1325ab640dad838ca69fb581fae3ef0d",
+      "output_sha256": "08d8ff58b0c139b1dd23e7bf2c13a6c12aa58789c385b28ed4f2d9059cbebacd",
+      "changes": {
+        "comments_removed": 0,
+        "duplicate_running_headers_removed": 13,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 1,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 225,
+        "heading_count": 444,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "009",
+      "source": "predictions/mineru-3.4.0-pipeline/009.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/009.md",
+      "source_sha256": "969b061733ec65f60b92f92c38b8cc7713ae4b801ad1ffe9048c5e13a34811f7",
+      "output_sha256": "58b862db62303073da54204c81d929193965ad1fc2a2a23fed140667e855c0b9",
+      "changes": {
+        "comments_removed": 0,
+        "duplicate_running_headers_removed": 1,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 2,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 186,
+        "heading_count": 438,
+        "artifact_headings_removed": 1,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "010",
+      "source": "predictions/mineru-3.4.0-pipeline/010.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/010.md",
+      "source_sha256": "c31e48df893edf778b3131cdef2e6544f0ce40efa3092fbd67c809cce9a3101d",
+      "output_sha256": "a1e1e9a2f0ef06fcc70ef0dd610a11ee55c7bf204223dfe2b84109749c4c40cf",
+      "changes": {
+        "comments_removed": 0,
+        "duplicate_running_headers_removed": 1,
+        "html_images_normalized": 0,
+        "markdown_images_normalized": 1,
+        "sub_wrappers_removed": 30,
+        "sup_wrappers_removed": 2
+      },
+      "validation": {
+        "table_count": 219,
+        "heading_count": 508,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    }
+  ]
+}

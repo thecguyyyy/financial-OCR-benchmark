@@ -21,6 +21,11 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
+try:
+    from Levenshtein import distance as _fast_levenshtein_distance  # type: ignore
+except ImportError:  # Optional acceleration; the scorer keeps a pure-Python fallback.
+    _fast_levenshtein_distance = None
+
 
 WEIGHTS = {"table": 0.40, "title_layout": 0.20, "text": 0.40}
 TITLE_LAYOUT_WEIGHTS = {
@@ -67,7 +72,7 @@ class PredCleanupResult:
 class ScoringConfig:
     """Runtime scoring normalization and weighting options."""
 
-    remove_pred_header_footer: bool = True
+    remove_pred_header_footer: bool = False
     normalize_images: bool = True
     normalize_zh: str = "t2s"
     normalize_footnotes: bool = True
@@ -698,10 +703,12 @@ def strip_heading_markers_keep_text(md: str) -> str:
 
 
 def levenshtein_distance(a: str, b: str) -> int:
-    """Compute Levenshtein edit distance using a two-row DP."""
+    """Compute exact Levenshtein distance, with an optional native fast path."""
 
     if a == b:
         return 0
+    if _fast_levenshtein_distance is not None:
+        return int(_fast_levenshtein_distance(a, b))
     if len(a) < len(b):
         a, b = b, a
     if not b:
@@ -839,6 +846,12 @@ def normalize_image_markers(text: str) -> str:
 
     if not CURRENT_CONFIG.normalize_images:
         return text
+    # Some parsers serialize a visual element as an XML-like container whose
+    # children only describe its page and bounding box, for example:
+    # <image><page>8</page><x>13</x><y>12</y><w>02</w><h>01</h></image>
+    # Normalize the complete container before generic HTML stripping; otherwise
+    # its coordinate values survive as a spurious number such as 813120201.
+    text = re.sub(r"<image\b[^>]*>.*?</image\s*>", "\n![]\n", text, flags=re.I | re.S)
     text = re.sub(r"<img\b[^>]*>", "\n![]\n", text, flags=re.I | re.S)
     text = re.sub(r"!\[[^\]]*\]\([^)]+\)", "![]", text)
     text = re.sub(r"!\[[^\]]*\]\[[^\]]*\]", "![]", text)
@@ -870,6 +883,17 @@ def normalize_markdown_text_preserve_newlines(text: str) -> str:
     text = re.sub(r" *\n *", "\n", text)
     text = _collapse_image_markers(text)
     return text.strip(" \t\n")
+
+
+def normalize_semantic_text_preserve_newlines(text: str) -> str:
+    """Apply the shared semantic normalization used by body and table text."""
+
+    text = normalize_markdown_text_preserve_newlines(text)
+    text = unicodedata.normalize("NFKC", text)
+    text = normalize_chinese_variants(text)
+    text = normalize_footnote_markers(text)
+    text = normalize_punctuation_variants(text)
+    return text
 
 
 def normalize_details_blocks(text: str) -> str:
@@ -1170,11 +1194,7 @@ def _repeated_header_footer_lines(lines: Sequence[str]) -> set[str]:
 def normalize_body_text_preserve_newlines(text: str, remove_repeated_noise: bool = False) -> str:
     """Normalize body text while preserving each newline as one character."""
 
-    text = normalize_markdown_text_preserve_newlines(text)
-    text = unicodedata.normalize("NFKC", text)
-    text = normalize_chinese_variants(text)
-    text = normalize_footnote_markers(text)
-    text = normalize_punctuation_variants(text)
+    text = normalize_semantic_text_preserve_newlines(text)
 
     raw_lines = text.split("\n")
     repeated_noise = _repeated_header_footer_lines(raw_lines) if remove_repeated_noise else set()
@@ -1347,15 +1367,15 @@ def flatten_table_matrix_for_text(matrix: Sequence[Sequence[str]]) -> str:
         return ""
     rows = []
     for row in matrix:
-        rows.append("\t".join(normalize_markdown_text_preserve_newlines(cell) for cell in row))
+        rows.append("\t".join(normalize_semantic_text_preserve_newlines(cell) for cell in row))
     return "\n".join(rows)
 
 
 def normalized_table_content_distance(a: str, b: str) -> float:
     """Compute normalized edit distance for flattened table text."""
 
-    a_norm = normalize_markdown_text_preserve_newlines(a)
-    b_norm = normalize_markdown_text_preserve_newlines(b)
+    a_norm = normalize_semantic_text_preserve_newlines(a)
+    b_norm = normalize_semantic_text_preserve_newlines(b)
     denom = max(len(a_norm), len(b_norm), 1)
     if len(a_norm) * len(b_norm) <= 200_000:
         return min(1.0, levenshtein_distance(a_norm, b_norm) / denom)
@@ -1892,7 +1912,11 @@ def evaluate(
             "table_gt_strategy": table_gt_strategy,
         },
         "pred_cleanup": {
-            "mode": "prediction_only_header_footer_cleanup",
+            "mode": (
+                "prediction_only_header_footer_cleanup"
+                if CURRENT_CONFIG.remove_pred_header_footer
+                else "disabled_after_explicit_adapter"
+            ),
             "removed_line_count": pred_cleanup.removed_line_count,
             "removed_line_examples": pred_cleanup.removed_line_examples,
         },
@@ -2112,8 +2136,8 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--remove-pred-header-footer",
         choices=["on", "off"],
-        default="on",
-        help="Remove no-value header/footer lines from prediction Markdown.",
+        default="off",
+        help="Legacy/debug option; standard scoring keeps this off after the explicit adapter.",
     )
     parser.add_argument(
         "--normalize-images",
