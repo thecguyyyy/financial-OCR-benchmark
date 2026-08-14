@@ -1,6 +1,6 @@
-# Financial Announcement Markdown Reconstruction Benchmark
+# Financial Announcement OCR Benchmark
 
-A benchmark for reconstructing Chinese financial-announcement PDFs as Markdown. It evaluates reconstruction fidelity—not summarization quality—across body text, heading hierarchy, and table structure, with particular emphasis on long documents, dense tables, and cross-page tables.
+An OCR benchmark for Chinese financial-announcement PDFs. It evaluates OCR fidelity—not summarization quality—across body text, heading hierarchy, and table structure, with particular emphasis on long documents, dense tables, and cross-page tables. Systems use Markdown as the common structured output format for scoring and reproducibility.
 
 The repository contains six financial-announcement PDFs, two manually reviewed Markdown ground-truth variants per document, six completed parser-output collections, and their scoring artifacts. The headline leaderboard includes only systems that were scored on all six documents; incomplete experiments are excluded.
 
@@ -17,7 +17,7 @@ The repository contains six financial-announcement PDFs, two manually reviewed M
 
 Each document has two ground-truth (GT) Markdown files:
 
-- **Primary GT** preserves the manually verified original Markdown reconstruction boundaries.
+- **Primary GT** preserves the manually verified original table boundaries.
 - **Semi-semantic GT** applies an independent-interpretability rule to cross-page tables. A continuation page is treated as a separate table when it has its own title and header and remains understandable on its own; it is therefore not forced to merge with the preceding page.
 
 The two-GT design avoids treating every cross-page layout as a mandatory merge, while also avoiding credit for incorrectly joining unrelated tables.

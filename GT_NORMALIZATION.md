@@ -28,7 +28,7 @@
 
 Primary GT 与 Semi-semantic GT 表达同一 PDF 内容，但采用不同的表格边界：
 
-- Primary GT 保留人工确认的原始重建边界。
+- Primary GT 保留人工确认的原始表格边界。
 - Semi-semantic GT 允许把拥有独立题目和表头、拆开后不影响理解的续页表作为独立表。
 
 表题、续表头或分页说明可能在一个版本中位于合并表内部、在另一个版本中位于两个独立表之间，因此“移除所有表格后的 Markdown”不要求逐字一致。评分器只把 Semi-semantic GT 用作表格候选；标题布局和正文始终以 Primary GT 为准。

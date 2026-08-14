@@ -9,7 +9,7 @@ Every scored parser/version must provide an independent adapter that depends onl
 - It must not read GT, PDF, score reports, or another parser's output.
 - It must not branch on document ID, company name, or known answer content.
 - It must not correct entities, numbers, prose, heading text, or table cells.
-- It must not merge, split, delete, reorder, or reconstruct tables from GT evidence.
+- It must not merge, split, delete, reorder, or derive tables from GT evidence.
 - It may remove representation-only artifacts such as image paths/coordinates, page-control tags, parser containers, presentational HTML, and running headers detected from repetition within the prediction itself.
 - It must retain informative `text_image`, chart, and figure text; purely visual elements become `![]`.
 
