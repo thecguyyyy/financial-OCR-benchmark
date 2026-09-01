@@ -113,6 +113,10 @@ Parser protocols differ: MinerU emits `details/summary` containers, PaddleOCR us
 
 An adapter may only remove protocol artifacts proven by that parser's output. It cannot read PDFs, Gold, other predictions, document IDs, or historical scores; it cannot repair OCR wording or numbers, split or merge business tables, or reorder content. Every run emits a manifest with rule names, hashes, transformation counts, idempotence checks, and structural-preservation checks. See [PREDICTION_NORMALIZATION_EN.md](PREDICTION_NORMALIZATION_EN.md).
 
+Permitted removals are limited to parser-self-evident, non-semantic wrappers or repeated running noise: BOM/newline and excess whitespace, image paths and coordinates, HTML comments, presentation-only `div`/`sup`/`sub`/`details`/`summary` wrappers, `<pagebreak>`, isolated page numbers, headers/footers repeated on at least three pages, internal labels such as `Table_*`, and an image marker/source/contiguous note following a figure title when there is no chart transcription. The first header/footer occurrence is retained. Figure titles, chart transcriptions, body text, numbers, formulas, and formal tables are never removed.
+
+For example, `<!-- page=3 x=... --> ![](local.png)` may become `![]`; a report name at the top of three consecutive pages is retained once; and `<div align="center">Text</div>` becomes `Text`. By contrast, `Revenue: RMB 1.25bn`, `| Year | Revenue |`, `# 1. Operations`, and transcribed chart data must remain unchanged.
+
 ## Reproduction
 
 Python 3.10 or later is recommended:

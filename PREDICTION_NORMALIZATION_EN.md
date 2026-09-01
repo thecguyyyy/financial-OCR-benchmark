@@ -33,6 +33,23 @@ All profiles use the same implementation, but a rule runs only when the profile 
 6. Normalize trailing whitespace, excess blank lines, and adjacent image markers.
 7. Validate table matrices, genuine heading order, and idempotence before writing output.
 
+### Exhaustive removal list and examples
+
+Every item must be proven from stable Prediction syntax or a repetition pattern within that Prediction. The table lists every class handled by formal normalization; it is not permission to delete text merely because it looks untidy.
+
+| Class | Condition for removal/normalization | Example: input → output |
+|---|---|---|
+| Encoding and whitespace | UTF-8 BOM, CRLF/CR, trailing whitespace, repeated blank lines | `BOM + a\r\n\r\n\r\n b` → `a\n\nb` |
+| Image implementation details | Local/remote image paths, alt text, HTML image attributes, coordinate-image records | `![](C:\\tmp\\p3.png)`, `<img x="12" ...>` → `![]` |
+| Parser containers | HTML comments and presentation-only alignment `div`, `sup/sub`, or known `details/summary` wrappers that add no text | `<div align="center">Text</div>` → `Text` |
+| Pagination noise | `<pagebreak>`, isolated `12`, `- 12 -`, `Page 12 of 90` | `Text\n<pagebreak>\n13` → `Text` |
+| Repeated running text | The exact text occurs within the first five visible lines of at least three page segments in the Prediction; later occurrences only are removed | Three pages begin `Example Securities Research` → retain the first only |
+| Internal labels and display escapes | Line-boundary `Table_*`/`Tale_*` leakage and known presentation escapes outside tables | `Table_17\nRevenue` → `Revenue`; `\\*key\\*` → `*key*` |
+| Peripheral-only visual figure content | A numbered title is followed only by `![]`, source, and contiguous note, with no table or chart-data transcription | `Figure 1: Trend\n![]\nSource: ...` → retain `Figure 1: Trend` |
+| Explicit directory layouts | A table inside an explicit contents/list-of-figures section where at least 80% of rows are figure/table-number entries; it becomes equivalent directory text | `<table><tr><td>Figure 1 ...</td>` → `Figure 1 ...` |
+
+The following are never removable, regardless of score, repetition, or apparent formatting quality: entities such as companies/products/people, body sentences, years and monetary values, percentages and units, formula tokens, figure titles, chart-data transcriptions, any cell of a formal business table, and genuine headings or their levels. For example, `Revenue: RMB 1.25bn`, `| Year | Revenue |`, and `# 1. Operations` must remain unchanged.
+
 ## 4. Parser-specific profiles
 
 | Parser | Transformations | Explicitly excluded |
