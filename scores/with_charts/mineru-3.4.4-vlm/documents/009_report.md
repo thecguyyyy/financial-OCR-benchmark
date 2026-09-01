@@ -1,10 +1,10 @@
 # Financial Markdown Scoring Report
 
 ## Overall
-- Final Score: 97.5114
-- Table Score: 99.0476
+- Final Score: 97.4773
+- Table Score: 99.2586
 - Title Layout Score: 89.4415
-- Text Score: 99.8423
+- Text Score: 99.6338
 
 ## Prediction Cleanup
 - Mode: prediction_only_header_footer_cleanup
@@ -14,11 +14,11 @@
 
 ## Weights
 - Mode: gt_content_information_share
-- Table: 31.56%
+- Table: 31.47%
 - Title Layout: 20.00%
-- Text: 48.44%
-- GT table semantic tokens / grid slots / information units: 27496 / 9242 / 36738
-- GT body / active chart / text information units: 56395 / 0 / 56395
+- Text: 48.53%
+- GT table semantic tokens / grid slots / information units: 27428 / 9218 / 36646
+- GT body / active chart / text information units: 56395 / 118 / 56513
 
 ## Configuration
 - Remove pred header/footer: False
@@ -33,23 +33,23 @@
 - Title layout reserve: 0.2
 - Chart scoring mode: included_as_order_aware_numeric_first_token_score
 - Detected primary GT / Pred chart blocks: 1 / 1
-- Representation-neutral chart score: 100.0000
-- GT chart token share inside text module: 0.0000
+- Representation-neutral chart score: 0.0000
+- GT chart token share inside text module: 0.0021
 - Removed primary GT / alt GT / Pred chart blocks: 0 / 0 / 0
 
 ## Table Evaluation
 - Table GT strategy result: per_table_max
-- Primary table score: 99.0476
-- Alt table score: 99.0476
+- Primary table score: 99.2586
+- Alt table score: 99.2586
 - Per-table rule: each predicted table keeps its higher one-to-one pair score from primary or alt GT.
 - Per-table selected primary / alt pairs: 182 / 0
-- Per-table reference table count: 183
-- Matched / missing / extra tables: 182 / 1 / 0
-- Table content score: 99.1808
-- Table structure score: 98.9588
-- Table matrix score: 99.0476
+- Per-table reference table count: 182
+- Matched / missing / extra tables: 182 / 0 / 0
+- Table content score: 99.3921
+- Table structure score: 99.1696
+- Table matrix score: 99.2586
 - Table alignment strategy: per_table_best_of_primary_alt_gt_footprint_weighted
-- GT footprint total / extra Pred footprint: 21867.3484 / 0.0000
+- GT footprint total / extra Pred footprint: 21820.8726 / 0.0000
 - Chart-table eligible / auxiliary / matched: 0 / 0 / 0
 
 ### Table Matches
@@ -100,9 +100,9 @@
 
 ## Text Evaluation
 - Text mode: body_edit_distance_plus_representation_neutral_chart_tokens
-- Text score: 99.8423
+- Text score: 99.6338
 - Body-only text score: 99.8423
-- Chart score used by text module: 100.0000
+- Chart score used by text module: 0.0000
 - Average edit distance: 0.0016
 - Matched / missing / extra blocks: 1 / 0 / 0
 - GT / Pred block counts: 1 / 1

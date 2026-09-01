@@ -1,10 +1,10 @@
 # Financial Markdown Scoring Report
 
 ## Overall
-- Final Score: 89.9441
-- Table Score: 94.0282
+- Final Score: 90.2059
+- Table Score: 96.6257
 - Title Layout Score: 73.3610
-- Text Score: 94.1232
+- Text Score: 93.2873
 
 ## Prediction Cleanup
 - Mode: prediction_only_header_footer_cleanup
@@ -14,11 +14,11 @@
 
 ## Weights
 - Mode: gt_content_information_share
-- Table: 28.06%
+- Table: 27.07%
 - Title Layout: 20.00%
-- Text: 51.94%
-- GT table semantic tokens / grid slots / information units: 31010 / 11297 / 42307
-- GT body / active chart / text information units: 78321 / 0 / 78321
+- Text: 52.93%
+- GT table semantic tokens / grid slots / information units: 29953 / 10988 / 40941
+- GT body / active chart / text information units: 78195 / 1841 / 80036
 
 ## Configuration
 - Remove pred header/footer: False
@@ -33,56 +33,56 @@
 - Title layout reserve: 0.2
 - Chart scoring mode: included_as_order_aware_numeric_first_token_score
 - Detected primary GT / Pred chart blocks: 21 / 20
-- Representation-neutral chart score: 9.5238
-- GT chart token share inside text module: 0.0000
+- Representation-neutral chart score: 57.5681
+- GT chart token share inside text module: 0.0230
 - Removed primary GT / alt GT / Pred chart blocks: 0 / 0 / 0
 
 ## Table Evaluation
 - Table GT strategy result: per_table_max
-- Primary table score: 75.9095
-- Alt table score: 93.4160
+- Primary table score: 77.7389
+- Alt table score: 95.9792
 - Per-table rule: each predicted table keeps its higher one-to-one pair score from primary or alt GT.
-- Per-table selected primary / alt pairs: 167 / 25
-- Per-table reference table count: 200
-- Matched / missing / extra tables: 192 / 8 / 0
-- Table content score: 92.9298
-- Table structure score: 94.7604
-- Table matrix score: 94.0282
+- Per-table selected primary / alt pairs: 166 / 25
+- Per-table reference table count: 178
+- Matched / missing / extra tables: 191 / 0 / 1
+- Table content score: 95.5146
+- Table structure score: 97.3664
+- Table matrix score: 96.6257
 - Table alignment strategy: per_table_best_of_primary_alt_gt_footprint_weighted
-- GT footprint total / extra Pred footprint: 26647.0476 / 0.0000
+- GT footprint total / extra Pred footprint: 25868.0877 / 33.3167
 - Chart-table eligible / auxiliary / matched: 0 / 17 / 0
 
 ### Table Matches
 - primary GT table 0 -> Pred table 0: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 37, 'cols': 3}, Pred shape={'rows': 37, 'cols': 3}
-- primary GT table 9 -> Pred table 1: pair=97.6923, structure=100.0000, content=94.2308, keywords=93.0000, match=95.8077, GT shape={'rows': 6, 'cols': 5}, Pred shape={'rows': 6, 'cols': 5}
-- primary GT table 10 -> Pred table 2: pair=97.7695, structure=100.0000, content=94.4238, keywords=95.0000, match=96.8308, GT shape={'rows': 6, 'cols': 5}, Pred shape={'rows': 6, 'cols': 5}
-- primary GT table 11 -> Pred table 3: pair=97.3742, structure=100.0000, content=93.4354, keywords=96.1111, match=97.2678, GT shape={'rows': 11, 'cols': 5}, Pred shape={'rows': 11, 'cols': 5}
-- primary GT table 12 -> Pred table 4: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 7, 'cols': 3}, Pred shape={'rows': 7, 'cols': 3}
-- primary GT table 13 -> Pred table 5: pair=99.9306, structure=100.0000, content=99.8264, keywords=100.0000, match=99.9792, GT shape={'rows': 37, 'cols': 4}, Pred shape={'rows': 37, 'cols': 4}
-- primary GT table 16 -> Pred table 6: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 7, 'cols': 4}, Pred shape={'rows': 7, 'cols': 4}
-- primary GT table 18 -> Pred table 7: pair=89.0909, structure=100.0000, content=72.7273, keywords=91.2500, match=92.3523, GT shape={'rows': 5, 'cols': 3}, Pred shape={'rows': 5, 'cols': 3}
-- primary GT table 22 -> Pred table 8: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 5, 'cols': 3}, Pred shape={'rows': 5, 'cols': 3}
-- primary GT table 23 -> Pred table 9: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 5, 'cols': 3}, Pred shape={'rows': 5, 'cols': 3}
-- primary GT table 24 -> Pred table 10: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 6, 'cols': 2}, Pred shape={'rows': 6, 'cols': 2}
-- primary GT table 25 -> Pred table 11: pair=86.3838, structure=85.1852, content=88.1818, keywords=100.0000, match=92.9522, GT shape={'rows': 7, 'cols': 4}, Pred shape={'rows': 9, 'cols': 4}
-- primary GT table 26 -> Pred table 12: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 11, 'cols': 8}, Pred shape={'rows': 11, 'cols': 8}
-- primary GT table 27 -> Pred table 13: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 11, 'cols': 8}, Pred shape={'rows': 11, 'cols': 8}
-- primary GT table 28 -> Pred table 14: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 8, 'cols': 4}, Pred shape={'rows': 8, 'cols': 4}
-- primary GT table 29 -> Pred table 15: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 8, 'cols': 4}, Pred shape={'rows': 8, 'cols': 4}
-- primary GT table 30 -> Pred table 16: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 8, 'cols': 4}, Pred shape={'rows': 8, 'cols': 4}
-- primary GT table 31 -> Pred table 17: pair=99.6413, structure=100.0000, content=99.1031, keywords=100.0000, match=99.8924, GT shape={'rows': 5, 'cols': 5}, Pred shape={'rows': 5, 'cols': 5}
-- primary GT table 32 -> Pred table 18: pair=99.8419, structure=100.0000, content=99.6047, keywords=100.0000, match=99.9526, GT shape={'rows': 11, 'cols': 5}, Pred shape={'rows': 11, 'cols': 5}
-- primary GT table 33 -> Pred table 19: pair=87.6613, structure=91.6667, content=81.6532, keywords=94.8810, match=92.0722, GT shape={'rows': 14, 'cols': 4}, Pred shape={'rows': 16, 'cols': 4}
-- primary GT table 34 -> Pred table 20: pair=92.9713, structure=94.8718, content=90.1205, keywords=97.9412, match=95.8363, GT shape={'rows': 12, 'cols': 4}, Pred shape={'rows': 13, 'cols': 4}
-- primary GT table 35 -> Pred table 21: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 4, 'cols': 4}, Pred shape={'rows': 4, 'cols': 4}
-- primary GT table 36 -> Pred table 22: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 16, 'cols': 4}, Pred shape={'rows': 16, 'cols': 4}
-- primary GT table 37 -> Pred table 23: pair=95.5647, structure=94.4444, content=97.2452, keywords=100.0000, match=97.5583, GT shape={'rows': 11, 'cols': 4}, Pred shape={'rows': 12, 'cols': 4}
-- primary GT table 38 -> Pred table 24: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 7, 'cols': 7}, Pred shape={'rows': 7, 'cols': 7}
-- primary GT table 39 -> Pred table 25: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 4, 'cols': 3}, Pred shape={'rows': 4, 'cols': 3}
-- primary GT table 40 -> Pred table 26: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 4, 'cols': 3}, Pred shape={'rows': 4, 'cols': 3}
-- primary GT table 41 -> Pred table 27: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 17, 'cols': 3}, Pred shape={'rows': 17, 'cols': 3}
-- primary GT table 42 -> Pred table 28: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 9, 'cols': 3}, Pred shape={'rows': 9, 'cols': 3}
-- primary GT table 43 -> Pred table 29: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 8, 'cols': 3}, Pred shape={'rows': 8, 'cols': 3}
+- primary GT table 1 -> Pred table 1: pair=97.6923, structure=100.0000, content=94.2308, keywords=93.0000, match=95.8077, GT shape={'rows': 6, 'cols': 5}, Pred shape={'rows': 6, 'cols': 5}
+- primary GT table 2 -> Pred table 2: pair=97.7695, structure=100.0000, content=94.4238, keywords=95.0000, match=96.8308, GT shape={'rows': 6, 'cols': 5}, Pred shape={'rows': 6, 'cols': 5}
+- primary GT table 3 -> Pred table 3: pair=97.3742, structure=100.0000, content=93.4354, keywords=96.1111, match=97.2678, GT shape={'rows': 11, 'cols': 5}, Pred shape={'rows': 11, 'cols': 5}
+- primary GT table 4 -> Pred table 4: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 7, 'cols': 3}, Pred shape={'rows': 7, 'cols': 3}
+- primary GT table 5 -> Pred table 5: pair=99.9306, structure=100.0000, content=99.8264, keywords=100.0000, match=99.9792, GT shape={'rows': 37, 'cols': 4}, Pred shape={'rows': 37, 'cols': 4}
+- primary GT table 6 -> Pred table 6: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 7, 'cols': 4}, Pred shape={'rows': 7, 'cols': 4}
+- primary GT table 7 -> Pred table 8: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 5, 'cols': 3}, Pred shape={'rows': 5, 'cols': 3}
+- primary GT table 8 -> Pred table 9: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 5, 'cols': 3}, Pred shape={'rows': 5, 'cols': 3}
+- primary GT table 9 -> Pred table 10: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 6, 'cols': 2}, Pred shape={'rows': 6, 'cols': 2}
+- primary GT table 10 -> Pred table 11: pair=86.3838, structure=85.1852, content=88.1818, keywords=100.0000, match=92.9522, GT shape={'rows': 7, 'cols': 4}, Pred shape={'rows': 9, 'cols': 4}
+- primary GT table 11 -> Pred table 12: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 11, 'cols': 8}, Pred shape={'rows': 11, 'cols': 8}
+- primary GT table 12 -> Pred table 13: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 11, 'cols': 8}, Pred shape={'rows': 11, 'cols': 8}
+- primary GT table 13 -> Pred table 14: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 8, 'cols': 4}, Pred shape={'rows': 8, 'cols': 4}
+- primary GT table 14 -> Pred table 15: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 8, 'cols': 4}, Pred shape={'rows': 8, 'cols': 4}
+- primary GT table 15 -> Pred table 16: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 8, 'cols': 4}, Pred shape={'rows': 8, 'cols': 4}
+- primary GT table 16 -> Pred table 17: pair=99.6413, structure=100.0000, content=99.1031, keywords=100.0000, match=99.8924, GT shape={'rows': 5, 'cols': 5}, Pred shape={'rows': 5, 'cols': 5}
+- primary GT table 17 -> Pred table 18: pair=99.8419, structure=100.0000, content=99.6047, keywords=100.0000, match=99.9526, GT shape={'rows': 11, 'cols': 5}, Pred shape={'rows': 11, 'cols': 5}
+- primary GT table 18 -> Pred table 19: pair=87.6613, structure=91.6667, content=81.6532, keywords=94.8810, match=92.0722, GT shape={'rows': 14, 'cols': 4}, Pred shape={'rows': 16, 'cols': 4}
+- primary GT table 19 -> Pred table 20: pair=92.9713, structure=94.8718, content=90.1205, keywords=97.9412, match=95.8363, GT shape={'rows': 12, 'cols': 4}, Pred shape={'rows': 13, 'cols': 4}
+- primary GT table 20 -> Pred table 21: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 4, 'cols': 4}, Pred shape={'rows': 4, 'cols': 4}
+- primary GT table 21 -> Pred table 22: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 16, 'cols': 4}, Pred shape={'rows': 16, 'cols': 4}
+- primary GT table 22 -> Pred table 23: pair=95.5647, structure=94.4444, content=97.2452, keywords=100.0000, match=97.5583, GT shape={'rows': 11, 'cols': 4}, Pred shape={'rows': 12, 'cols': 4}
+- primary GT table 23 -> Pred table 24: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 7, 'cols': 7}, Pred shape={'rows': 7, 'cols': 7}
+- primary GT table 24 -> Pred table 25: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 4, 'cols': 3}, Pred shape={'rows': 4, 'cols': 3}
+- primary GT table 25 -> Pred table 26: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 4, 'cols': 3}, Pred shape={'rows': 4, 'cols': 3}
+- primary GT table 26 -> Pred table 27: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 17, 'cols': 3}, Pred shape={'rows': 17, 'cols': 3}
+- primary GT table 27 -> Pred table 28: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 9, 'cols': 3}, Pred shape={'rows': 9, 'cols': 3}
+- primary GT table 28 -> Pred table 29: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 8, 'cols': 3}, Pred shape={'rows': 8, 'cols': 3}
+- primary GT table 29 -> Pred table 30: pair=100.0000, structure=100.0000, content=100.0000, keywords=100.0000, match=100.0000, GT shape={'rows': 10, 'cols': 4}, Pred shape={'rows': 10, 'cols': 4}
 
 ## Title Layout Evaluation
 - GT raw heading levels: `[1, 1, 1, 2, 2, 2, 3, 2, 3, 1, 2, 3, 3, 3, 3, 3, 4, 4, 5, 6, 5, 6, 6, 5, 2, 3, 3, 4, 5, 5, 4, 4, 3, 2, 3, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4, 5, 5, 5, 5, 5, 5, 4, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 4, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 3, 2, 3, 3, 3, 3, 3, 3, 3, 2, 3, 4, 4, 4, 5, 5, 5, 4, 4, 3, 4, 5, 4, 4, 4] ... (304 total)`
@@ -100,15 +100,15 @@
 
 ## Text Evaluation
 - Text mode: body_edit_distance_plus_representation_neutral_chart_tokens
-- Text score: 94.1232
-- Body-only text score: 94.1232
-- Chart score used by text module: 9.5238
-- Average edit distance: 0.0588
+- Text score: 93.2873
+- Body-only text score: 94.1283
+- Chart score used by text module: 57.5681
+- Average edit distance: 0.0587
 - Matched / missing / extra blocks: 1 / 0 / 0
 - GT / Pred block counts: 1 / 1
 
 ### Worst Match Samples
-1. op=match, distance=0.0588, GT blocks 0+1, Pred blocks 0+1
+1. op=match, distance=0.0587, GT blocks 0+1, Pred blocks 0+1
    - GT: ![]\n二零二三年中报\n\n目录\n\n关于我们\n\n1重要提示及释义\n2公司概览\n5董事长致辞\n8财务摘要\n\n经营情况讨论及分析\n\n10综合金融\n14以医疗健康打造价值增长新引擎\n16主要业务经营分析\n16业绩综述\n20寿险及健康险业务\n26...
    - Pred: ![]\n关于我们\n\n1重要提示及释义\n2公司概览\n5董事长致辞\n8财务摘要\n\n经营情况讨论及分析\n\n10综合金融\n14以医疗健康打造价值增长新引擎\n16主要业务经营分析\n16业绩综述\n20寿险及健康险业务\n26财产保险业务\n30保险资金投资组...
 

@@ -47,6 +47,15 @@ SCATTER_TABLE_RE = re.compile(
     r"(?:^\|\s*\d+\s*\|.*?\|\s*$\n?)+",
     re.MULTILINE,
 )
+# ``?[]`` denotes an informative chart, not a generic image.  Older
+# announcement Gold files already placed the marker immediately before the
+# table transcription, but omitted the explicit payload heading expected by
+# the chart-aware scorer.  Canonicalizing that local, representation-neutral
+# structure makes the chart switch effective without changing a cell, title,
+# or ordinary business table.
+CHART_MARKER_TABLE_RE = re.compile(
+    r"(?m)^(?P<indent>[ \t]*)\?\[\][ \t]*(?:\n[ \t]*)+(?=<table\b)"
+)
 
 
 @dataclass
@@ -58,6 +67,7 @@ class FileResult:
     details_removed: int
     image_paths_removed: int
     tables_formatted: int
+    chart_table_payloads: int
 
 
 def _document_id(path: Path) -> str:
@@ -207,6 +217,15 @@ def normalize_markdown(source: str, doc_id: str) -> tuple[str, dict[str, int]]:
     text, html_images = HTML_IMAGE_RE.subn("![]", text)
     counters["image_paths"] += html_images
 
+    # Preserve every marked chart table as chart data.  The heading is the
+    # scorer's explicit boundary: chart-off removes it symmetrically, while
+    # chart-on compares its title/data payload rather than treating it as an
+    # ordinary table.  Files with no chart marker remain unchanged.
+    text, counters["chart_table_payloads"] = CHART_MARKER_TABLE_RE.subn(
+        lambda match: f"{match.group('indent')}?[]\n{match.group('indent')}图中数据：\n",
+        text,
+    )
+
     counters["tables"] = len(TABLE_RE.findall(text))
 
     lines = [re.sub(r"[ \t]+$", "", line) for line in text.splitlines()]
@@ -229,6 +248,7 @@ def normalize_file(path: Path, write: bool) -> FileResult:
         details_removed=counters["details"],
         image_paths_removed=counters["image_paths"],
         tables_formatted=counters["tables"],
+        chart_table_payloads=counters["chart_table_payloads"],
     )
 
 
@@ -272,7 +292,7 @@ def main() -> int:
             f"{state:12} {result.path}: "
             f"pagebreak={result.pagebreaks_removed}, comment={result.comments_removed}, "
             f"details={result.details_removed}, image_path={result.image_paths_removed}, "
-            f"tables={result.tables_formatted}"
+            f"tables={result.tables_formatted}, chart_payload={result.chart_table_payloads}"
         )
 
     return 1 if args.check and any(result.changed for result in results) else 0

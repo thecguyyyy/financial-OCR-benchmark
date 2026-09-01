@@ -1,8 +1,8 @@
 # Financial Markdown Scoring Report
 
 ## Overall
-- Final Score: 91.1010
-- Table Score: 81.0343
+- Final Score: 90.9956
+- Table Score: 80.7061
 - Title Layout Score: 92.8939
 - Text Score: 98.5057
 
@@ -14,10 +14,10 @@
 
 ## Weights
 - Mode: gt_content_information_share
-- Table: 35.96%
+- Table: 35.89%
 - Title Layout: 20.00%
-- Text: 44.04%
-- GT table semantic tokens / grid slots / information units: 39202 / 12034 / 51236
+- Text: 44.11%
+- GT table semantic tokens / grid slots / information units: 39051 / 12002 / 51053
 - GT body / active chart / text information units: 62756 / 0 / 62756
 
 ## Configuration
@@ -34,22 +34,22 @@
 - Chart scoring mode: excluded_from_scoring
 - Detected primary GT / Pred chart blocks: 1 / 0
 - Representation-neutral chart score: 0.0000
-- GT chart token share inside text module: 0.0000
+- GT chart token share inside text module: 0.0032
 - Removed primary GT / alt GT / Pred chart blocks: 1 / 1 / 0
 
 ## Table Evaluation
 - Table GT strategy result: per_table_max
-- Primary table score: 81.0343
-- Alt table score: 81.0343
+- Primary table score: 80.7061
+- Alt table score: 80.7061
 - Per-table rule: each predicted table keeps its higher one-to-one pair score from primary or alt GT.
-- Per-table selected primary / alt pairs: 216 / 0
-- Per-table reference table count: 216
-- Matched / missing / extra tables: 216 / 0 / 25
-- Table content score: 78.4457
-- Table structure score: 82.7600
-- Table matrix score: 81.0343
+- Per-table selected primary / alt pairs: 215 / 0
+- Per-table reference table count: 215
+- Matched / missing / extra tables: 215 / 0 / 26
+- Table content score: 78.1955
+- Table structure score: 82.3797
+- Table matrix score: 80.7061
 - Table alignment strategy: per_table_best_of_primary_alt_gt_footprint_weighted
-- GT footprint total / extra Pred footprint: 31207.6469 / 2963.1650
+- GT footprint total / extra Pred footprint: 31133.6739 / 3128.0771
 - Chart-table eligible / auxiliary / matched: 0 / 0 / 0
 
 ### Table Matches

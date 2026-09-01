@@ -1,10 +1,10 @@
 # Financial Markdown Scoring Report
 
 ## Overall
-- Final Score: 85.0393
-- Table Score: 87.4706
+- Final Score: 85.3568
+- Table Score: 89.2476
 - Title Layout Score: 65.0977
-- Text Score: 90.7435
+- Text Score: 90.7403
 
 ## Prediction Cleanup
 - Mode: prediction_only_header_footer_cleanup
@@ -14,11 +14,11 @@
 
 ## Weights
 - Mode: gt_content_information_share
-- Table: 17.57%
+- Table: 17.08%
 - Title Layout: 20.00%
-- Text: 62.43%
-- GT table semantic tokens / grid slots / information units: 27398 / 7850 / 35248
-- GT body / active chart / text information units: 125260 / 0 / 125260
+- Text: 62.92%
+- GT table semantic tokens / grid slots / information units: 26334 / 7679 / 34013
+- GT body / active chart / text information units: 125258 / 0 / 125258
 
 ## Configuration
 - Remove pred header/footer: False
@@ -34,22 +34,22 @@
 - Chart scoring mode: excluded_from_scoring
 - Detected primary GT / Pred chart blocks: 3 / 0
 - Representation-neutral chart score: 0.0000
-- GT chart token share inside text module: 0.0000
+- GT chart token share inside text module: 0.0155
 - Removed primary GT / alt GT / Pred chart blocks: 3 / 3 / 0
 
 ## Table Evaluation
 - Table GT strategy result: per_table_max
-- Primary table score: 70.0640
-- Alt table score: 85.4474
+- Primary table score: 71.3094
+- Alt table score: 87.1737
 - Per-table rule: each predicted table keeps its higher one-to-one pair score from primary or alt GT.
 - Per-table selected primary / alt pairs: 120 / 41
-- Per-table reference table count: 144
+- Per-table reference table count: 141
 - Matched / missing / extra tables: 161 / 0 / 2
-- Table content score: 85.1537
-- Table structure score: 89.0152
-- Table matrix score: 87.4706
+- Table content score: 86.8837
+- Table structure score: 90.8236
+- Table matrix score: 89.2476
 - Table alignment strategy: per_table_best_of_primary_alt_gt_footprint_weighted
-- GT footprint total / extra Pred footprint: 21114.2958 / 16.2448
+- GT footprint total / extra Pred footprint: 20692.7558 / 16.2448
 - Chart-table eligible / auxiliary / matched: 0 / 0 / 0
 
 ### Table Matches
@@ -100,8 +100,8 @@
 
 ## Text Evaluation
 - Text mode: normalized_full_text_preserve_newlines
-- Text score: 90.7435
-- Body-only text score: 90.7435
+- Text score: 90.7403
+- Body-only text score: 90.7403
 - Chart score used by text module: 0.0000
 - Average edit distance: 0.0926
 - Matched / missing / extra blocks: 1 / 0 / 0

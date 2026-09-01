@@ -1,7 +1,7 @@
 ﻿rank,system,system_name,document_count,final_score,table_score,title_layout_score,text_score,chart_score
-1,mineru-3.4.0-hybrid-high,MinerU 3.4.0 — Hybrid backend (effort=high; MinerU2.5-Pro-2605-1.2B),10,92.3993,93.1942,84.7874,95.2495,69.5315
-2,mineru-3.4.4-vlm,MinerU 3.4.4 — VLM backend (MinerU2.5-Pro-2605-1.2B),10,92.0641,93.1681,83.6767,95.097,68.7543
-3,paddleocr-vl-1.6-cross-page,PaddleOCR-VL-1.6-0.9B — cross-page merge,10,83.9781,92.9391,87.7626,82.407,0.0
-4,mineru-3.4.0-pipeline,"MinerU 3.4.0 — Pipeline backend (method=auto, lang=ch)",10,82.9962,86.51,87.4307,82.4436,0.0
-5,self-developed-parser,自研解析模型（版本未记录）,10,81.8994,79.4073,90.2917,82.4905,0.0883
-6,paddleocr-vl-1.6-pagewise,PaddleOCR-VL-1.6-0.9B — no cross-page merge,10,80.7604,79.8942,86.8023,82.407,0.0
+1,mineru-3.4.0-hybrid-high,MinerU 3.4.0 — Hybrid backend (effort=high; MinerU2.5-Pro-2605-1.2B),10,92.3288,93.5849,84.7874,94.977,46.9855
+2,mineru-3.4.4-vlm,MinerU 3.4.4 — VLM backend (MinerU2.5-Pro-2605-1.2B),10,91.9948,93.5588,83.6767,94.826,46.3245
+3,paddleocr-vl-1.6-cross-page,PaddleOCR-VL-1.6-0.9B — cross-page merge,10,83.8191,93.2598,87.7626,81.9974,0.0
+4,mineru-3.4.0-pipeline,"MinerU 3.4.0 — Pipeline backend (method=auto, lang=ch)",10,82.8855,86.9546,87.4307,82.021,0.0
+5,self-developed-parser,自研解析模型（版本未记录）,10,81.7573,79.798,90.2917,82.0567,0.0883
+6,paddleocr-vl-1.6-pagewise,PaddleOCR-VL-1.6-0.9B — no cross-page merge,10,80.6202,80.2393,86.8023,81.9974,0.0

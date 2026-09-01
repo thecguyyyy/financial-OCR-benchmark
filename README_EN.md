@@ -14,12 +14,12 @@ The PDF is the only factual source for Gold Markdown. Gold files are manually ch
 | 002 | Research | Media industry report | 17 | 17 informative charts, 6 tables |
 | 003 | Research | Innovative-drug value-chain report | 28 | 44 informative charts, 9 tables |
 | 004 | Research | Innovative-drug internationalization report | 17 | 12 informative charts, 8 tables |
-| 005 | Disclosure | Ping An 2023 interim report | 168 | dual table Gold, long-report structure |
+| 005 | Disclosure | Ping An 2023 interim report | 168 | 21 informative charts, dual table Gold, long-report structure |
 | 006 | Disclosure | Alibaba FY2026 interim report | 83 | dual table Gold, mixed Chinese and English |
-| 007 | Disclosure | Meituan 2024 annual report | 345 | dual table Gold, many complex tables |
+| 007 | Disclosure | Meituan 2024 annual report | 345 | 3 informative charts, dual table Gold, many complex tables |
 | 008 | Disclosure | Xianfeng Advanced Material 2025 annual report | 167 | dual table Gold, A-share format |
-| 009 | Disclosure | Zitian Technology 2022 annual report | 157 | dual table Gold, A-share format |
-| 010 | Disclosure | Vanward 2020 annual report | 210 | dual table Gold, table-heavy and cross-page layouts |
+| 009 | Disclosure | Zitian Technology 2022 annual report | 157 | 1 informative chart, dual table Gold, A-share format |
+| 010 | Disclosure | Vanward 2020 annual report | 210 | 1 informative chart, dual table Gold, table-heavy and cross-page layouts |
 
 The 001–004 PDFs are desensitized copies; 005–010 are public disclosures.
 
@@ -58,7 +58,7 @@ Only systems with complete 001–010 outputs are included. Exact versions and ru
 5. PaddleOCR-VL-1.6-0.9B — no cross-page merge
 6. Self-developed parser (version not recorded)
 
-## Version 2.0 results
+## Version 2.0.1 results
 
 ### Informative charts excluded
 
@@ -66,25 +66,25 @@ Marked chart transcriptions are removed symmetrically from Gold and prediction. 
 
 | Rank | System | Overall | Table | Heading | Text |
 |---:|---|---:|---:|---:|---:|
-| 1 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 93.14 | 92.94 | 87.76 | 95.80 |
-| 2 | MinerU 3.4.4 — VLM backend | 93.05 | 93.17 | 83.68 | 96.76 |
-| 3 | MinerU 3.4.0 — Hybrid backend (effort=high) | 93.01 | 93.19 | 84.79 | 96.38 |
-| 4 | MinerU 3.4.0 — Pipeline backend | 91.64 | 86.51 | 87.43 | 95.44 |
-| 5 | Self-developed parser | 90.06 | 79.41 | 90.29 | 95.21 |
-| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 89.60 | 79.89 | 86.80 | 95.80 |
+| 1 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 93.21 | 93.26 | 87.76 | 95.79 |
+| 2 | MinerU 3.4.4 — VLM backend | 93.13 | 93.56 | 83.68 | 96.76 |
+| 3 | MinerU 3.4.0 — Hybrid backend (effort=high) | 93.10 | 93.58 | 84.79 | 96.38 |
+| 4 | MinerU 3.4.0 — Pipeline backend | 91.75 | 86.95 | 87.43 | 95.43 |
+| 5 | Self-developed parser | 90.14 | 79.80 | 90.29 | 95.20 |
+| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 89.68 | 80.24 | 86.80 | 95.79 |
 
 ### Informative charts included
 
-`?[]` chart transcriptions enter the text-information module. Matching is ordered and one-to-one, prioritizing numeric fidelity and then lexical content. Documents 005–010 contain no independent `?[]` chart objects, so the switch affects only 001–004.
+`?[]` chart transcriptions enter the text-information module. Matching is ordered and one-to-one, prioritizing numeric fidelity and then lexical content. The same switch applies to 001–010; 006 and 008 contain no independently transcribed data charts, so their two modes are identical.
 
 | Rank | System | Overall | Table | Heading | Text and charts |
 |---:|---|---:|---:|---:|---:|
-| 1 | MinerU 3.4.0 — Hybrid backend (effort=high) | 92.40 | 93.19 | 84.79 | 95.25 |
-| 2 | MinerU 3.4.4 — VLM backend | 92.06 | 93.17 | 83.68 | 95.10 |
-| 3 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 83.98 | 92.94 | 87.76 | 82.41 |
-| 4 | MinerU 3.4.0 — Pipeline backend | 83.00 | 86.51 | 87.43 | 82.44 |
-| 5 | Self-developed parser | 81.90 | 79.41 | 90.29 | 82.49 |
-| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 80.76 | 79.89 | 86.80 | 82.41 |
+| 1 | MinerU 3.4.0 — Hybrid backend (effort=high) | 92.33 | 93.58 | 84.79 | 94.98 |
+| 2 | MinerU 3.4.4 — VLM backend | 91.99 | 93.56 | 83.68 | 94.83 |
+| 3 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 83.82 | 93.26 | 87.76 | 82.00 |
+| 4 | MinerU 3.4.0 — Pipeline backend | 82.89 | 86.95 | 87.43 | 82.02 |
+| 5 | Self-developed parser | 81.76 | 79.80 | 90.29 | 82.06 |
+| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 80.62 | 80.24 | 86.80 | 82.00 |
 
 Machine-readable leaderboards and per-document reports are under [`scores/`](scores/). These rankings describe this dataset and protocol only; they are not universal OCR rankings.
 
@@ -137,4 +137,4 @@ python score_prediction_directory.py \
 
 ## Version
 
-Version 2.0.0 adds desensitized research reports, informative-chart scoring, content-aware module weights, table-footprint aggregation, and one unified 001–010 parser-specific normalization workflow. See [CHANGELOG.md](CHANGELOG.md).
+Version 2.0.1 brings the already transcribed disclosure charts under the same `?[]` switch as research reports; 006 and 008 remain at zero because they contain no independently transcribed data charts. Version 2.0.0 adds desensitized research reports, informative-chart scoring, content-aware module weights, table-footprint aggregation, and one unified 001–010 parser-specific normalization workflow. See [CHANGELOG.md](CHANGELOG.md).

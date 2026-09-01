@@ -1,10 +1,10 @@
 # Financial Markdown Scoring Report
 
 ## Overall
-- Final Score: 87.4467
-- Table Score: 92.0829
+- Final Score: 87.7638
+- Table Score: 93.9395
 - Title Layout Score: 67.6369
-- Text Score: 92.4882
+- Text Score: 92.4849
 
 ## Prediction Cleanup
 - Mode: prediction_only_header_footer_cleanup
@@ -14,11 +14,11 @@
 
 ## Weights
 - Mode: gt_content_information_share
-- Table: 17.57%
+- Table: 17.08%
 - Title Layout: 20.00%
-- Text: 62.43%
-- GT table semantic tokens / grid slots / information units: 27398 / 7850 / 35248
-- GT body / active chart / text information units: 125260 / 0 / 125260
+- Text: 62.92%
+- GT table semantic tokens / grid slots / information units: 26334 / 7679 / 34013
+- GT body / active chart / text information units: 125258 / 0 / 125258
 
 ## Configuration
 - Remove pred header/footer: False
@@ -33,23 +33,23 @@
 - Title layout reserve: 0.2
 - Chart scoring mode: excluded_from_scoring
 - Detected primary GT / Pred chart blocks: 3 / 2
-- Representation-neutral chart score: 33.3333
-- GT chart token share inside text module: 0.0000
+- Representation-neutral chart score: 5.8502
+- GT chart token share inside text module: 0.0155
 - Removed primary GT / alt GT / Pred chart blocks: 3 / 3 / 2
 
 ## Table Evaluation
 - Table GT strategy result: per_table_max
-- Primary table score: 71.9612
-- Alt table score: 90.0211
+- Primary table score: 73.2206
+- Alt table score: 91.8264
 - Per-table rule: each predicted table keeps its higher one-to-one pair score from primary or alt GT.
 - Per-table selected primary / alt pairs: 124 / 45
-- Per-table reference table count: 144
+- Per-table reference table count: 141
 - Matched / missing / extra tables: 169 / 0 / 7
-- Table content score: 91.0309
-- Table structure score: 92.7842
-- Table matrix score: 92.0829
+- Table content score: 92.8662
+- Table structure score: 94.6549
+- Table matrix score: 93.9395
 - Table alignment strategy: per_table_best_of_primary_alt_gt_footprint_weighted
-- GT footprint total / extra Pred footprint: 21114.2958 / 171.9901
+- GT footprint total / extra Pred footprint: 20692.7558 / 171.9901
 - Chart-table eligible / auxiliary / matched: 0 / 1 / 0
 
 ### Table Matches
@@ -100,15 +100,15 @@
 
 ## Text Evaluation
 - Text mode: normalized_full_text_preserve_newlines
-- Text score: 92.4882
-- Body-only text score: 92.4882
-- Chart score used by text module: 33.3333
-- Average edit distance: 0.0751
+- Text score: 92.4849
+- Body-only text score: 92.4849
+- Chart score used by text module: 5.8502
+- Average edit distance: 0.0752
 - Matched / missing / extra blocks: 1 / 0 / 0
 - GT / Pred block counts: 1 / 1
 
 ### Worst Match Samples
-1. op=match, distance=0.0751, GT blocks 0+1, Pred blocks 0+1
+1. op=match, distance=0.0752, GT blocks 0+1, Pred blocks 0+1
    - GT: 美团\n\nMeituan\n\n(于开曼群岛注册成立以不同投票权控制的有限公司)\n\n港币柜台股份代号:3690\n\n人民币柜台股份代号:83690\n![]\nEatBetterLiveBetter\n年度报告\n\n目录\n\n公司资料\n\n财务概要6\n\n主...
    - Pred: 美团美团\n\nMeituan\n\n(于开曼群岛注册成立以不同投票权控制的有限公司)\n\n港币柜台股份代号:3690\n\n人民币柜台股份代号:83690\n![]\n#EatBetterLiveBetter\n年度报告\n\n目录\n\n公司资料\n\n财务概要6\n...
 
