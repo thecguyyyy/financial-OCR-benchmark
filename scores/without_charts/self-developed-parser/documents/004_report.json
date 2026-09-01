@@ -1,0 +1,1042 @@
+{
+  "inputs": {
+    "gt": "data/gt/primary/004.md",
+    "pred": "normalized_predictions/self-developed-parser/004.md",
+    "gt_table_alt": null,
+    "table_gt_strategy": "max",
+    "gt_sha256": "03ed3b3bc1a49a1cb0ef6c896e4d8654e0907c0163fdc7ff1d7b152541e5953d",
+    "pred_sha256": "96f31241959ed7ecf50e7a029dc70aff6d92ae369965a7d9ee6fa87a7cfca700",
+    "normalization_adapter": "normalize_self_developed.py",
+    "normalization_manifest": "normalized_predictions/self-developed-parser/normalization_manifest.json",
+    "score_charts": "off"
+  },
+  "pred_cleanup": {
+    "mode": "prediction_only_header_footer_cleanup",
+    "removed_line_count": 0,
+    "removed_line_examples": []
+  },
+  "chart_evaluation": {
+    "score_charts": false,
+    "mode": "excluded_from_scoring",
+    "gt_chart_block_count": 12,
+    "alt_gt_chart_block_count": 0,
+    "pred_chart_block_count": 0,
+    "pred_chart_payload_count_after_chart_table_routing": 0,
+    "routed_chart_table_count": 0,
+    "gt_removed_block_count": 12,
+    "alt_gt_removed_block_count": 0,
+    "pred_removed_block_count": 0,
+    "chart_score": {
+      "chart_score": 0.0,
+      "gt_chart_count": 12,
+      "pred_chart_count": 0,
+      "matched_chart_count": 0,
+      "missing_chart_count": 12,
+      "extra_chart_count": 0,
+      "matches": []
+    },
+    "gt_body_token_count": 9782,
+    "gt_chart_token_count": 2916,
+    "chart_token_share": 0.2296
+  },
+  "weights": {
+    "table": 0.35215749112967837,
+    "title_layout": 0.2,
+    "text": 0.44784250887032173
+  },
+  "weighting_evaluation": {
+    "mode": "gt_content_information_share",
+    "title_layout_reserve": 0.2,
+    "content_budget": 0.8,
+    "table_semantic_tokens": 6616,
+    "table_grid_slots": 1076,
+    "table_information_units": 7692,
+    "body_information_units": 9782,
+    "chart_information_units": 0,
+    "text_information_units": 9782,
+    "total_content_information_units": 17474,
+    "table_content_share": 0.44019686391209795
+  },
+  "config": {
+    "remove_pred_header_footer": false,
+    "normalize_images": true,
+    "score_charts": false,
+    "normalize_zh": "t2s",
+    "normalize_footnotes": true,
+    "normalize_punctuation": true,
+    "normalize_formulas": true,
+    "table_structure_weight": 0.6,
+    "table_content_weight": 0.4,
+    "table_aggregation": "footprint",
+    "module_weighting": "content",
+    "title_layout_weight": 0.2
+  },
+  "scores": {
+    "final_score": 74.8853,
+    "table_score": 40.2021,
+    "title_layout_score": 92.297,
+    "text_score": 94.3823
+  },
+  "table_evaluation": {
+    "selected_gt": "primary",
+    "selected_table_score": {
+      "table_content_score": 34.0085,
+      "table_structure_score": 44.3312,
+      "table_matrix_score": 40.2021,
+      "table_alignment_strategy": "pred_semantic_best_one_to_one_gt_footprint_weighted",
+      "table_aggregation": "footprint",
+      "matched_table_count": 5,
+      "missing_table_count": 3,
+      "extra_table_count": 0,
+      "gt_table_count": 8,
+      "pred_table_count": 5,
+      "auxiliary_chart_table_count": 0,
+      "auxiliary_chart_table_matched_count": 0,
+      "gt_chart_table_eligible_count": 8,
+      "gt_table_footprints": [
+        {
+          "gt_index": 0,
+          "rows": 18,
+          "cols": 8,
+          "grid_slots": 144,
+          "normalized_characters": 791,
+          "footprint_units": 337.4966666502056,
+          "document_weight": 0.09716659378219718
+        },
+        {
+          "gt_index": 1,
+          "rows": 11,
+          "cols": 4,
+          "grid_slots": 44,
+          "normalized_characters": 156,
+          "footprint_units": 82.84926070883192,
+          "document_weight": 0.023852622132099262
+        },
+        {
+          "gt_index": 2,
+          "rows": 6,
+          "cols": 8,
+          "grid_slots": 48,
+          "normalized_characters": 196,
+          "footprint_units": 96.99484522385713,
+          "document_weight": 0.027925190545960828
+        },
+        {
+          "gt_index": 3,
+          "rows": 6,
+          "cols": 4,
+          "grid_slots": 24,
+          "normalized_characters": 561,
+          "footprint_units": 116.0344776348823,
+          "document_weight": 0.0334067742504952
+        },
+        {
+          "gt_index": 4,
+          "rows": 53,
+          "cols": 7,
+          "grid_slots": 371,
+          "normalized_characters": 4701,
+          "footprint_units": 1320.6328028638393,
+          "document_weight": 0.38021528439068214
+        },
+        {
+          "gt_index": 5,
+          "rows": 56,
+          "cols": 7,
+          "grid_slots": 392,
+          "normalized_characters": 4347,
+          "footprint_units": 1305.3827025052844,
+          "document_weight": 0.37582472159969244
+        },
+        {
+          "gt_index": 6,
+          "rows": 11,
+          "cols": 3,
+          "grid_slots": 33,
+          "normalized_characters": 330,
+          "footprint_units": 104.35516278555652,
+          "document_weight": 0.030044254398425042
+        },
+        {
+          "gt_index": 7,
+          "rows": 4,
+          "cols": 5,
+          "grid_slots": 20,
+          "normalized_characters": 601,
+          "footprint_units": 109.63576058932597,
+          "document_weight": 0.031564558900447945
+        }
+      ],
+      "gt_footprint_total": 3473.3817,
+      "extra_pred_footprint_total": 0.0,
+      "final_table_score": 40.2021,
+      "matches": [
+        {
+          "gt_index": 0,
+          "pred_index": 0,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 18,
+            "cols": 8
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 8
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 71.7508,
+          "table_pair_score": 88.7003,
+          "table_keyword_score": 93.1134,
+          "table_match_score": 93.1668,
+          "pred_position": 0,
+          "gt_position": 0,
+          "gt_footprint": {
+            "rows": 18,
+            "cols": 8,
+            "grid_slots": 144,
+            "normalized_characters": 791,
+            "footprint_units": 337.4966666502056,
+            "document_weight": 0.09716659378219718
+          },
+          "pred_footprint": {
+            "rows": 18,
+            "cols": 8,
+            "grid_slots": 144,
+            "normalized_characters": 619,
+            "footprint_units": 298.5565273109935
+          }
+        },
+        {
+          "gt_index": 3,
+          "pred_index": 1,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 6,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 6,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
+          "table_keyword_score": 100.0,
+          "table_match_score": 100.0,
+          "pred_position": 1,
+          "gt_position": 3,
+          "gt_footprint": {
+            "rows": 6,
+            "cols": 4,
+            "grid_slots": 24,
+            "normalized_characters": 561,
+            "footprint_units": 116.0344776348823,
+            "document_weight": 0.0334067742504952
+          },
+          "pred_footprint": {
+            "rows": 6,
+            "cols": 4,
+            "grid_slots": 24,
+            "normalized_characters": 561,
+            "footprint_units": 116.0344776348823
+          }
+        },
+        {
+          "gt_index": 4,
+          "pred_index": 2,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 53,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 108,
+            "cols": 7
+          },
+          "table_structure_score": 66.0494,
+          "table_content_score": 49.293,
+          "table_pair_score": 59.3468,
+          "table_keyword_score": 94.194,
+          "table_match_score": 78.1109,
+          "pred_position": 2,
+          "gt_position": 4,
+          "gt_footprint": {
+            "rows": 53,
+            "cols": 7,
+            "grid_slots": 371,
+            "normalized_characters": 4701,
+            "footprint_units": 1320.6328028638393,
+            "document_weight": 0.38021528439068214
+          },
+          "pred_footprint": {
+            "rows": 108,
+            "cols": 7,
+            "grid_slots": 756,
+            "normalized_characters": 9003,
+            "footprint_units": 2608.8825193940797
+          }
+        },
+        {
+          "gt_index": 6,
+          "pred_index": 3,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
+          "table_keyword_score": 100.0,
+          "table_match_score": 100.0,
+          "pred_position": 3,
+          "gt_position": 6,
+          "gt_footprint": {
+            "rows": 11,
+            "cols": 3,
+            "grid_slots": 33,
+            "normalized_characters": 330,
+            "footprint_units": 104.35516278555652,
+            "document_weight": 0.030044254398425042
+          },
+          "pred_footprint": {
+            "rows": 11,
+            "cols": 3,
+            "grid_slots": 33,
+            "normalized_characters": 330,
+            "footprint_units": 104.35516278555652
+          }
+        },
+        {
+          "gt_index": 7,
+          "pred_index": 4,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 4,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 4,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 61.7678,
+          "table_pair_score": 84.7071,
+          "table_keyword_score": 96.6217,
+          "table_match_score": 93.723,
+          "pred_position": 4,
+          "gt_position": 7,
+          "gt_footprint": {
+            "rows": 4,
+            "cols": 5,
+            "grid_slots": 20,
+            "normalized_characters": 601,
+            "footprint_units": 109.63576058932597,
+            "document_weight": 0.031564558900447945
+          },
+          "pred_footprint": {
+            "rows": 4,
+            "cols": 5,
+            "grid_slots": 20,
+            "normalized_characters": 951,
+            "footprint_units": 137.9130160644745
+          }
+        }
+      ]
+    },
+    "primary_table_score": {
+      "table_content_score": 34.0085,
+      "table_structure_score": 44.3312,
+      "table_matrix_score": 40.2021,
+      "table_alignment_strategy": "pred_semantic_best_one_to_one_gt_footprint_weighted",
+      "table_aggregation": "footprint",
+      "matched_table_count": 5,
+      "missing_table_count": 3,
+      "extra_table_count": 0,
+      "gt_table_count": 8,
+      "pred_table_count": 5,
+      "auxiliary_chart_table_count": 0,
+      "auxiliary_chart_table_matched_count": 0,
+      "gt_chart_table_eligible_count": 8,
+      "gt_table_footprints": [
+        {
+          "gt_index": 0,
+          "rows": 18,
+          "cols": 8,
+          "grid_slots": 144,
+          "normalized_characters": 791,
+          "footprint_units": 337.4966666502056,
+          "document_weight": 0.09716659378219718
+        },
+        {
+          "gt_index": 1,
+          "rows": 11,
+          "cols": 4,
+          "grid_slots": 44,
+          "normalized_characters": 156,
+          "footprint_units": 82.84926070883192,
+          "document_weight": 0.023852622132099262
+        },
+        {
+          "gt_index": 2,
+          "rows": 6,
+          "cols": 8,
+          "grid_slots": 48,
+          "normalized_characters": 196,
+          "footprint_units": 96.99484522385713,
+          "document_weight": 0.027925190545960828
+        },
+        {
+          "gt_index": 3,
+          "rows": 6,
+          "cols": 4,
+          "grid_slots": 24,
+          "normalized_characters": 561,
+          "footprint_units": 116.0344776348823,
+          "document_weight": 0.0334067742504952
+        },
+        {
+          "gt_index": 4,
+          "rows": 53,
+          "cols": 7,
+          "grid_slots": 371,
+          "normalized_characters": 4701,
+          "footprint_units": 1320.6328028638393,
+          "document_weight": 0.38021528439068214
+        },
+        {
+          "gt_index": 5,
+          "rows": 56,
+          "cols": 7,
+          "grid_slots": 392,
+          "normalized_characters": 4347,
+          "footprint_units": 1305.3827025052844,
+          "document_weight": 0.37582472159969244
+        },
+        {
+          "gt_index": 6,
+          "rows": 11,
+          "cols": 3,
+          "grid_slots": 33,
+          "normalized_characters": 330,
+          "footprint_units": 104.35516278555652,
+          "document_weight": 0.030044254398425042
+        },
+        {
+          "gt_index": 7,
+          "rows": 4,
+          "cols": 5,
+          "grid_slots": 20,
+          "normalized_characters": 601,
+          "footprint_units": 109.63576058932597,
+          "document_weight": 0.031564558900447945
+        }
+      ],
+      "gt_footprint_total": 3473.3817,
+      "extra_pred_footprint_total": 0.0,
+      "final_table_score": 40.2021,
+      "matches": [
+        {
+          "gt_index": 0,
+          "pred_index": 0,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 18,
+            "cols": 8
+          },
+          "pred_shape": {
+            "rows": 18,
+            "cols": 8
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 71.7508,
+          "table_pair_score": 88.7003,
+          "table_keyword_score": 93.1134,
+          "table_match_score": 93.1668,
+          "pred_position": 0,
+          "gt_position": 0,
+          "gt_footprint": {
+            "rows": 18,
+            "cols": 8,
+            "grid_slots": 144,
+            "normalized_characters": 791,
+            "footprint_units": 337.4966666502056,
+            "document_weight": 0.09716659378219718
+          },
+          "pred_footprint": {
+            "rows": 18,
+            "cols": 8,
+            "grid_slots": 144,
+            "normalized_characters": 619,
+            "footprint_units": 298.5565273109935
+          }
+        },
+        {
+          "gt_index": 3,
+          "pred_index": 1,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 6,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 6,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
+          "table_keyword_score": 100.0,
+          "table_match_score": 100.0,
+          "pred_position": 1,
+          "gt_position": 3,
+          "gt_footprint": {
+            "rows": 6,
+            "cols": 4,
+            "grid_slots": 24,
+            "normalized_characters": 561,
+            "footprint_units": 116.0344776348823,
+            "document_weight": 0.0334067742504952
+          },
+          "pred_footprint": {
+            "rows": 6,
+            "cols": 4,
+            "grid_slots": 24,
+            "normalized_characters": 561,
+            "footprint_units": 116.0344776348823
+          }
+        },
+        {
+          "gt_index": 4,
+          "pred_index": 2,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 53,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 108,
+            "cols": 7
+          },
+          "table_structure_score": 66.0494,
+          "table_content_score": 49.293,
+          "table_pair_score": 59.3468,
+          "table_keyword_score": 94.194,
+          "table_match_score": 78.1109,
+          "pred_position": 2,
+          "gt_position": 4,
+          "gt_footprint": {
+            "rows": 53,
+            "cols": 7,
+            "grid_slots": 371,
+            "normalized_characters": 4701,
+            "footprint_units": 1320.6328028638393,
+            "document_weight": 0.38021528439068214
+          },
+          "pred_footprint": {
+            "rows": 108,
+            "cols": 7,
+            "grid_slots": 756,
+            "normalized_characters": 9003,
+            "footprint_units": 2608.8825193940797
+          }
+        },
+        {
+          "gt_index": 6,
+          "pred_index": 3,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 11,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
+          "table_keyword_score": 100.0,
+          "table_match_score": 100.0,
+          "pred_position": 3,
+          "gt_position": 6,
+          "gt_footprint": {
+            "rows": 11,
+            "cols": 3,
+            "grid_slots": 33,
+            "normalized_characters": 330,
+            "footprint_units": 104.35516278555652,
+            "document_weight": 0.030044254398425042
+          },
+          "pred_footprint": {
+            "rows": 11,
+            "cols": 3,
+            "grid_slots": 33,
+            "normalized_characters": 330,
+            "footprint_units": 104.35516278555652
+          }
+        },
+        {
+          "gt_index": 7,
+          "pred_index": 4,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 4,
+            "cols": 5
+          },
+          "pred_shape": {
+            "rows": 4,
+            "cols": 5
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 61.7678,
+          "table_pair_score": 84.7071,
+          "table_keyword_score": 96.6217,
+          "table_match_score": 93.723,
+          "pred_position": 4,
+          "gt_position": 7,
+          "gt_footprint": {
+            "rows": 4,
+            "cols": 5,
+            "grid_slots": 20,
+            "normalized_characters": 601,
+            "footprint_units": 109.63576058932597,
+            "document_weight": 0.031564558900447945
+          },
+          "pred_footprint": {
+            "rows": 4,
+            "cols": 5,
+            "grid_slots": 20,
+            "normalized_characters": 951,
+            "footprint_units": 137.9130160644745
+          }
+        }
+      ]
+    },
+    "alt_table_score": null
+  },
+  "title_layout_evaluation": {
+    "title_scoring_method": "anchor_heading_f1_level_accuracy_order",
+    "title_layout_weights": {
+      "heading_f1": 0.8,
+      "level_accuracy": 0.1,
+      "order": 0.1
+    },
+    "gt_raw_heading_levels": [
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      5,
+      5,
+      2,
+      2,
+      2,
+      2
+    ],
+    "pred_raw_heading_levels": [
+      1,
+      2,
+      2,
+      3,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3
+    ],
+    "gt_relative_heading_levels": [
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      4,
+      4,
+      3,
+      4,
+      4,
+      5,
+      5,
+      2,
+      2,
+      2,
+      2
+    ],
+    "pred_relative_heading_levels": [
+      1,
+      2,
+      2,
+      3,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3
+    ],
+    "title_layout_score": 92.297,
+    "heading_f1_score": 94.4444,
+    "level_accuracy_score": 77.9412,
+    "order_score": 89.4737,
+    "alignment_cost": 2.0,
+    "missing_heading_count": 2,
+    "extra_heading_count": 0,
+    "level_mismatch_count": 11,
+    "issues": [
+      "11 aligned headings have different relative levels.",
+      "2 GT headings are missing."
+    ],
+    "alignment": [
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 0,
+        "pred_index": 0,
+        "gt_level": 1,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "以 BD 出海关税风险小，看好创新药国际化进程",
+        "pred_text_preview": "以 BD 出海关税风险小，看好创新药国际化进程"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 1,
+        "pred_index": 1,
+        "gt_level": 2,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "投资逻辑",
+        "pred_text_preview": "投资逻辑"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 2,
+        "pred_index": 2,
+        "gt_level": 2,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "投资建议",
+        "pred_text_preview": "投资建议"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 3,
+        "pred_index": 3,
+        "gt_level": 2,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "风险提示",
+        "pred_text_preview": "风险提示"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 4,
+        "pred_index": 4,
+        "gt_level": 2,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "内容目录",
+        "pred_text_preview": "内容目录"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 5,
+        "pred_index": 5,
+        "gt_level": 2,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "图表目录",
+        "pred_text_preview": "图表目录"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 6,
+        "pred_index": 6,
+        "gt_level": 2,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "美国潜在药品专项关税对我国创新药影响小，坚定看好创新药企穿越关税周期",
+        "pred_text_preview": "美国潜在药品专项关税对我国创新药影响小，坚定看好创新药企穿越关税周期"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 7,
+        "pred_index": 7,
+        "gt_level": 3,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "从中国视角，创新药对美贸易量小，以 BD 出海较少受潜在关税影响",
+        "pred_text_preview": "从中国视角，创新药对美贸易量小，以 BD 出海较少受潜在关税影响"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 8,
+        "pred_index": 8,
+        "gt_level": 4,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "逻辑一：我国西成药进口大于出口、贸易风险小，多元化程度高，潜在冲击低",
+        "pred_text_preview": "逻辑一：我国西成药进口大于出口、贸易风险小，多元化程度高，潜在冲击低"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 9,
+        "pred_index": 9,
+        "gt_level": 4,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "逻辑二：以 BD 出海帮助创新药企较少受到潜在关税影响",
+        "pred_text_preview": "逻辑二：以 BD 出海帮助创新药企较少受到潜在关税影响"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 10,
+        "pred_index": 10,
+        "gt_level": 3,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "从美国视角，潜在关税博弈对象为欧洲，博弈目标实现难度大",
+        "pred_text_preview": "从美国视角，潜在关税博弈对象为欧洲，博弈目标实现难度大"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 11,
+        "pred_index": 11,
+        "gt_level": 4,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "逻辑一：博弈对象，美欧成品药贸易逆差预计成美国关注焦点",
+        "pred_text_preview": "逻辑一：博弈对象，美欧成品药贸易逆差预计成美国关注焦点"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 12,
+        "pred_index": 12,
+        "gt_level": 4,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "逻辑二：博弈目标，平抑药价和迁回产能实现难度大",
+        "pred_text_preview": "逻辑二：博弈目标，平抑药价和迁回产能实现难度大"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 13,
+        "gt_level": 5,
+        "gt_text_preview": "观点一：对药品征收关税无法平抑药价，甚至会推高药价。"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 14,
+        "gt_level": 5,
+        "gt_text_preview": "观点二：对药品征收关税无法在短期实现生产转移，长期取决于美国政策连续性。"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 15,
+        "pred_index": 13,
+        "gt_level": 2,
+        "pred_level": 2,
+        "text_similarity": 1.0,
+        "gt_text_preview": "投资建议",
+        "pred_text_preview": "投资建议"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 16,
+        "pred_index": 14,
+        "gt_level": 2,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "风险提示",
+        "pred_text_preview": "风险提示"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 17,
+        "pred_index": 15,
+        "gt_level": 2,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "行业投资评级的说明：",
+        "pred_text_preview": "行业投资评级的说明："
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 18,
+        "pred_index": 16,
+        "gt_level": 2,
+        "pred_level": 3,
+        "text_similarity": 1.0,
+        "gt_text_preview": "特别声明：",
+        "pred_text_preview": "特别声明："
+      }
+    ]
+  },
+  "text_evaluation": {
+    "text_mode": "normalized_full_text_preserve_newlines",
+    "text_score": 94.3823,
+    "matched_block_count": 1,
+    "missing_block_count": 0,
+    "extra_block_count": 0,
+    "average_edit_distance": 0.0562,
+    "gt_block_count": 1,
+    "pred_block_count": 1,
+    "worst_matches": [
+      {
+        "op": "match",
+        "distance": 0.0562,
+        "gt_start": 0,
+        "gt_count": 1,
+        "pred_start": 0,
+        "pred_count": 1,
+        "gt_preview": "以BD出海关税风险小看好创新药国际化进程\\n\\n投资逻辑\\n\\n美国潜在关税威胁对我国创新药影响小。原本全球药品贸易近乎零关税据WTO官网显示,1994年《药品贸易协定》取消大量药品及其用于生产这些商品的物质的关税和其他关税和费用将它们永久地约束在免税水平加拿大欧盟日本澳门...",
+        "pred_preview": "以BD出海关税风险小看好创新药国际化进程\\n\\n投资逻辑\\n\\n美国潜在关税威胁对我国创新药影响小。原本全球药品贸易近乎零关税据WTO官网显示,1994年《药品贸易协定》取消大量药品及其用于生产这些商品的物质的关税和其他关税和费用将它们永久地约束在免税水平加拿大欧盟日本澳门..."
+      }
+    ],
+    "body_only_text_score": 94.3823,
+    "chart_score": 0.0,
+    "gt_body_token_count": 9782,
+    "gt_chart_token_count": 2916,
+    "chart_token_share": 0.2296
+  }
+}

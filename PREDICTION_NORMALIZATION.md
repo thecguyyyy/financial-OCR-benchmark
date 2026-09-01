@@ -1,75 +1,80 @@
-# Prediction 输出归一化协议
+# Prediction 统一归一化协议（001–010）
 
-本基准把“解析器输出适配”和“语义等价比较”分成两个阶段。每个解析系统先通过自己的确定性适配器生成素 Markdown；随后所有系统进入完全相同的评分器。这样既能消除模型输出协议的差异，也不会把某个模型的缺字、错字、表格错误或标题错误特殊处理掉。
+本项目只保留一套 Prediction 归一化实现。001–004 行研报告与 005–010 金融公告不再维护两套 `common.py` 或两套文件遍历逻辑。
 
-## 1. 强制约束
+## 1. 统一架构
 
-正式评分使用的每个模型/版本必须提供一个独立适配脚本。适配器只能依赖该模型稳定的输出格式，并满足以下条件：
+- 唯一公共引擎：`normalizers/common.py`
+- 唯一批量入口：`python normalize_all_predictions.py`
+- 模型入口：`normalizers/normalize_*.py`，只声明该解析器实际存在的协议差异和处理顺序
+- 文档发现：从输入目录自动发现文件名满足 `NNN.md` 的文件并按编号排序，因此同一实现可处理 001–010，也允许某个模型只覆盖其中一部分
+- 每个模型输出独立的 `normalization_manifest.json`，记录文档编号、输入/输出 SHA-256、逐项变换计数和校验结果
 
-- 不读取 GT、PDF、评分报告或其他模型的结果。
-- 不按文档 ID、公司名或已知答案设置规则。
-- 不修正实体、数字、正文、标题文字或表格单元格。
-- 不合并、拆分、删除或重排表格；跨页边界必须沿用待评结果本身。
-- 只清理表示层信息，例如图片路径/坐标、分页控制符、模型专属容器、展示性 HTML 和预测内部可识别的重复页眉页脚。
-- 有信息量的 `text_image`、chart 或图表文字必须保留；纯视觉元素统一为 `![]`。
+## 2. 公平性边界
 
-每次归一化都会输出 `normalization_manifest.json`。标准批量评分拒绝没有 manifest 的目录，也会检查其中的 GT/PDF 依赖、按文档特判、表格边界修改和内容重排标记均为 `false`。
+适配器只允许清理解析器输出协议，不允许根据答案修正文档内容：
 
-## 2. 当前六个适配器
+- 不读取 GT、PDF、评分报告或其他模型结果
+- 不按文档编号、公司名、报告名或已知分数设置规则
+- 不改写实体、数字、正文含义或表格单元格
+- 不合并、拆分、删除或重排业务表格
+- 不修复真实 OCR 错字、漏字、标题层级压平或漏表
+- 只有模型自身输出语法能够稳定识别的容器、路径、坐标、分页符、内部标签和重复页眉页脚可以清理
 
-| 解析结果 | 独立脚本 | 主要格式适配 |
+## 3. 公共处理
+
+所有模型共用以下基础能力，但只有模型入口显式调用的规则才会生效：
+
+1. 统一 CRLF/CR 为 LF，移除 UTF-8 BOM
+2. 图片路径、HTML 图片和引用式图片统一为 `![]`
+3. 移除 HTML 注释；保留注释外的可见文字
+4. 展开仅用于展示的 `sup/sub` 外壳，保留其中内容
+5. 删除孤立页码；重复页眉页脚和分页边界处反复出现的页级标题只根据同一 Prediction 内部判断，并保留首次出现
+6. 规范行尾空白、连续空行和连续图片标记
+7. 写文件前验证表格矩阵、真实标题序列和幂等性
+
+## 4. 各模型归一化内容
+
+| 模型 | 归一化内容 | 明确不做 |
 |---|---|---|
-| MinerU 3.4.0 Hybrid high | `normalizers/normalize_mineru_hybrid.py` | 展开 `details/summary`；保留 text/chart 内容；图片、流程图及 Mermaid 转 `![]` |
-| MinerU 3.4.4 VLM | `normalizers/normalize_mineru_vlm.py` | 与该 VLM 输出协议对应的 details、图片和自然图说明清理 |
-| MinerU 3.4.0 Pipeline | `normalizers/normalize_mineru_pipeline.py` | 图片路径转 `![]`；去除展示性 `sup/sub` 外壳 |
-| 自研解析模型 | `normalizers/normalize_self_developed.py` | 删除 `pagebreak`；将 `page/x/y/w/h` 图片坐标容器转 `![]` |
-| PaddleOCR-VL pagewise | `normalizers/normalize_paddleocr_pagewise.py` | 展开对齐用 `div`；图片路径转 `![]`；不做跨页合并 |
-| PaddleOCR-VL cross-page | `normalizers/normalize_paddleocr_cross_page.py` | 展开对齐用 `div`；保留输入中已有的跨页表边界 |
+| MinerU 3.4.0 Hybrid high | 展开 `details/summary`；依据 MinerU 自身 summary 类型保留信息图表边界；自然图片/流程图/Mermaid 转 `![]`；清除显式“内容目录/图表目录”中的目录项但保留目录标题；撤销表格外 `\\~`、`\\*`、`\\+`、`\\_`、`\\$` 等展示转义；清除行边界泄漏的 `Table_*`/`Tale_*` 内部标签；把紧邻结构化图表的原图占位、来源和连续图注纳入图表边界；移除装饰图片的模型生成英文说明；最后清理重复页眉页脚和页码 | 不修复公式识别错误，不改变表格矩阵，不根据图题猜测业务表格类型 |
+| MinerU 3.4.4 VLM | 与 Hybrid 使用同一套 MinerU 协议规则；规则是否产生变换由 VLM 实际输出决定，manifest 单独记录 | 不与 Hybrid 共享答案或按两者分数选择内容 |
+| MinerU 3.4.0 Pipeline | 图片路径统一为 `![]`；若编号图题后只有图片占位而没有结构化图表转写，仅清除该占位及相邻来源/图注并保留图题；展开 `sup/sub`；清理注释、重复页眉页脚和页码 | 不伪造图表数据，不合并跨页表 |
+| 自研解析模型 | 若 HTML 注释坐标图片后紧邻二维表，将二者标记为同一图表对象并完整保留；释放其余注释坐标图片，删除 `<pagebreak>`，将 `page/x/y/w/h` 坐标图片统一为 `![]`；把 HTML 表格单元格内序列化的字面量 `\\n` 还原为换行；把显式图表目录中至少 80% 行以图/表编号开头的布局表展开为目录文字；清理分页边界处至少跨 3 页重复的页级标题并保留首次出现；移除公式和表格外包裹中文强调文字的展示花括号；行研版输出中的视觉方框项目符号转为 Markdown 列表；若编号图题后只有图片占位，则清除该占位及相邻来源/图注并保留图题；最后清理注释、重复页眉页脚和页码 | 不根据 GT、PDF、文档编号或分数改写内容；不拆分或合并业务表格，不改变单元格非空白内容；年度报告中的勾选/未勾选方框保持原样 |
+| PaddleOCR-VL-1.6 pagewise | 展开对齐用 `div` 并保留内部文字；统一图片；清理“编号图题 + 紧邻图片占位”外围并保留图题；展开 `sup/sub`；清理注释、重复页眉页脚和页码 | 不做跨页表合并 |
+| PaddleOCR-VL-1.6 cross-page | 与 pagewise 使用相同展示层清理；输入中已经存在的跨页合并表保持原边界 | 不重新执行跨页合并，不因标题“图表N”把 HTML 表格改成图片 |
 
-六个脚本共享测试和文件处理工具，但都是可单独运行、可单独审计的入口。新系统应复制 `normalizers/normalize_parser_template.py`，把该解析器确实存在的协议差异写成明确规则。
+## 5. 图表边界规则
 
-## 3. 当前变换统计
+MinerU Hybrid/VLM 的 `details/summary` 能提供稳定的图表类型，因此允许生成 `<chart data-type="...">` 边界。图题保留在正文，紧邻的原图占位、数据来源和连续图注进入同一个图表块。
 
-本次对 36 份预测 Markdown 的归一化包括：
+Pipeline、PaddleOCR 和自研解析模型没有同等可靠的结构化图表容器，只允许识别局部的“编号图题后紧跟图片占位”模式。正式 HTML/Markdown 表格始终保留，不能仅凭“图表N”标题改变其类别。
 
-- MinerU Hybrid/VLM 各展开 208 个 `details` 容器，其中保留 27 个文本/图表内容块，181 个纯视觉块转为图片标记。
-- MinerU Pipeline 统一 196 个图片标记，展开 49 个展示性 `sup/sub` 外壳。
-- 自研结果删除 1,130 个分页标签，将 388 个坐标型图片容器转为图片标记。
-- 两组 PaddleOCR 结果各展开 277 个 `div`，统一 108 个图片标记；pagewise 与 cross-page 适配器均不再改变表格边界。
+## 6. 自动校验
 
-重复页眉页脚只根据同一 Prediction 内部的重复情况判断，并保留首次出现的报告名/公司名；评分器不会再参照 GT 做 Prediction 专属删除。
+每份文件写入前必须同时通过：
 
-## 4. 自动校验
+1. 业务表格数量和二维单元格矩阵不变；显式图表目录中经结构规则确认的布局表不计作业务表格，其每一行文字必须原样保留；验证时只忽略规范图片标记周围的空白，以及将表格内字面量 `\\n` 还原为换行所产生的空白差异，业务单元格非空白内容必须完全一致
+2. 真实非目录标题的文字、等级和顺序不变；显式目录区段中被误升为标题的目录项，以及仅在 Prediction 自身分页边界前 5 个可见行内至少出现 3 次的页级重复标题可作为协议噪声清除，且后者必须保留首次出现
+3. 第二次归一化结果与第一次完全一致
+4. manifest 中 `uses_ground_truth`、`uses_pdf`、`uses_document_id_rules`、`merges_or_splits_tables`、`reorders_content` 均为 `false`
 
-适配器在写入每份文件前执行三项校验：
+任一检查失败时，该模型归一化立即停止。
 
-1. 归一化前后的表格数量及二维单元格矩阵一致（仅忽略图片标记周围空白）。
-2. 所有非重复页眉页脚类标题的文字、等级和顺序一致。
-3. 第二次运行结果与第一次完全一致，即适配器幂等。
+## 7. 运行方式
 
-任一校验失败都会终止该系统的归一化和后续评分。文件级 SHA-256、变换计数和校验结果记录在各系统的 manifest 中。
-
-## 5. 运行方式
-
-归一化全部正式结果：
+归一化输入目录中已有的全部正式结果：
 
 ```bash
 python normalize_all_predictions.py
 ```
 
-单独运行一个适配器：
+单独运行一个模型入口：
 
 ```bash
-python normalizers/normalize_self_developed.py \
-  --input-dir predictions/self-developed-parser \
-  --output-dir normalized_predictions/self-developed-parser
+python normalizers/normalize_mineru_hybrid.py \
+  --input-dir predictions/mineru-3.4.0-hybrid-high \
+  --output-dir normalized_predictions/mineru-3.4.0-hybrid-high
 ```
 
-标准评分读取 `normalized_predictions/`，并把评分器的旧式 Prediction 专属页眉页脚清洗固定为关闭：
-
-```bash
-python score_prediction_directory.py \
-  --pred-dir normalized_predictions/self-developed-parser \
-  --system-name "自研解析模型（版本未记录）" \
-  --output-dir scores/self-developed-parser
-```
+新增解析器时复制 `normalizers/normalize_parser_template.py`，只添加该解析器能够由自身输出格式证明的规则，不再复制公共引擎。

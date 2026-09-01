@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Normalize and rescore every published prediction collection."""
+"""Normalize and rescore every benchmark v2.0 prediction collection."""
 
 from __future__ import annotations
 
@@ -18,14 +18,15 @@ STANDARD_SCORER = ROOT / "score_prediction_directory.py"
 NORMALIZE_ALL = ROOT / "normalize_all_predictions.py"
 
 
-def write_leaderboard() -> None:
+def write_leaderboard(mode_dir: Path) -> None:
     rows: list[dict] = []
     for directory_name, display_name in PUBLIC_SYSTEMS:
-        summary_path = ROOT / "scores" / directory_name / "summary.json"
+        summary_path = mode_dir / directory_name / "summary.json"
         documents = json.loads(summary_path.read_text(encoding="utf-8"))
-        if len(documents) != 6:
-            raise RuntimeError(f"{directory_name}: expected 6 scored documents")
+        if len(documents) != 10:
+            raise RuntimeError(f"{directory_name}: expected 10 scored documents")
         mean = lambda key: sum(float(row[key]) for row in documents) / len(documents)
+        chart_documents = [row for row in documents if int(row.get("gt_chart_count", 0))]
         rows.append(
             {
                 "system": directory_name,
@@ -35,19 +36,26 @@ def write_leaderboard() -> None:
                 "table_score": round(mean("table_score"), 4),
                 "title_layout_score": round(mean("title_layout_score"), 4),
                 "text_score": round(mean("text_score"), 4),
+                "chart_score": round(
+                    sum(float(row["chart_score"]) for row in chart_documents)
+                    / len(chart_documents),
+                    4,
+                )
+                if chart_documents
+                else None,
             }
         )
     rows.sort(key=lambda row: row["final_score"], reverse=True)
     for rank, row in enumerate(rows, start=1):
         row["rank"] = rank
-    (ROOT / "scores" / "leaderboard.json").write_text(
+    (mode_dir / "leaderboard.json").write_text(
         json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     csv_rows = [
         {"rank": row["rank"], **{key: value for key, value in row.items() if key != "rank"}}
         for row in rows
     ]
-    with (ROOT / "scores" / "leaderboard.csv").open(
+    with (mode_dir / "leaderboard.csv").open(
         "w", newline="", encoding="utf-8-sig"
     ) as handle:
         writer = csv.DictWriter(handle, fieldnames=list(csv_rows[0]))
@@ -68,6 +76,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Reuse already validated normalized_predictions/ outputs.",
     )
+    parser.add_argument(
+        "--chart-mode",
+        choices=["both", "on", "off"],
+        default="both",
+        help="Generate both chart-aware and chart-excluded leaderboards (default: both).",
+    )
     return parser.parse_args()
 
 
@@ -81,35 +95,45 @@ def main() -> int:
             return normalized.returncode
 
     failures: list[str] = []
-    for directory_name, display_name in PUBLIC_SYSTEMS:
-        prediction_dir = ROOT / "normalized_predictions" / directory_name
-        output_dir = ROOT / "scores" / directory_name
-        if not prediction_dir.is_dir():
-            failures.append(f"missing prediction directory: {prediction_dir}")
-            continue
-        command = [
-            sys.executable,
-            str(STANDARD_SCORER),
-            "--pred-dir",
-            str(prediction_dir),
-            "--system-name",
-            display_name,
-            "--dataset-root",
-            str(dataset_root),
-            "--output-dir",
-            str(output_dir),
-        ]
-        print(f"SCORING {display_name}", flush=True)
-        completed = subprocess.run(command)
-        if completed.returncode:
-            failures.append(f"{display_name}: exit code {completed.returncode}")
+    modes = ["off", "on"] if args.chart_mode == "both" else [args.chart_mode]
+    for mode in modes:
+        mode_name = "with_charts" if mode == "on" else "without_charts"
+        mode_dir = ROOT / "scores" / mode_name
+        mode_dir.mkdir(parents=True, exist_ok=True)
+        for directory_name, display_name in PUBLIC_SYSTEMS:
+            prediction_dir = ROOT / "normalized_predictions" / directory_name
+            output_dir = mode_dir / directory_name
+            if not prediction_dir.is_dir():
+                failures.append(f"missing prediction directory: {prediction_dir}")
+                continue
+            command = [
+                sys.executable,
+                str(STANDARD_SCORER),
+                "--pred-dir",
+                str(prediction_dir),
+                "--system-name",
+                display_name,
+                "--dataset-root",
+                str(dataset_root),
+                "--output-dir",
+                str(output_dir),
+                "--score-charts",
+                mode,
+            ]
+            print(f"SCORING {display_name} ({mode_name})", flush=True)
+            completed = subprocess.run(command)
+            if completed.returncode:
+                failures.append(
+                    f"{display_name} ({mode_name}): exit code {completed.returncode}"
+                )
+        if not failures:
+            write_leaderboard(mode_dir)
 
     if failures:
         print("\nFAILED", flush=True)
         for failure in failures:
             print(f"- {failure}", flush=True)
         return 1
-    write_leaderboard()
     print("\nAll published systems scored successfully.", flush=True)
     return 0
 

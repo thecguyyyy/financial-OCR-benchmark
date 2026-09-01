@@ -1,6 +1,18 @@
 {
   "system": "mineru-3.4.0-pipeline",
   "adapter": "normalize_mineru_pipeline.py",
+  "document_ids": [
+    "001",
+    "002",
+    "003",
+    "004",
+    "005",
+    "006",
+    "007",
+    "008",
+    "009",
+    "010"
+  ],
   "constraints": {
     "uses_ground_truth": false,
     "uses_pdf": false,
@@ -10,6 +22,7 @@
   },
   "rules": [
     "replace Markdown/HTML image paths with ![]",
+    "keep figure titles while removing their immediately adjacent image-only marker, source, and note residue",
     "unwrap presentation-only sup/sub tags while retaining their text",
     "remove parser comments, duplicate running headers, and isolated page numbers"
   ],
@@ -17,11 +30,113 @@
     "comments_removed": 0,
     "duplicate_running_headers_removed": 16,
     "html_images_normalized": 7,
-    "markdown_images_normalized": 189,
-    "sub_wrappers_removed": 30,
-    "sup_wrappers_removed": 19
+    "image_only_chart_markers_removed": 130,
+    "image_only_chart_note_lines_removed": 18,
+    "image_only_chart_source_lines_removed": 93,
+    "markdown_images_normalized": 325,
+    "sub_wrappers_removed": 31,
+    "sup_wrappers_removed": 20
   },
   "files": [
+    {
+      "id": "001",
+      "source": "predictions/mineru-3.4.0-pipeline/001.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/001.md",
+      "source_sha256": "1a9639551fccda7b60b8c1789c234518e6f79dab9f8b330726f5e7f465cf8bde",
+      "output_sha256": "79390883f20d89b6428bc7f36c4b7562d86a61e4fad2a7dd003520f9e7d8f75e",
+      "changes": {
+        "comments_removed": 0,
+        "html_images_normalized": 0,
+        "image_only_chart_markers_removed": 61,
+        "image_only_chart_note_lines_removed": 9,
+        "image_only_chart_source_lines_removed": 61,
+        "markdown_images_normalized": 62,
+        "sub_wrappers_removed": 1,
+        "sup_wrappers_removed": 1
+      },
+      "validation": {
+        "table_count": 2,
+        "heading_count": 28,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "002",
+      "source": "predictions/mineru-3.4.0-pipeline/002.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/002.md",
+      "source_sha256": "50cb043602db4eca897788afe478a4fc4806a1c1a19575c6680101bb57d6a2c5",
+      "output_sha256": "b2e94d57b64682766c2451750f8bb310a5289b69e8206d5f594b5345faf9ddd3",
+      "changes": {
+        "comments_removed": 0,
+        "html_images_normalized": 0,
+        "image_only_chart_markers_removed": 16,
+        "image_only_chart_note_lines_removed": 5,
+        "image_only_chart_source_lines_removed": 15,
+        "markdown_images_normalized": 17,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 6,
+        "heading_count": 29,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "003",
+      "source": "predictions/mineru-3.4.0-pipeline/003.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/003.md",
+      "source_sha256": "916b913f43bd8d639c8a189fcc2008a7020d17301c55e30e29a409e928e5a784",
+      "output_sha256": "6ea5d35cf6907498522c6ab49b83906974132742dffbcd0a8313f310cdc086a0",
+      "changes": {
+        "comments_removed": 0,
+        "html_images_normalized": 0,
+        "image_only_chart_markers_removed": 43,
+        "image_only_chart_note_lines_removed": 4,
+        "image_only_chart_source_lines_removed": 9,
+        "markdown_images_normalized": 44,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 9,
+        "heading_count": 25,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "004",
+      "source": "predictions/mineru-3.4.0-pipeline/004.md",
+      "output": "normalized_predictions/mineru-3.4.0-pipeline/004.md",
+      "source_sha256": "4ff1cf40c20a99f109257f607a8701d0b633ee4dbcca9abf484c23d07a2bc3e6",
+      "output_sha256": "6986a11b249b37b8aac4aecb0ed8a2d313be33bcd7fca0e64b95e95f34249fde",
+      "changes": {
+        "comments_removed": 0,
+        "html_images_normalized": 0,
+        "image_only_chart_markers_removed": 10,
+        "image_only_chart_source_lines_removed": 8,
+        "markdown_images_normalized": 13,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 7,
+        "heading_count": 17,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
     {
       "id": "005",
       "source": "predictions/mineru-3.4.0-pipeline/005.md",

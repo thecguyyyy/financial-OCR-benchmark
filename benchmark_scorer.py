@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-"""Score financial announcement Markdown parsing results.
+"""Score financial-document OCR and Markdown reconstruction results.
 
 The scorer compares a prediction Markdown file with a ground-truth Markdown
-file. It evaluates three modules only: tables, heading layout, and text.
-Formula scoring is intentionally out of scope.
+file. It evaluates tables, heading layout, text, and optional informative
+chart transcriptions. Formulae remain part of the text module. A shared, model-neutral LaTeX
+normalizer removes presentation-only syntax before edit-distance comparison.
 """
 
 from __future__ import annotations
@@ -12,6 +13,7 @@ import argparse
 import difflib
 import html
 import json
+import math
 import re
 import sys
 import unicodedata
@@ -48,6 +50,10 @@ class TableItem:
     raw: str
     matrix: List[List[str]]
     span_pages: Optional[Tuple[int, int]] = None
+    accept_chart_representation: bool = False
+    from_chart_block: bool = False
+    chart_payload_index: Optional[int] = None
+    chart_table_index: Optional[int] = None
 
 
 @dataclass
@@ -72,13 +78,18 @@ class PredCleanupResult:
 class ScoringConfig:
     """Runtime scoring normalization and weighting options."""
 
-    remove_pred_header_footer: bool = False
+    remove_pred_header_footer: bool = True
     normalize_images: bool = True
+    score_charts: bool = True
     normalize_zh: str = "t2s"
     normalize_footnotes: bool = True
     normalize_punctuation: bool = True
+    normalize_formulas: bool = True
     table_structure_weight: float = 0.60
     table_content_weight: float = 0.40
+    table_aggregation: str = "footprint"
+    module_weighting: str = "content"
+    title_layout_weight: float = 0.20
 
 
 DEFAULT_CONFIG = ScoringConfig()
@@ -348,6 +359,30 @@ def _overlaps_any(start: int, end: int, spans: Sequence[Tuple[int, int]]) -> boo
     return any(start < span_end and end > span_start for span_start, span_end in spans)
 
 
+def _accepts_chart_representation(md: str, table_start: int) -> bool:
+    """Return whether a Gold marker allows this table to be a chart payload."""
+
+    prefix = md[max(0, table_start - 240) : table_start]
+    return bool(
+        re.search(
+            r"<!--\s*gold-object\s*:\s*chart-table\s*;\s*accepts\s*:\s*table\s*,\s*chart\s*-->\s*$",
+            prefix,
+            flags=re.I,
+        )
+    )
+
+
+def remove_chart_table_markers(md: str) -> str:
+    """Remove Gold-only chart-table policy comments from semantic scoring."""
+
+    return re.sub(
+        r"<!--\s*gold-object\s*:\s*chart-table\s*;\s*accepts\s*:\s*table\s*,\s*chart\s*-->",
+        "",
+        md,
+        flags=re.I,
+    )
+
+
 def extract_tables(md: str) -> Tuple[List[TableItem], List[Tuple[int, int]]]:
     """Extract HTML and Markdown pipe tables and return their spans."""
 
@@ -366,6 +401,7 @@ def extract_tables(md: str) -> Tuple[List[TableItem], List[Tuple[int, int]]]:
                 raw=raw,
                 matrix=parse_table_to_matrix(raw),
                 span_pages=find_cross_page_span_before(md, match.start()),
+                accept_chart_representation=_accepts_chart_representation(md, match.start()),
             )
         )
 
@@ -397,6 +433,7 @@ def extract_tables(md: str) -> Tuple[List[TableItem], List[Tuple[int, int]]]:
                     raw=raw,
                     matrix=parse_table_to_matrix(raw),
                     span_pages=find_cross_page_span_before(md, start_i),
+                    accept_chart_representation=_accepts_chart_representation(md, start_i),
                 )
             )
             i = j
@@ -812,6 +849,198 @@ def normalize_punctuation_variants(text: str) -> str:
     return text
 
 
+_FORMULA_WRAPPER_COMMANDS = (
+    "mathrm",
+    "mathbf",
+    "mathit",
+    "mathsf",
+    "mathtt",
+    "mathcal",
+    "mathbb",
+    "text",
+    "textrm",
+    "textit",
+    "textbf",
+    "operatorname",
+    "boldsymbol",
+    "bm",
+    "rm",
+    "bf",
+    "it",
+    "cal",
+)
+
+_FORMULA_COMMAND_MAP = {
+    "frac": "FRAC",
+    "dfrac": "FRAC",
+    "tfrac": "FRAC",
+    "sqrt": "SQRT",
+    "sum": "SUM",
+    "prod": "PROD",
+    "int": "INT",
+    "lim": "LIM",
+    "log": "LOG",
+    "ln": "LN",
+    "exp": "EXP",
+    "sin": "SIN",
+    "cos": "COS",
+    "tan": "TAN",
+    "min": "MIN",
+    "max": "MAX",
+    "Delta": "DELTA",
+    "delta": "delta",
+    "alpha": "alpha",
+    "beta": "beta",
+    "gamma": "gamma",
+    "lambda": "lambda",
+    "mu": "mu",
+    "sigma": "sigma",
+    "theta": "theta",
+    "pi": "pi",
+    "rho": "rho",
+    "xi": "xi",
+    "omega": "omega",
+    "infty": "INF",
+    "approx": "APPROX",
+    "sim": "SIM",
+    "simeq": "APPROX",
+    "equiv": "EQUIV",
+    "neq": "NEQ",
+    "ne": "NEQ",
+    "le": "LE",
+    "leq": "LE",
+    "ge": "GE",
+    "geq": "GE",
+    "times": "MUL",
+    "cdot": "MUL",
+    "div": "DIV",
+    "pm": "PLUSMINUS",
+    "mp": "MINUSPLUS",
+    "to": "TO",
+    "rightarrow": "TO",
+    "leftarrow": "FROM",
+}
+
+
+def _unwrap_formula_style_commands(formula: str) -> str:
+    """Remove presentation-only wrappers while preserving their arguments."""
+
+    wrappers = "|".join(_FORMULA_WRAPPER_COMMANDS)
+    pattern = re.compile(rf"\\(?:{wrappers})\s*\{{([^{{}}]*)\}}")
+    previous = None
+    while previous != formula:
+        previous = formula
+        formula = pattern.sub(r"\1", formula)
+    return formula
+
+
+def _canonicalize_formula_payload(formula: str) -> str:
+    """Return a compact semantic token string for one LaTeX formula.
+
+    This intentionally preserves variables, numbers, grouping, subscripts,
+    superscripts and operators.  Unknown commands also survive as uppercase
+    tokens, so OCR hallucinations such as ``\\sharp`` are still penalized.
+    """
+
+    formula = unicodedata.normalize("NFKC", html.unescape(formula))
+    formula = re.sub(r"(?<!\\)%.*?$", "", formula, flags=re.M)
+    formula = re.sub(
+        r"\\begin\s*\{(?:aligned\*?|align\*?|gathered|gather\*?|split|cases|matrix|pmatrix|bmatrix|vmatrix|Vmatrix)\}",
+        "",
+        formula,
+        flags=re.I,
+    )
+    formula = re.sub(
+        r"\\begin\s*\{array\}\s*\{[^{}]*\}",
+        "",
+        formula,
+        flags=re.I,
+    )
+    formula = re.sub(r"\\end\s*\{[^{}]+\}", "", formula, flags=re.I)
+    formula = _unwrap_formula_style_commands(formula)
+
+    # Layout-only commands and TeX spacing have no mathematical meaning.
+    formula = re.sub(
+        r"\\(?:left|right|displaystyle|textstyle|scriptstyle|scriptscriptstyle|limits|nolimits|phantom|hphantom|vphantom)\b",
+        "",
+        formula,
+    )
+    formula = re.sub(r"\\(?:quad|qquad|enspace|thinspace|medspace|thickspace)\b", "", formula)
+    formula = re.sub(r"\\[!,:; ]", "", formula)
+    formula = formula.replace("\\%", "%").replace("\\&", "&")
+    formula = formula.replace("\\{", "{").replace("\\}", "}")
+    formula = formula.replace("\\\\", "")
+    formula = formula.replace("&", "")
+
+    unicode_ops = str.maketrans(
+        {
+            "×": "MUL",
+            "·": "MUL",
+            "÷": "DIV",
+            "≈": "APPROX",
+            "≃": "APPROX",
+            "≠": "NEQ",
+            "≤": "LE",
+            "≥": "GE",
+            "∞": "INF",
+            "−": "-",
+            "–": "-",
+        }
+    )
+    formula = formula.translate(unicode_ops)
+
+    def replace_command(match: re.Match[str]) -> str:
+        command = match.group(1)
+        return _FORMULA_COMMAND_MAP.get(command, command.upper())
+
+    formula = re.sub(r"\\([A-Za-z]+)", replace_command, formula)
+    # Preserve scripts explicitly even though generic Markdown normalization
+    # later removes underscores.
+    formula = re.sub(r"_\s*\{([^{}]*)\}", r"SUB(\1)", formula)
+    formula = re.sub(r"\^\s*\{([^{}]*)\}", r"SUP(\1)", formula)
+    formula = re.sub(r"_\s*([A-Za-z0-9]+)", r"SUB(\1)", formula)
+    formula = re.sub(r"\^\s*([A-Za-z0-9]+)", r"SUP(\1)", formula)
+    formula = formula.replace("{", "(").replace("}", ")")
+    formula = re.sub(r"\s+", "", formula)
+    return formula.strip()
+
+
+def normalize_formula_markup(text: str) -> str:
+    """Canonicalize Markdown/LaTeX math spans using one shared rule set."""
+
+    if not CURRENT_CONFIG.normalize_formulas:
+        return text
+
+    marker_prefix = "⟦FORMULA:"
+
+    def replace_formula(match: re.Match[str]) -> str:
+        payload = next(group for group in match.groups() if group is not None)
+        canonical = _canonicalize_formula_payload(payload)
+        # A parser may wrap an ordinary percentage, number, short variable or
+        # financial abbreviation in inline math even though another parser
+        # emits the identical token as plain text.  The math boundary is only
+        # presentation in these atomic cases, so do not add a FORMULA marker.
+        if re.fullmatch(
+            r"(?:[+-]?(?:\d+(?:\.\d+)?|\.\d+)(?:%|[xX])?|[A-Za-z]{1,12})",
+            canonical,
+        ):
+            return canonical
+        return f"{marker_prefix}{canonical}⟧" if canonical else ""
+
+    # Process display math first so its dollar signs cannot be consumed by the
+    # inline pattern.  Inline dollar math is deliberately restricted to one
+    # physical line to avoid treating currency passages as formula blocks.
+    patterns = (
+        re.compile(r"\$\$(.*?)\$\$", flags=re.S),
+        re.compile(r"\\\[(.*?)\\\]", flags=re.S),
+        re.compile(r"\\\((.*?)\\\)", flags=re.S),
+        re.compile(r"(?<!\\)\$(?!\$)([^\n$]+?)(?<!\\)\$(?!\$)"),
+    )
+    for pattern in patterns:
+        text = pattern.sub(replace_formula, text)
+    return text
+
+
 def _collapse_image_markers(text: str) -> str:
     """Collapse adjacent normalized image markers to a single marker."""
 
@@ -869,6 +1098,7 @@ def normalize_markdown_text_preserve_newlines(text: str) -> str:
 
     text = html.unescape(text)
     text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = normalize_formula_markup(text)
     text = normalize_footnote_markers(text)
     text = normalize_details_blocks(text)
     text = re.sub(r"<!--.*?-->", " ", text, flags=re.S)
@@ -930,6 +1160,484 @@ def normalize_details_blocks(text: str) -> str:
         previous = current
         current = pattern.sub(replace, current)
     return current
+
+
+CHART_DETAIL_SUMMARIES = {
+    "area",
+    "area_stacked",
+    "bar",
+    "bar_chart",
+    "bar_line",
+    "bar_stacked",
+    "bubble",
+    "chart",
+    "diagram",
+    "donut",
+    "flow_chart",
+    "flowchart",
+    "graph",
+    "line",
+    "line_chart",
+    "org_chart",
+    "organization_chart",
+    "pie",
+    "radar",
+    "relation",
+    "relationship",
+    "sankey",
+    "scatter",
+    "timeline",
+    "tree",
+    "treemap",
+}
+
+
+def _normalized_details_summary(summary: str) -> str:
+    """Return a stable key for a details/summary visual type."""
+
+    key = re.sub(r"\s+", "_", html.unescape(summary).strip().lower())
+    return key.replace("-", "_")
+
+
+def _is_chart_transcription_heading(line: str) -> bool:
+    """Detect the heading immediately following the custom `?[]` marker."""
+
+    compact = re.sub(r"\s+", "", line)
+    return bool(re.match(r"^(?:图中|图例)", compact))
+
+
+def _is_chart_transcription_payload_line(line: str) -> bool:
+    """Detect a line belonging to a `?[]` chart transcription block."""
+
+    stripped = line.strip()
+    if not stripped:
+        return True
+    if _is_chart_transcription_heading(stripped):
+        return True
+    if re.match(r"^(?:[-*+]\s+|\d+[.)、]\s*)", stripped):
+        return True
+    if re.match(r"^(?:数据来源|资料来源|来源|注)\s*[:：]", stripped, flags=re.I):
+        return True
+    if re.fullmatch(r"(?:数据来源|资料来源|来源|注)", stripped, flags=re.I):
+        return True
+    # Short colon-terminated labels such as “出口西药类拆分：” introduce
+    # another subsection inside the same chart transcription.
+    if len(stripped) <= 120 and re.search(r"[:：]\s*$", stripped):
+        return True
+    if re.match(r"^</?(?:table|thead|tbody|tfoot|tr|t[dh])\b", stripped, flags=re.I):
+        return True
+    if is_pipe_row(stripped) or is_pipe_separator(stripped):
+        return True
+    return False
+
+
+def _chart_table_records(table: TableItem) -> List[str]:
+    """Convert one chart table to representation-neutral key/value records."""
+
+    matrix = [[normalize_text(cell) for cell in row] for row in table.matrix]
+    if not matrix:
+        return []
+    width = max((len(row) for row in matrix), default=0)
+    if width <= 0:
+        return []
+    rows = [row + [""] * (width - len(row)) for row in matrix]
+    headers = rows[0]
+    if len(rows) == 1:
+        return ["|".join(cell for cell in headers if cell)]
+
+    records: List[str] = []
+    for row in rows[1:]:
+        fields: List[str] = []
+        for index, value in enumerate(row):
+            if not value:
+                continue
+            header = headers[index] if index < len(headers) else ""
+            fields.append(f"{header}:{value}" if header else value)
+        if fields:
+            records.append("|".join(fields))
+    return records
+
+
+def _canonicalize_chart_payload(payload: str) -> str:
+    """Flatten list/table chart transcriptions without losing their content.
+
+    Gold charts commonly use repeated ``key:value`` list rows while MinerU
+    emits the same values as a Markdown table.  This conversion makes those
+    representations comparable. Chart tables stay outside the ordinary table
+    denominator unless a marked chart-table Gold object explicitly accepts
+    that alternate representation.
+    """
+
+    tables, spans = extract_tables(payload)
+    remainder = remove_tables(payload, spans)
+    lines: List[str] = []
+    for line in remainder.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped == "?[]" or _is_chart_transcription_heading(stripped):
+            continue
+        stripped = re.sub(r"^#{1,6}\s+", "", stripped)
+        stripped = re.sub(r"^(?:[-*+]\s+|\d+[.)、]\s*)", "", stripped)
+        if stripped:
+            lines.append(stripped)
+    for table in tables:
+        lines.extend(_chart_table_records(table))
+    if not lines:
+        return "?[]"
+    return "?[]\n" + "\n".join(lines)
+
+
+def prepare_chart_content_for_scoring(md: str, include_charts: bool) -> Tuple[str, int]:
+    """Canonicalize or remove informative chart blocks before core scoring.
+
+    Both modes exclude unmarked chart tables from the ordinary table module.
+    With ``include_charts`` enabled, the chart payload is converted to plain
+    key/value records and retained in body-text scoring. Otherwise the entire
+    block is removed symmetrically. Marked chart-table routing is handled by
+    the table evaluator before chart scoring.
+    """
+
+    text = md.replace("\r\n", "\n").replace("\r", "\n")
+    chart_count = 0
+    protected_marker = "[[[REPRESENTATION_NEUTRAL_CHART]]]"
+
+    def protected_payload(payload: str) -> str:
+        canonical = _canonicalize_chart_payload(payload)
+        return canonical.replace("?[]", protected_marker, 1)
+
+    details_pattern = re.compile(
+        r"<details\b[^>]*>\s*<summary\b[^>]*>\s*(.*?)\s*</summary>(.*?)</details\s*>",
+        flags=re.I | re.S,
+    )
+
+    def replace_chart_details(match: re.Match[str]) -> str:
+        nonlocal chart_count
+        summary = _normalized_details_summary(match.group(1))
+        if summary in CHART_DETAIL_SUMMARIES:
+            chart_count += 1
+            if not include_charts:
+                return "\n"
+            return "\n" + protected_payload(match.group(2)) + "\n"
+        return match.group(0)
+
+    previous = None
+    while previous != text:
+        previous = text
+        text = details_pattern.sub(replace_chart_details, text)
+
+    def replace_explicit_chart(match: re.Match[str]) -> str:
+        nonlocal chart_count
+        chart_count += 1
+        if not include_charts:
+            return "\n"
+        return "\n" + protected_payload(match.group(1)) + "\n"
+
+    text = re.sub(
+        r"<(?:chart|diagram|flowchart)\b[^>]*>(.*?)</(?:chart|diagram|flowchart)\s*>",
+        replace_explicit_chart,
+        text,
+        flags=re.I | re.S,
+    )
+    if not include_charts:
+        def remove_mermaid(match: re.Match[str]) -> str:
+            nonlocal chart_count
+            chart_count += 1
+            return "\n"
+
+        text = re.sub(
+            r"```+\s*mermaid\b.*?```+",
+            remove_mermaid,
+            text,
+            flags=re.I | re.S,
+        )
+
+    lines = text.split("\n")
+    kept: List[str] = []
+    index = 0
+    while index < len(lines):
+        if lines[index].strip() != "?[]":
+            kept.append(lines[index])
+            index += 1
+            continue
+
+        chart_count += 1
+        index += 1
+        while index < len(lines) and not lines[index].strip():
+            index += 1
+
+        if index >= len(lines) or not _is_chart_transcription_heading(lines[index]):
+            if include_charts:
+                kept.extend(["", "?[]", ""])
+            continue
+
+        payload: List[str] = [lines[index]]
+        index += 1
+        while index < len(lines) and _is_chart_transcription_payload_line(lines[index]):
+            payload.append(lines[index])
+            index += 1
+
+        while kept and not kept[-1].strip():
+            kept.pop()
+        kept.append("")
+        if include_charts:
+            kept.extend(_canonicalize_chart_payload("\n".join(payload)).splitlines())
+            kept.append("")
+
+    return "\n".join(kept).replace(protected_marker, "?[]"), chart_count
+
+
+def strip_chart_content_for_scoring(md: str) -> Tuple[str, int]:
+    """Backward-compatible wrapper for callers that exclude charts."""
+
+    return prepare_chart_content_for_scoring(md, include_charts=False)
+
+
+def extract_chart_payloads(md: str) -> List[str]:
+    """Return informative chart payloads using prediction-local boundaries."""
+
+    text = md.replace("\r\n", "\n").replace("\r", "\n")
+    payloads: List[str] = []
+
+    details_pattern = re.compile(
+        r"<details\b[^>]*>\s*<summary\b[^>]*>\s*(.*?)\s*</summary>(.*?)</details\s*>",
+        flags=re.I | re.S,
+    )
+
+    def collect_details(match: re.Match[str]) -> str:
+        if _normalized_details_summary(match.group(1)) in CHART_DETAIL_SUMMARIES:
+            payloads.append(match.group(2))
+            return "\n"
+        return match.group(0)
+
+    previous = None
+    while previous != text:
+        previous = text
+        text = details_pattern.sub(collect_details, text)
+
+    def collect_explicit(match: re.Match[str]) -> str:
+        payloads.append(match.group(1))
+        return "\n"
+
+    text = re.sub(
+        r"<(?:chart|diagram|flowchart)\b[^>]*>(.*?)</(?:chart|diagram|flowchart)\s*>",
+        collect_explicit,
+        text,
+        flags=re.I | re.S,
+    )
+
+    lines = text.split("\n")
+    index = 0
+    while index < len(lines):
+        if lines[index].strip() != "?[]":
+            index += 1
+            continue
+        index += 1
+        while index < len(lines) and not lines[index].strip():
+            index += 1
+        block: List[str] = []
+        if index < len(lines) and _is_chart_transcription_heading(lines[index]):
+            block.append(lines[index])
+            index += 1
+            while index < len(lines) and _is_chart_transcription_payload_line(lines[index]):
+                block.append(lines[index])
+                index += 1
+        payloads.append("\n".join(block))
+    return payloads
+
+
+def extract_chart_embedded_tables(
+    chart_payloads: Sequence[str], index_offset: int
+) -> List[TableItem]:
+    """Extract optional table candidates contained inside chart payloads."""
+
+    tables: List[TableItem] = []
+    for payload_index, payload in enumerate(chart_payloads):
+        payload_tables, _ = extract_tables(payload)
+        for chart_table_index, table in enumerate(payload_tables):
+            table.index = index_offset + len(tables)
+            table.kind = f"chart_{table.kind}"
+            table.from_chart_block = True
+            table.chart_payload_index = payload_index
+            table.chart_table_index = chart_table_index
+            tables.append(table)
+    return tables
+
+
+def _chart_payload_has_information(payload: str) -> bool:
+    """Return whether a routed chart payload still contains real chart data."""
+
+    cleaned_lines: List[str] = []
+    for line in payload.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped in {"?[]", "![]"}:
+            continue
+        if re.fullmatch(r"!\[[^]]*]\([^)]*\)", stripped):
+            continue
+        if re.match(r"^(?:数据|资料|图表)?来源\s*[：:]", stripped):
+            continue
+        if re.match(r"^注\s*[：:]", stripped):
+            continue
+        cleaned_lines.append(stripped)
+    if not cleaned_lines:
+        return False
+    canonical = _canonicalize_chart_payload("\n".join(cleaned_lines))
+    return bool(_chart_tokens(canonical.replace("?[]", "")))
+
+
+def remove_routed_chart_tables(
+    chart_payloads: Sequence[str],
+    auxiliary_tables: Sequence[TableItem],
+    table_score: Dict[str, Any],
+) -> Tuple[List[str], int]:
+    """Remove chart-embedded tables already credited by the table module."""
+
+    auxiliary_by_index = {table.index: table for table in auxiliary_tables}
+    routed: Dict[int, List[Tuple[int, int]]] = {}
+    for match in table_score.get("matches", []):
+        if not match.get("pred_from_chart_block"):
+            continue
+        table = auxiliary_by_index.get(match.get("pred_index"))
+        if table is None or table.chart_payload_index is None:
+            continue
+        routed.setdefault(table.chart_payload_index, []).append((table.start, table.end))
+
+    kept_payloads: List[str] = []
+    routed_table_count = 0
+    for payload_index, payload in enumerate(chart_payloads):
+        spans = sorted(routed.get(payload_index, []))
+        routed_table_count += len(spans)
+        if not spans:
+            kept_payloads.append(payload)
+            continue
+        remainder = remove_tables(payload, spans)
+        if _chart_payload_has_information(remainder):
+            kept_payloads.append(remainder)
+    return kept_payloads, routed_table_count
+
+
+_CHART_TOKEN_RE = re.compile(
+    r"[+-]?\d+(?:[.,]\d+)*(?:%|％|倍|亿元|万元|元|年|月|日)?"
+    r"|[A-Za-z]+(?:[-_][A-Za-z0-9]+)*"
+    r"|[\u3400-\u9fff]"
+)
+
+
+def _chart_tokens(text: str) -> List[str]:
+    """Tokenize chart/body content without depending on a language model."""
+
+    normalized = normalize_semantic_text_preserve_newlines(text).lower()
+    return _CHART_TOKEN_RE.findall(normalized)
+
+
+def _counter_f1(left: Counter[str], right: Counter[str]) -> float:
+    left_count = sum(left.values())
+    right_count = sum(right.values())
+    if left_count == 0 and right_count == 0:
+        return 1.0
+    if left_count == 0 or right_count == 0:
+        return 0.0
+    overlap = sum((left & right).values())
+    return 2.0 * overlap / (left_count + right_count)
+
+
+def _chart_features(payload: str) -> Tuple[Counter[str], Counter[str]]:
+    tokens = _chart_tokens(_canonicalize_chart_payload(payload))
+    numbers = Counter(token for token in tokens if token[:1].isdigit() or token[:1] in "+-")
+    words = Counter(token for token in tokens if not (token[:1].isdigit() or token[:1] in "+-"))
+    return numbers, words
+
+
+def _score_chart_feature_pair(
+    gt_features: Tuple[Counter[str], Counter[str]],
+    pred_features: Tuple[Counter[str], Counter[str]],
+) -> Dict[str, float]:
+    gt_numbers, gt_words = gt_features
+    pred_numbers, pred_words = pred_features
+    numeric_f1 = _counter_f1(gt_numbers, pred_numbers)
+    lexical_f1 = _counter_f1(gt_words, pred_words)
+    if not gt_numbers and not pred_numbers:
+        pair_score = lexical_f1
+    else:
+        pair_score = numeric_f1 * 0.65 + lexical_f1 * 0.35
+    return {
+        "pair_score": clamp_score(pair_score * 100.0),
+        "numeric_f1": clamp_score(numeric_f1 * 100.0),
+        "lexical_f1": clamp_score(lexical_f1 * 100.0),
+    }
+
+
+def score_chart_payloads(gt_payloads: Sequence[str], pred_payloads: Sequence[str]) -> Dict[str, Any]:
+    """Order-aware one-to-one chart matching with numeric-first token F1."""
+
+    gt_count = len(gt_payloads)
+    pred_count = len(pred_payloads)
+    if gt_count == 0 and pred_count == 0:
+        return {
+            "chart_score": 100.0,
+            "gt_chart_count": 0,
+            "pred_chart_count": 0,
+            "matched_chart_count": 0,
+            "missing_chart_count": 0,
+            "extra_chart_count": 0,
+            "matches": [],
+        }
+
+    pair_cache: Dict[Tuple[int, int], Dict[str, float]] = {}
+    gt_features = [_chart_features(payload) for payload in gt_payloads]
+    pred_features = [_chart_features(payload) for payload in pred_payloads]
+    dp = [[0.0] * (pred_count + 1) for _ in range(gt_count + 1)]
+    choice = [[""] * (pred_count + 1) for _ in range(gt_count + 1)]
+    for i in range(1, gt_count + 1):
+        choice[i][0] = "skip_gt"
+    for j in range(1, pred_count + 1):
+        choice[0][j] = "skip_pred"
+    for i in range(1, gt_count + 1):
+        for j in range(1, pred_count + 1):
+            pair = _score_chart_feature_pair(gt_features[i - 1], pred_features[j - 1])
+            pair_cache[(i - 1, j - 1)] = pair
+            candidates = (
+                (dp[i - 1][j], "skip_gt"),
+                (dp[i][j - 1], "skip_pred"),
+                (dp[i - 1][j - 1] + pair["pair_score"], "match"),
+            )
+            dp[i][j], choice[i][j] = max(candidates, key=lambda item: item[0])
+
+    matches: List[Dict[str, Any]] = []
+    i, j = gt_count, pred_count
+    while i > 0 or j > 0:
+        action = choice[i][j]
+        if action == "match":
+            pair = pair_cache[(i - 1, j - 1)]
+            matches.append(
+                {
+                    "gt_index": i - 1,
+                    "pred_index": j - 1,
+                    "pair_score": round_float(pair["pair_score"]),
+                    "numeric_f1": round_float(pair["numeric_f1"]),
+                    "lexical_f1": round_float(pair["lexical_f1"]),
+                }
+            )
+            i -= 1
+            j -= 1
+        elif action == "skip_gt":
+            i -= 1
+        elif action == "skip_pred":
+            j -= 1
+        elif i > 0:
+            i -= 1
+        else:
+            j -= 1
+    matches.reverse()
+    denominator = max(gt_count, pred_count, 1)
+    chart_score = sum(item["pair_score"] for item in matches) / denominator
+    return {
+        "chart_score": round_float(clamp_score(chart_score)),
+        "gt_chart_count": gt_count,
+        "pred_chart_count": pred_count,
+        "matched_chart_count": len(matches),
+        "missing_chart_count": max(gt_count - len(matches), 0),
+        "extra_chart_count": max(pred_count - len(matches), 0),
+        "matches": matches,
+    }
 
 
 def _compact_body_line(line: str) -> str:
@@ -1229,54 +1937,11 @@ def normalized_edit_distance_preserve_newlines(a: str, b: str) -> float:
     a_norm = normalize_body_text_preserve_newlines(a)
     b_norm = normalize_body_text_preserve_newlines(b)
     denom = max(len(a_norm), len(b_norm), 1)
-    if len(a_norm) * len(b_norm) <= 4_000_000:
-        return min(1.0, levenshtein_distance(a_norm, b_norm) / denom)
-    return min(1.0, segmented_edit_distance_preserve_newlines(a_norm, b_norm) / denom)
-
-
-def _diff_opcode_cost(a_text: str, b_text: str) -> int:
-    """Estimate edit cost for a large changed block without dropping newlines."""
-
-    if not a_text:
-        return len(b_text)
-    if not b_text:
-        return len(a_text)
-    if len(a_text) * len(b_text) <= 4_000_000:
-        return levenshtein_distance(a_text, b_text)
-
-    cost = 0
-    matcher = difflib.SequenceMatcher(None, a_text, b_text, autojunk=False)
-    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
-        if tag == "equal":
-            continue
-        if tag == "delete":
-            cost += i2 - i1
-        elif tag == "insert":
-            cost += j2 - j1
-        else:
-            cost += max(i2 - i1, j2 - j1)
-    return cost
-
-
-def segmented_edit_distance_preserve_newlines(a_norm: str, b_norm: str) -> int:
-    """Compute edit cost for large body text using line opcodes plus char costs."""
-
-    a_lines = a_norm.splitlines(keepends=True)
-    b_lines = b_norm.splitlines(keepends=True)
-    matcher = difflib.SequenceMatcher(None, a_lines, b_lines, autojunk=False)
-    distance = 0
-    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
-        if tag == "equal":
-            continue
-        a_chunk = "".join(a_lines[i1:i2])
-        b_chunk = "".join(b_lines[j1:j2])
-        if tag == "delete":
-            distance += len(a_chunk)
-        elif tag == "insert":
-            distance += len(b_chunk)
-        else:
-            distance += _diff_opcode_cost(a_chunk, b_chunk)
-    return distance
+    # Always compute the exact document-level distance.  The native
+    # python-Levenshtein backend is strongly recommended for speed; the
+    # pure-Python path is slower but must produce the same score.  A segmented
+    # approximation can change alignment when paragraph boundaries differ.
+    return min(1.0, levenshtein_distance(a_norm, b_norm) / denom)
 
 
 def _preview(text: str, limit: int = 140) -> str:
@@ -1377,9 +2042,7 @@ def normalized_table_content_distance(a: str, b: str) -> float:
     a_norm = normalize_semantic_text_preserve_newlines(a)
     b_norm = normalize_semantic_text_preserve_newlines(b)
     denom = max(len(a_norm), len(b_norm), 1)
-    if len(a_norm) * len(b_norm) <= 200_000:
-        return min(1.0, levenshtein_distance(a_norm, b_norm) / denom)
-    return min(1.0, segmented_edit_distance_preserve_newlines(a_norm, b_norm) / denom)
+    return min(1.0, levenshtein_distance(a_norm, b_norm) / denom)
 
 
 def table_structure_score_from_shapes(
@@ -1433,6 +2096,10 @@ def score_table_pair(gt_table: TableItem, pred_table: TableItem) -> Dict[str, An
         "pred_index": pred_table.index,
         "gt_kind": gt_table.kind,
         "pred_kind": pred_table.kind,
+        "gt_accepts_chart_representation": gt_table.accept_chart_representation,
+        "pred_from_chart_block": pred_table.from_chart_block,
+        "pred_chart_payload_index": pred_table.chart_payload_index,
+        "pred_chart_table_index": pred_table.chart_table_index,
         "gt_span_pages": list(gt_table.span_pages) if gt_table.span_pages else None,
         "pred_span_pages": list(pred_table.span_pages) if pred_table.span_pages else None,
         "gt_is_cross_page": gt_table.span_pages is not None,
@@ -1668,6 +2335,8 @@ def match_pred_tables(
     for pred_idx, pred_table in enumerate(pred_tables):
         retrieval: List[Tuple[float, float, int]] = []
         for gt_idx, gt_table in enumerate(gt_tables):
+            if pred_table.from_chart_block and not gt_table.accept_chart_representation:
+                continue
             keyword_score = table_keyword_score(
                 pred_features[pred_idx], gt_features[gt_idx]
             )
@@ -1721,12 +2390,270 @@ def match_pred_tables(
     return matches
 
 
+def table_footprint(table: TableItem) -> Dict[str, float | int]:
+    """Estimate a table's document footprint from its parser-neutral matrix.
+
+    Equal-per-table macro averaging lets a tiny two-row table contribute as
+    much as a dense multi-page table.  Pixel area is unavailable in a Gold
+    Markdown file and would make scoring depend on PDF rendering details, so
+    the scorer uses a reproducible proxy: the geometric mean of expanded grid
+    slots and normalized cell characters.  The geometric mean prevents either
+    a mostly empty large grid or one exceptionally verbose cell from dominating
+    by itself.  Expanded rowspan/colspan cells intentionally contribute to the
+    estimate because they occupy visual grid area in the source table.
+    """
+
+    rows = len(table.matrix)
+    cols = max((len(row) for row in table.matrix), default=0)
+    grid_slots = max(rows * cols, 1)
+    normalized_characters = sum(
+        len(normalize_text(cell)) for row in table.matrix for cell in row
+    )
+    character_units = max(normalized_characters, grid_slots, 1)
+    units = math.sqrt(float(grid_slots) * float(character_units))
+    return {
+        "rows": rows,
+        "cols": cols,
+        "grid_slots": grid_slots,
+        "normalized_characters": normalized_characters,
+        "footprint_units": units,
+    }
+
+
+def _table_source_cells(table: TableItem) -> List[str]:
+    """Return source cells once, without duplicating rowspan/colspan text."""
+
+    if table.kind == "html":
+        parser = SimpleTableHTMLParser()
+        parser.feed(table.raw)
+        parser.close()
+        return [str(cell["text"]) for row in parser.rows for cell in row]
+    return [cell for row in table.matrix for cell in row]
+
+
+def table_information_units(tables: Sequence[TableItem]) -> Dict[str, int]:
+    """Count semantic table tokens plus one structural unit per grid slot."""
+
+    semantic_tokens = 0
+    grid_slots = 0
+    for table in tables:
+        semantic_tokens += sum(
+            len(_chart_tokens(cell)) for cell in _table_source_cells(table)
+        )
+        rows = len(table.matrix)
+        cols = max((len(row) for row in table.matrix), default=0)
+        grid_slots += rows * cols
+    return {
+        "semantic_tokens": semantic_tokens,
+        "grid_slots": grid_slots,
+        "information_units": semantic_tokens + grid_slots,
+    }
+
+
+def calculate_module_weights(
+    gt_tables: Sequence[TableItem],
+    gt_body_token_count: int,
+    gt_chart_token_count: int,
+    score_charts: bool,
+) -> Tuple[Dict[str, float], Dict[str, Any]]:
+    """Split the non-heading score budget by Gold content information share."""
+
+    title_weight = clamp_score(CURRENT_CONFIG.title_layout_weight * 100.0) / 100.0
+    content_budget = max(0.0, 1.0 - title_weight)
+    table_stats = table_information_units(gt_tables)
+    active_chart_tokens = gt_chart_token_count if score_charts else 0
+    text_units = gt_body_token_count + active_chart_tokens
+    table_units = int(table_stats["information_units"])
+    total_units = table_units + text_units
+    if total_units:
+        table_share = table_units / total_units
+    else:
+        table_share = 0.0
+    weights = {
+        "table": content_budget * table_share,
+        "title_layout": title_weight,
+        "text": content_budget * (1.0 - table_share),
+    }
+    details = {
+        "mode": "gt_content_information_share",
+        "title_layout_reserve": title_weight,
+        "content_budget": content_budget,
+        "table_semantic_tokens": table_stats["semantic_tokens"],
+        "table_grid_slots": table_stats["grid_slots"],
+        "table_information_units": table_units,
+        "body_information_units": gt_body_token_count,
+        "chart_information_units": active_chart_tokens,
+        "text_information_units": text_units,
+        "total_content_information_units": total_units,
+        "table_content_share": table_share,
+    }
+    return weights, details
+
+
+def _apply_footprint_aggregation(
+    gt_tables: Sequence[TableItem],
+    pred_tables: Sequence[TableItem],
+    matches: Sequence[Dict[str, Any]],
+) -> Tuple[float, float, float, List[Dict[str, Any]], List[Dict[str, Any]], float, float]:
+    """Aggregate matched table scores by GT footprint and penalize extra Pred area."""
+
+    gt_stats = [table_footprint(table) for table in gt_tables]
+    pred_stats = [table_footprint(table) for table in pred_tables]
+    gt_total = sum(float(item["footprint_units"]) for item in gt_stats)
+    matched_regular_pred = {
+        item["pred_index"]
+        for item in matches
+        if item["pred_index"] < len(pred_tables)
+    }
+    extra_pred_indices = [
+        index for index in range(len(pred_tables)) if index not in matched_regular_pred
+    ]
+    extra_pred_total = sum(
+        float(pred_stats[index]["footprint_units"]) for index in extra_pred_indices
+    )
+    denominator = max(gt_total + extra_pred_total, 1.0)
+
+    weighted_matches: List[Dict[str, Any]] = []
+    content_numerator = 0.0
+    structure_numerator = 0.0
+    pair_numerator = 0.0
+    for item in matches:
+        gt_index = int(item["gt_index"])
+        gt_units = float(gt_stats[gt_index]["footprint_units"])
+        enriched = dict(item)
+        enriched["gt_footprint"] = {
+            **gt_stats[gt_index],
+            "document_weight": gt_units / gt_total if gt_total else 0.0,
+        }
+        if item["pred_index"] < len(pred_stats):
+            enriched["pred_footprint"] = pred_stats[item["pred_index"]]
+        content_numerator += float(item["table_content_score"]) * gt_units
+        structure_numerator += float(item["table_structure_score"]) * gt_units
+        pair_numerator += float(item["table_pair_score"]) * gt_units
+        weighted_matches.append(enriched)
+
+    gt_footprints = [
+        {
+            "gt_index": index,
+            **stats,
+            "document_weight": (
+                float(stats["footprint_units"]) / gt_total if gt_total else 0.0
+            ),
+        }
+        for index, stats in enumerate(gt_stats)
+    ]
+    extra_pred_footprints = [
+        {"pred_index": index, **pred_stats[index]} for index in extra_pred_indices
+    ]
+    return (
+        content_numerator / denominator,
+        structure_numerator / denominator,
+        pair_numerator / denominator,
+        weighted_matches,
+        gt_footprints,
+        gt_total,
+        extra_pred_total,
+    )
+
+
+def score_tables_pred_driven(
+    gt_tables: Sequence[TableItem],
+    pred_tables: Sequence[TableItem],
+    pair_cache: Optional[Dict[Tuple[int, int], Dict[str, Any]]] = None,
+    auxiliary_chart_tables: Sequence[TableItem] = (),
+) -> Dict[str, Any]:
+    """Score one GT variant with pred-driven semantic one-to-one matching.
+
+    Each prediction table searches the complete GT table set using keyword
+    anchors plus structure.  Unrelated tables may remain unmatched, so a
+    missing table near the front cannot shift all later matches.
+    """
+
+    if not gt_tables and not pred_tables:
+        return {
+            "table_content_score": 100.0,
+            "table_structure_score": 100.0,
+            "table_matrix_score": 100.0,
+            "table_alignment_strategy": "pred_semantic_best_one_to_one_gt_footprint_weighted",
+            "table_aggregation": CURRENT_CONFIG.table_aggregation,
+            "matched_table_count": 0,
+            "missing_table_count": 0,
+            "extra_table_count": 0,
+            "gt_table_count": 0,
+            "pred_table_count": 0,
+            "auxiliary_chart_table_count": len(auxiliary_chart_tables),
+            "auxiliary_chart_table_matched_count": 0,
+            "gt_chart_table_eligible_count": 0,
+            "gt_table_footprints": [],
+            "gt_footprint_total": 0.0,
+            "extra_pred_footprint_total": 0.0,
+            "final_table_score": 100.0,
+            "matches": [],
+        }
+
+    combined_pred_tables = list(pred_tables) + list(auxiliary_chart_tables)
+    matches = match_pred_tables(gt_tables, combined_pred_tables, pair_cache)
+    matched_gt = {item["gt_index"] for item in matches}
+    matched_regular_pred = {
+        item["pred_index"]
+        for item in matches
+        if item["pred_index"] < len(pred_tables)
+    }
+    matched_auxiliary = sum(
+        1 for item in matches if item.get("pred_from_chart_block")
+    )
+    gt_footprints: List[Dict[str, Any]] = []
+    gt_footprint_total = 0.0
+    extra_pred_footprint_total = 0.0
+    if CURRENT_CONFIG.table_aggregation == "footprint":
+        (
+            content_score,
+            structure_score,
+            matrix_score,
+            matches,
+            gt_footprints,
+            gt_footprint_total,
+            extra_pred_footprint_total,
+        ) = _apply_footprint_aggregation(gt_tables, pred_tables, matches)
+        alignment_strategy = "pred_semantic_best_one_to_one_gt_footprint_weighted"
+    else:
+        denominator = max(len(gt_tables), len(pred_tables), 1)
+        content_score = sum(item["table_content_score"] for item in matches) / denominator
+        structure_score = sum(item["table_structure_score"] for item in matches) / denominator
+        matrix_score = sum(item["table_pair_score"] for item in matches) / denominator
+        alignment_strategy = "pred_semantic_best_one_to_one_uniform"
+
+    return {
+        "table_content_score": round_float(clamp_score(content_score)),
+        "table_structure_score": round_float(clamp_score(structure_score)),
+        "table_matrix_score": round_float(clamp_score(matrix_score)),
+        "table_alignment_strategy": alignment_strategy,
+        "table_aggregation": CURRENT_CONFIG.table_aggregation,
+        "matched_table_count": len(matches),
+        "missing_table_count": len(gt_tables) - len(matched_gt),
+        "extra_table_count": len(pred_tables) - len(matched_regular_pred),
+        "gt_table_count": len(gt_tables),
+        "pred_table_count": len(pred_tables),
+        "auxiliary_chart_table_count": len(auxiliary_chart_tables),
+        "auxiliary_chart_table_matched_count": matched_auxiliary,
+        "gt_chart_table_eligible_count": sum(
+            table.accept_chart_representation for table in gt_tables
+        ),
+        "gt_table_footprints": gt_footprints,
+        "gt_footprint_total": round_float(gt_footprint_total),
+        "extra_pred_footprint_total": round_float(extra_pred_footprint_total),
+        "final_table_score": round_float(clamp_score(matrix_score)),
+        "matches": matches,
+    }
+
+
 def score_tables_per_pred_max(
     primary_gt_tables: Sequence[TableItem],
     alt_gt_tables: Sequence[TableItem],
     pred_tables: Sequence[TableItem],
     primary_pair_cache: Optional[Dict[Tuple[int, int], Dict[str, Any]]] = None,
     alt_pair_cache: Optional[Dict[Tuple[int, int], Dict[str, Any]]] = None,
+    auxiliary_chart_tables: Sequence[TableItem] = (),
 ) -> Dict[str, Any]:
     """Score each Pred table against both GT variants and retain its better pair.
 
@@ -1746,24 +2673,36 @@ def score_tables_per_pred_max(
             "extra_table_count": 0,
             "gt_table_count": 0,
             "pred_table_count": 0,
+            "auxiliary_chart_table_count": len(auxiliary_chart_tables),
+            "auxiliary_chart_table_matched_count": 0,
             "reference_table_count": 0,
+            "table_alignment_strategy": "per_table_best_of_primary_alt_gt_footprint_weighted",
+            "table_aggregation": CURRENT_CONFIG.table_aggregation,
+            "gt_table_footprints": {},
+            "gt_footprint_total": 0.0,
+            "extra_pred_footprint_total": 0.0,
             "final_table_score": 100.0,
             "matches": [],
         }
 
+    combined_pred_tables = list(pred_tables) + list(auxiliary_chart_tables)
     primary_matches = {
         item["pred_position"]: item
-        for item in match_pred_tables(primary_gt_tables, pred_tables, primary_pair_cache)
+        for item in match_pred_tables(
+            primary_gt_tables, combined_pred_tables, primary_pair_cache
+        )
     }
     alt_matches = {
         item["pred_position"]: item
-        for item in match_pred_tables(alt_gt_tables, pred_tables, alt_pair_cache)
+        for item in match_pred_tables(
+            alt_gt_tables, combined_pred_tables, alt_pair_cache
+        )
     }
     matches: List[Dict[str, Any]] = []
     primary_selected_count = 0
     alt_selected_count = 0
 
-    for pred_idx in range(len(pred_tables)):
+    for pred_idx in range(len(combined_pred_tables)):
         primary_match = primary_matches.get(pred_idx)
         alt_match = alt_matches.get(pred_idx)
         if primary_match is None and alt_match is None:
@@ -1786,27 +2725,119 @@ def score_tables_per_pred_max(
         matches.append(selected)
 
     reference_table_count = min(len(primary_gt_tables), len(alt_gt_tables))
-    denominator = max(len(pred_tables), reference_table_count, 1)
     matched_count = len(matches)
-    content_score = sum(item["table_content_score"] for item in matches) / denominator
-    structure_score = sum(item["table_structure_score"] for item in matches) / denominator
-    matrix_score = sum(item["table_pair_score"] for item in matches) / denominator
+    matched_regular_pred = {
+        item["pred_index"]
+        for item in matches
+        if item["pred_index"] < len(pred_tables)
+    }
+    matched_auxiliary = sum(
+        1 for item in matches if item.get("pred_from_chart_block")
+    )
+    gt_footprints: Dict[str, List[Dict[str, Any]]] = {}
+    gt_footprint_total = 0.0
+    extra_pred_footprint_total = 0.0
+    if CURRENT_CONFIG.table_aggregation == "footprint":
+        variant_tables = {
+            "primary": primary_gt_tables,
+            "alt": alt_gt_tables,
+        }
+        variant_stats = {
+            name: [table_footprint(table) for table in tables]
+            for name, tables in variant_tables.items()
+        }
+        variant_totals = {
+            name: sum(float(item["footprint_units"]) for item in stats)
+            for name, stats in variant_stats.items()
+        }
+        positive_totals = [value for value in variant_totals.values() if value > 0]
+        reference_footprint = min(positive_totals) if positive_totals else 1.0
+        gt_footprint_total = reference_footprint
+        pred_stats = [table_footprint(table) for table in pred_tables]
+        extra_pred_indices = [
+            index for index in range(len(pred_tables)) if index not in matched_regular_pred
+        ]
+        extra_pred_footprint_total = sum(
+            float(pred_stats[index]["footprint_units"])
+            for index in extra_pred_indices
+        )
+
+        enriched_matches: List[Dict[str, Any]] = []
+        selected_weight_total = 0.0
+        content_numerator = 0.0
+        structure_numerator = 0.0
+        pair_numerator = 0.0
+        for item in matches:
+            variant = str(item.get("selected_gt_variant", "primary"))
+            raw_stats = variant_stats[variant][int(item["gt_index"])]
+            variant_total = max(variant_totals[variant], 1.0)
+            scaled_units = (
+                float(raw_stats["footprint_units"])
+                * reference_footprint
+                / variant_total
+            )
+            enriched = dict(item)
+            enriched["gt_footprint"] = {
+                **raw_stats,
+                "variant": variant,
+                "variant_document_weight": (
+                    float(raw_stats["footprint_units"]) / variant_total
+                ),
+                "scaled_footprint_units": scaled_units,
+            }
+            if item["pred_index"] < len(pred_stats):
+                enriched["pred_footprint"] = pred_stats[item["pred_index"]]
+            selected_weight_total += scaled_units
+            content_numerator += float(item["table_content_score"]) * scaled_units
+            structure_numerator += float(item["table_structure_score"]) * scaled_units
+            pair_numerator += float(item["table_pair_score"]) * scaled_units
+            enriched_matches.append(enriched)
+
+        denominator = max(reference_footprint, selected_weight_total, 1.0)
+        denominator += extra_pred_footprint_total
+        content_score = content_numerator / denominator
+        structure_score = structure_numerator / denominator
+        matrix_score = pair_numerator / denominator
+        matches = enriched_matches
+        for name, stats in variant_stats.items():
+            variant_total = max(variant_totals[name], 1.0)
+            gt_footprints[name] = [
+                {
+                    "gt_index": index,
+                    **item,
+                    "document_weight": float(item["footprint_units"]) / variant_total,
+                }
+                for index, item in enumerate(stats)
+            ]
+        alignment_strategy = "per_table_best_of_primary_alt_gt_footprint_weighted"
+    else:
+        denominator = max(len(pred_tables), reference_table_count, 1)
+        content_score = sum(item["table_content_score"] for item in matches) / denominator
+        structure_score = sum(item["table_structure_score"] for item in matches) / denominator
+        matrix_score = sum(item["table_pair_score"] for item in matches) / denominator
+        alignment_strategy = "per_table_best_of_primary_alt_one_to_one_uniform"
 
     return {
         "table_content_score": round_float(clamp_score(content_score)),
         "table_structure_score": round_float(clamp_score(structure_score)),
         "table_matrix_score": round_float(clamp_score(matrix_score)),
-        "table_alignment_strategy": "per_table_best_of_primary_alt_one_to_one",
+        "table_alignment_strategy": alignment_strategy,
+        "table_aggregation": CURRENT_CONFIG.table_aggregation,
         "matched_table_count": matched_count,
         "missing_table_count": max(reference_table_count - matched_count, 0),
-        "extra_table_count": len(pred_tables) - matched_count,
+        "extra_table_count": len(pred_tables) - len(matched_regular_pred),
         "gt_table_count": reference_table_count,
         "pred_table_count": len(pred_tables),
+        "auxiliary_chart_table_count": len(auxiliary_chart_tables),
+        "auxiliary_chart_table_matched_count": matched_auxiliary,
         "primary_gt_table_count": len(primary_gt_tables),
         "alt_gt_table_count": len(alt_gt_tables),
         "reference_table_count": reference_table_count,
         "primary_selected_pair_count": primary_selected_count,
         "alt_selected_pair_count": alt_selected_count,
+        "gt_table_footprints": gt_footprints,
+        "gt_footprint_total": round_float(gt_footprint_total),
+        "extra_pred_footprint_total": round_float(extra_pred_footprint_total),
         "final_table_score": round_float(clamp_score(matrix_score)),
         "matches": matches,
     }
@@ -1849,40 +2880,81 @@ def evaluate(
         pred_md = pred_cleanup.markdown
     else:
         pred_cleanup = PredCleanupResult(markdown=pred_md, removed_line_count=0, removed_line_examples=[])
-    gt_tables, gt_table_spans = extract_tables(gt_md)
-    pred_tables, pred_table_spans = extract_tables(pred_md)
+
+    gt_chart_payloads = extract_chart_payloads(gt_md)
+    pred_chart_payloads = extract_chart_payloads(pred_md)
+    # Chart content does not enter the ordinary business-table denominator;
+    # only tables matched to explicit chart-table Gold objects are routed once.
+    # The chart-aware mode blends a separate representation-neutral chart
+    # score into the text module below; chart-off uses the same chart-free body.
+    gt_scoring_md, gt_chart_count = prepare_chart_content_for_scoring(
+        gt_md, include_charts=False
+    )
+    pred_scoring_md, pred_chart_count = prepare_chart_content_for_scoring(
+        pred_md, include_charts=False
+    )
+
+    gt_tables, gt_table_spans = extract_tables(gt_scoring_md)
+    pred_tables, pred_table_spans = extract_tables(pred_scoring_md)
+    auxiliary_chart_tables = extract_chart_embedded_tables(
+        pred_chart_payloads, len(pred_tables)
+    )
 
     alt_tables: Optional[List[TableItem]] = None
     alt_score: Optional[Dict[str, Any]] = None
+    alt_chart_count = 0
     if gt_table_alt_path:
         alt_md = read_markdown(gt_table_alt_path)
+        alt_md, alt_chart_count = prepare_chart_content_for_scoring(
+            alt_md, include_charts=False
+        )
         alt_tables, _ = extract_tables(alt_md)
 
     primary_pair_cache: Dict[Tuple[int, int], Dict[str, Any]] = {}
     alt_pair_cache: Dict[Tuple[int, int], Dict[str, Any]] = {}
-    primary_table_score = score_tables(gt_tables, pred_tables, primary_pair_cache)
+    primary_table_score = score_tables_pred_driven(
+        gt_tables,
+        pred_tables,
+        primary_pair_cache,
+        auxiliary_chart_tables,
+    )
     if alt_tables is not None:
-        alt_score = score_tables(alt_tables, pred_tables, alt_pair_cache)
+        alt_score = score_tables_pred_driven(
+            alt_tables,
+            pred_tables,
+            alt_pair_cache,
+            auxiliary_chart_tables,
+        )
     if table_gt_strategy == "max" and alt_tables is not None:
         selected_table_name = "per_table_max"
         selected_table_score = score_tables_per_pred_max(
             gt_tables,
             alt_tables,
             pred_tables,
-            # score_tables() caches pairs as (gt_index, pred_index), while the
-            # pred-centric matcher caches them as (pred_index, gt_index).
-            # Never share those caches: the tuple shapes are identical and
-            # would silently return a score for the reversed table pair.
-            {},
-            {},
+            primary_pair_cache,
+            alt_pair_cache,
+            auxiliary_chart_tables,
         )
     else:
         selected_table_name, selected_table_score = select_table_score(
             primary_table_score, alt_score, table_gt_strategy
         )
 
-    gt_without_tables = remove_tables(gt_md, gt_table_spans)
-    pred_without_tables = remove_tables(pred_md, pred_table_spans)
+    routed_pred_chart_payloads, routed_chart_table_count = remove_routed_chart_tables(
+        pred_chart_payloads,
+        auxiliary_chart_tables,
+        selected_table_score,
+    )
+    chart_score = score_chart_payloads(
+        gt_chart_payloads, routed_pred_chart_payloads
+    )
+
+    gt_without_tables = remove_chart_table_markers(
+        remove_tables(gt_scoring_md, gt_table_spans)
+    )
+    pred_without_tables = remove_chart_table_markers(
+        remove_tables(pred_scoring_md, pred_table_spans)
+    )
     gt_heading_items = extract_heading_items(gt_without_tables)
     pred_heading_items = extract_heading_items(pred_without_tables)
     gt_heading_levels = [item.level for item in gt_heading_items]
@@ -1896,12 +2968,50 @@ def evaluate(
 
     gt_text_for_scoring = strip_heading_markers_keep_text(gt_without_tables)
     pred_text_for_scoring = strip_heading_markers_keep_text(pred_without_tables)
-    text_score = score_text(gt_text_for_scoring, pred_text_for_scoring)
+    base_text_score = score_text(gt_text_for_scoring, pred_text_for_scoring)
+    text_score = dict(base_text_score)
+    gt_body_token_count = len(_chart_tokens(gt_text_for_scoring))
+    gt_chart_token_count = sum(
+        len(_chart_tokens(_canonicalize_chart_payload(payload)))
+        for payload in gt_chart_payloads
+    )
+    total_reference_tokens = gt_body_token_count + gt_chart_token_count
+    chart_token_share = (
+        gt_chart_token_count / total_reference_tokens if total_reference_tokens else 0.0
+    )
+    if CURRENT_CONFIG.score_charts:
+        combined_text_score = (
+            base_text_score["text_score"] * (1.0 - chart_token_share)
+            + chart_score["chart_score"] * chart_token_share
+        )
+        text_score["text_score"] = round_float(clamp_score(combined_text_score))
+        text_score["text_mode"] = "body_edit_distance_plus_representation_neutral_chart_tokens"
+    text_score["body_only_text_score"] = base_text_score["text_score"]
+    text_score["chart_score"] = chart_score["chart_score"]
+    text_score["gt_body_token_count"] = gt_body_token_count
+    text_score["gt_chart_token_count"] = gt_chart_token_count
+    text_score["chart_token_share"] = round_float(chart_token_share)
+
+    content_weights, content_weighting_details = calculate_module_weights(
+        gt_tables,
+        gt_body_token_count,
+        gt_chart_token_count,
+        CURRENT_CONFIG.score_charts,
+    )
+    if CURRENT_CONFIG.module_weighting == "content":
+        effective_weights = content_weights
+        weighting_details = content_weighting_details
+    else:
+        effective_weights = dict(WEIGHTS)
+        weighting_details = {
+            **content_weighting_details,
+            "mode": "fixed_40_20_40",
+        }
 
     final_score = (
-        selected_table_score["final_table_score"] * WEIGHTS["table"]
-        + title_score["title_layout_score"] * WEIGHTS["title_layout"]
-        + text_score["text_score"] * WEIGHTS["text"]
+        selected_table_score["final_table_score"] * effective_weights["table"]
+        + title_score["title_layout_score"] * effective_weights["title_layout"]
+        + text_score["text_score"] * effective_weights["text"]
     )
 
     return {
@@ -1912,15 +3022,34 @@ def evaluate(
             "table_gt_strategy": table_gt_strategy,
         },
         "pred_cleanup": {
-            "mode": (
-                "prediction_only_header_footer_cleanup"
-                if CURRENT_CONFIG.remove_pred_header_footer
-                else "disabled_after_explicit_adapter"
-            ),
+            "mode": "prediction_only_header_footer_cleanup",
             "removed_line_count": pred_cleanup.removed_line_count,
             "removed_line_examples": pred_cleanup.removed_line_examples,
         },
-        "weights": WEIGHTS,
+        "chart_evaluation": {
+            "score_charts": CURRENT_CONFIG.score_charts,
+            "mode": (
+                "included_as_order_aware_numeric_first_token_score"
+                if CURRENT_CONFIG.score_charts
+                else "excluded_from_scoring"
+            ),
+            "gt_chart_block_count": gt_chart_count,
+            "alt_gt_chart_block_count": alt_chart_count,
+            "pred_chart_block_count": pred_chart_count,
+            "pred_chart_payload_count_after_chart_table_routing": len(
+                routed_pred_chart_payloads
+            ),
+            "routed_chart_table_count": routed_chart_table_count,
+            "gt_removed_block_count": 0 if CURRENT_CONFIG.score_charts else gt_chart_count,
+            "alt_gt_removed_block_count": 0 if CURRENT_CONFIG.score_charts else alt_chart_count,
+            "pred_removed_block_count": 0 if CURRENT_CONFIG.score_charts else pred_chart_count,
+            "chart_score": chart_score,
+            "gt_body_token_count": gt_body_token_count,
+            "gt_chart_token_count": gt_chart_token_count,
+            "chart_token_share": round_float(chart_token_share),
+        },
+        "weights": effective_weights,
+        "weighting_evaluation": weighting_details,
         "config": asdict(CURRENT_CONFIG),
         "scores": {
             "final_score": round_float(clamp_score(final_score)),
@@ -1964,7 +3093,10 @@ def generate_markdown_report(result: Dict[str, Any]) -> str:
     title_eval = result["title_layout_evaluation"]
     text_eval = result["text_evaluation"]
     pred_cleanup = result.get("pred_cleanup", {})
+    chart_eval = result.get("chart_evaluation", {})
     config = result.get("config", {})
+    effective_weights = result.get("weights", WEIGHTS)
+    weighting_eval = result.get("weighting_evaluation", {})
 
     lines = [
         "# Financial Markdown Scoring Report",
@@ -1990,18 +3122,43 @@ def generate_markdown_report(result: Dict[str, Any]) -> str:
         [
             "",
             "## Weights",
-            "- Table: 40%",
-            "- Title Layout: 20%",
-            "- Text: 40%",
+            f"- Mode: {weighting_eval.get('mode', 'fixed_40_20_40')}",
+            f"- Table: {100.0 * float(effective_weights.get('table', 0.40)):.2f}%",
+            f"- Title Layout: {100.0 * float(effective_weights.get('title_layout', 0.20)):.2f}%",
+            f"- Text: {100.0 * float(effective_weights.get('text', 0.40)):.2f}%",
+            f"- GT table semantic tokens / grid slots / information units: "
+            f"{weighting_eval.get('table_semantic_tokens', 0)} / "
+            f"{weighting_eval.get('table_grid_slots', 0)} / "
+            f"{weighting_eval.get('table_information_units', 0)}",
+            f"- GT body / active chart / text information units: "
+            f"{weighting_eval.get('body_information_units', 0)} / "
+            f"{weighting_eval.get('chart_information_units', 0)} / "
+            f"{weighting_eval.get('text_information_units', 0)}",
             "",
             "## Configuration",
             f"- Remove pred header/footer: {config.get('remove_pred_header_footer', True)}",
             f"- Normalize images: {config.get('normalize_images', True)}",
+            f"- Score informative charts: {config.get('score_charts', True)}",
             f"- Normalize Chinese variants: {config.get('normalize_zh', 't2s')}",
             f"- Normalize footnotes: {config.get('normalize_footnotes', True)}",
             f"- Normalize punctuation: {config.get('normalize_punctuation', True)}",
             f"- Table pair weights: structure={config.get('table_structure_weight', 0.60)}, "
             f"content={config.get('table_content_weight', 0.40)}",
+            f"- Table aggregation: {config.get('table_aggregation', 'footprint')}",
+            f"- Module weighting: {config.get('module_weighting', 'content')}",
+            f"- Title layout reserve: {config.get('title_layout_weight', 0.20)}",
+            f"- Chart scoring mode: {chart_eval.get('mode', 'included_in_scoring')}",
+            f"- Detected primary GT / Pred chart blocks: "
+            f"{chart_eval.get('gt_chart_block_count', 0)} / "
+            f"{chart_eval.get('pred_chart_block_count', 0)}",
+            f"- Representation-neutral chart score: "
+            f"{chart_eval.get('chart_score', {}).get('chart_score', 0.0):.4f}",
+            f"- GT chart token share inside text module: "
+            f"{chart_eval.get('chart_token_share', 0.0):.4f}",
+            f"- Removed primary GT / alt GT / Pred chart blocks: "
+            f"{chart_eval.get('gt_removed_block_count', 0)} / "
+            f"{chart_eval.get('alt_gt_removed_block_count', 0)} / "
+            f"{chart_eval.get('pred_removed_block_count', 0)}",
             "",
             "## Table Evaluation",
             f"- Table GT strategy result: {selected_name}",
@@ -2029,17 +3186,42 @@ def generate_markdown_report(result: Dict[str, Any]) -> str:
             f"- Table structure score: {selected_table['table_structure_score']:.4f}",
             f"- Table matrix score: {selected_table.get('table_matrix_score', selected_table['final_table_score']):.4f}",
             f"- Table alignment strategy: {selected_table.get('table_alignment_strategy', 'unknown')}",
-            "",
-            "### Table Matches",
+            f"- GT footprint total / extra Pred footprint: "
+            f"{selected_table.get('gt_footprint_total', 0.0):.4f} / "
+            f"{selected_table.get('extra_pred_footprint_total', 0.0):.4f}",
+            f"- Chart-table eligible / auxiliary / matched: "
+            f"{selected_table.get('gt_chart_table_eligible_count', 0)} / "
+            f"{selected_table.get('auxiliary_chart_table_count', 0)} / "
+            f"{selected_table.get('auxiliary_chart_table_matched_count', 0)}",
         ]
     )
+    footprint_rows = selected_table.get("gt_table_footprints") or []
+    if isinstance(footprint_rows, list) and footprint_rows:
+        lines.extend(["", "### GT Table Footprint Weights"])
+        for item in footprint_rows[:50]:
+            lines.append(
+                "- GT table {index}: weight={weight:.2f}%, grid={rows}x{cols}, "
+                "characters={characters}, footprint={footprint:.4f}".format(
+                    index=item.get("gt_index", 0),
+                    weight=100.0 * float(item.get("document_weight", 0.0)),
+                    rows=item.get("rows", 0),
+                    cols=item.get("cols", 0),
+                    characters=item.get("normalized_characters", 0),
+                    footprint=float(item.get("footprint_units", 0.0)),
+                )
+            )
+        if len(footprint_rows) > 50:
+            lines.append(f"- ... {len(footprint_rows) - 50} more tables in JSON report.")
+    lines.extend(["", "### Table Matches"])
     if selected_table["matches"]:
         for match in selected_table["matches"][:30]:
+            gt_weight = match.get("gt_footprint", {}).get("document_weight")
+            weight_text = f", GT weight={100.0 * float(gt_weight):.2f}%" if gt_weight is not None else ""
             lines.append(
                 "- {variant} GT table {gt_index} -> Pred table {pred_index}: pair={pair:.4f}, "
                 "structure={structure:.4f}, content={content:.4f}, "
                 "keywords={keywords:.4f}, match={match_score:.4f}, "
-                "GT shape={gt_shape}, Pred shape={pred_shape}".format(
+                "GT shape={gt_shape}, Pred shape={pred_shape}{weight_text}".format(
                     variant=match.get("selected_gt_variant", selected_name),
                     gt_index=match["gt_index"],
                     pred_index=match["pred_index"],
@@ -2050,6 +3232,7 @@ def generate_markdown_report(result: Dict[str, Any]) -> str:
                     match_score=match.get("table_match_score", match["table_pair_score"]),
                     gt_shape=match["gt_shape"],
                     pred_shape=match["pred_shape"],
+                    weight_text=weight_text,
                 )
             )
     else:
@@ -2079,6 +3262,8 @@ def generate_markdown_report(result: Dict[str, Any]) -> str:
             "## Text Evaluation",
             f"- Text mode: {text_eval.get('text_mode', 'unknown')}",
             f"- Text score: {text_eval['text_score']:.4f}",
+            f"- Body-only text score: {text_eval.get('body_only_text_score', text_eval['text_score']):.4f}",
+            f"- Chart score used by text module: {text_eval.get('chart_score', 0.0):.4f}",
             f"- Average edit distance: {text_eval['average_edit_distance']:.4f}",
             f"- Matched / missing / extra blocks: {text_eval['matched_block_count']} / "
             f"{text_eval['missing_block_count']} / {text_eval['extra_block_count']}",
@@ -2106,11 +3291,15 @@ def generate_markdown_report(result: Dict[str, Any]) -> str:
             "",
             "## Notes",
             "- Table score compares extracted HTML and Markdown pipe tables after conversion to cell matrices.",
-            "- With primary or alt strategy, table matching is GT-driven one-to-one: each GT table chooses one best unused Pred table.",
+            "- Table matching is Pred-driven semantic one-to-one: structure and header/row-label keywords select the highest-confidence unused GT candidate.",
+            "- Footprint aggregation weights each GT table by sqrt(expanded grid slots x normalized cell characters); unmatched GT footprint receives zero and unmatched Pred footprint enlarges the denominator.",
+            "- Content-aware module weighting reserves the configured title-layout share, then splits the remaining score budget between tables and text using Gold semantic tokens plus one structural unit per logical table grid slot.",
             "- With max and two GT files, each predicted table keeps the higher pair score from the two independently one-to-one-matched GT variants.",
-            "- Table pair score is 60% structure score and 40% content score; table content score uses normalized edit distance on flattened table text.",
+            "- A chart-embedded table may match only a Gold table marked as chart-table; once routed, that payload is removed from chart scoring to prevent duplicate credit.",
+            "- Table pair score is 60% structure score and 40% content score; table content score uses exact normalized Levenshtein distance on complete flattened table text.",
             "- Title layout score uses heading text only for anchor alignment, then combines heading F1, relative-level accuracy, and order coverage.",
             "- Text score removes tables, keeps heading words, preserves newlines, and scores the full body as one character sequence.",
+            "- With score_charts=off, marked chart transcriptions are removed symmetrically before table extraction, heading layout, and body scoring.",
             "- No-value page headers and footers are removed from prediction Markdown only; GT Markdown is kept as the reference answer.",
             "- Current limitations: complex nested tables, heavily malformed HTML, and table semantic equivalence beyond cell text are only approximated.",
         ]
@@ -2136,14 +3325,20 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--remove-pred-header-footer",
         choices=["on", "off"],
-        default="off",
-        help="Legacy/debug option; standard scoring keeps this off after the explicit adapter.",
+        default="on",
+        help="Remove no-value header/footer lines from prediction Markdown.",
     )
     parser.add_argument(
         "--normalize-images",
         choices=["on", "off"],
         default="on",
         help="Normalize image/flowchart/mermaid markers to ![].",
+    )
+    parser.add_argument(
+        "--score-charts",
+        choices=["on", "off"],
+        default="on",
+        help="Include informative chart transcriptions in body-text scoring.",
     )
     parser.add_argument(
         "--normalize-zh",
@@ -2164,6 +3359,12 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         help="Normalize low-value punctuation variants in body text.",
     )
     parser.add_argument(
+        "--normalize-formulas",
+        choices=["on", "off"],
+        default="on",
+        help="Canonicalize presentation-only Markdown/LaTeX formula syntax while preserving mathematical tokens.",
+    )
+    parser.add_argument(
         "--table-structure-weight",
         type=float,
         default=0.60,
@@ -2174,6 +3375,30 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         type=float,
         default=0.40,
         help="Content weight inside single table pair scoring.",
+    )
+    parser.add_argument(
+        "--table-aggregation",
+        choices=["footprint", "uniform"],
+        default="footprint",
+        help=(
+            "Aggregate per-table scores by parser-neutral GT footprint "
+            "(default) or give every table equal weight."
+        ),
+    )
+    parser.add_argument(
+        "--module-weighting",
+        choices=["content", "fixed"],
+        default="content",
+        help=(
+            "Split the non-heading score budget by GT table/text information "
+            "share (default) or use the legacy fixed 40/20/40 weights."
+        ),
+    )
+    parser.add_argument(
+        "--title-layout-weight",
+        type=float,
+        default=0.20,
+        help="Reserved title-layout weight used by content-aware module weighting.",
     )
     return parser.parse_args(argv)
 
@@ -2195,15 +3420,22 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         raise ValueError("Table weights must be non-negative.")
     if args.table_structure_weight + args.table_content_weight <= 0:
         raise ValueError("At least one table weight must be positive.")
+    if not 0.0 <= args.title_layout_weight < 1.0:
+        raise ValueError("Title layout weight must be in [0, 1).")
 
     config = ScoringConfig(
         remove_pred_header_footer=_flag_on(args.remove_pred_header_footer),
         normalize_images=_flag_on(args.normalize_images),
+        score_charts=_flag_on(args.score_charts),
         normalize_zh=args.normalize_zh,
         normalize_footnotes=_flag_on(args.normalize_footnotes),
         normalize_punctuation=_flag_on(args.normalize_punctuation),
+        normalize_formulas=_flag_on(args.normalize_formulas),
         table_structure_weight=args.table_structure_weight,
         table_content_weight=args.table_content_weight,
+        table_aggregation=args.table_aggregation,
+        module_weighting=args.module_weighting,
+        title_layout_weight=args.title_layout_weight,
     )
 
     result = evaluate(

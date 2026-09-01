@@ -1,22 +1,30 @@
-# 金融公告 Markdown 自动评分算法说明
+# 金融文档 OCR 基准 2.0 评分协议
 
-本文档说明 `benchmark_scorer.py` 的评分目标、处理流程、核心算法和局限。脚本用于评估金融公告类 PDF 解析结果，即比较模型输出 `pred.md` 与标准答案 `gt.md` 的差异。
+本文档说明 `benchmark_scorer.py` 的评分目标、处理流程、核心算法和局限。脚本评估金融 PDF 到结构化 Markdown 的 OCR 与版面重建质量，包括 001–004 行研报告和 005–010 金融公告。
 
 ## 1. 总体评分
 
-脚本只评估三部分：表格、标题布局、正文。不评估公式。
+脚本评估表格、标题布局和正文三个总分模块；信息图表可通过开关计入正文模块。公式不单列分数，但其数学 token 作为正文内容参与评分。
 
-总分公式：
+标题布局固定保留 20%，其余 80% 根据每份 GT 的表格与正文信息量动态分配：
 
 ```text
-Final Score = Table Score * 0.40 + Title Layout Score * 0.20 + Text Score * 0.40
+table_information = table_semantic_tokens + expanded_logical_grid_slots
+effective_text_information = body_semantic_tokens + active_chart_tokens
+table_weight = 0.80 * table_information / (table_information + effective_text_information)
+text_weight = 0.80 - table_weight
+Final Score = Table Score * table_weight
+            + Title Layout Score * 0.20
+            + Text Score * text_weight
 ```
 
-三个子分数均归一到 `0-100`。
+三个子分数均归一到 `0-100`。语义 token 统一按中文字符、英文单词和数值项计数；每个展开后的逻辑网格单元再贡献一个结构信息单位，避免纯数字表格因文本短而被低估。所有权重只读取 GT，不读取 Prediction 或模型得分。
+
+存在双 GT 时，拆分版本可能重复表头。顶层表格权重使用两个 GT 中较小的正表格信息量，防止表格拆分方式虚增权重；这不改变单表匹配仍可从两个 GT 中取较优结果的规则。
 
 命令行示例：
 
-对一组新的 6 份解析结果进行标准评分：
+对一组新的 10 份解析结果进行标准评分：
 
 ```powershell
 python normalizers/normalize_my_parser.py `
@@ -26,7 +34,8 @@ python normalizers/normalize_my_parser.py `
 python score_prediction_directory.py `
   --pred-dir normalized_predictions/my_parser `
   --system-name "My Parser 1.0" `
-  --output-dir scores/my_parser
+  --score-charts on `
+  --output-dir scores/with_charts/my_parser
 ```
 
 对单份 Markdown 调试评分：
@@ -40,6 +49,8 @@ python benchmark_scorer.py \
   --remove-pred-header-footer off \
   --normalize-zh t2s \
   --normalize-images on \
+  --score-charts on \
+  --normalize-formulas on \
   --normalize-footnotes on \
   --normalize-punctuation on \
   --md-out report.md \
@@ -54,14 +65,15 @@ python benchmark_scorer.py \
 1. 使用该解析系统的独立、GT 无关适配器，把原始 Prediction 转为素 Markdown
 2. 校验表格矩阵、非噪声标题序列与适配器幂等性，并写入 manifest
 3. 读取 GT Markdown 和已归一化的 Prediction Markdown；标准评分关闭隐藏的 Prediction 专属清洗
-4. 抽取 HTML table 与 Markdown pipe table
-5. 从正文评分输入中移除表格，避免表格内容重复进入正文分
-6. 从移除表格后的 Markdown 中抽取标题等级序列
-7. 标题布局评分比较标题层级，并用标题文字辅助锚点对齐
-8. 正文评分只删除标题前缀 #，保留标题文字
-9. 正文不做段落合并，换行按一个字符保留，再计算 normalized edit distance
-10. 汇总表格分、标题布局分、正文分和总分
-11. 输出 Markdown 报告和 JSON 报告
+4. 抽取 HTML table、Markdown pipe table 和 `?[]` 信息图表块
+5. 将显式 chart-table 内容路由到表格或图表模块一次，避免重复得分
+6. 从正文评分输入中移除业务表格；按开关保留或对称移除图表转写
+7. 从移除表格后的 Markdown 中抽取标题等级序列
+8. 标题布局评分比较标题层级，并用标题文字辅助锚点对齐
+9. 正文评分只删除标题前缀 #，保留标题文字，并对公式做共享表示归一化
+10. 正文不做段落合并，换行按一个字符保留，再计算 normalized edit distance
+11. 根据 Gold 信息量计算该文档的动态模块权重并汇总总分
+12. 输出 Markdown 报告和 JSON 报告
 ```
 
 ### Prediction 独立适配器
@@ -128,21 +140,40 @@ table_pair_score = table_structure_score * 0.60 + table_content_score * 0.40
 多表匹配：
 
 ```text
-1. 按 GT 表格出现顺序逐个处理
-2. 每个 GT 表格只能在 Pred 表格集合中选择一个尚未使用的最佳表格
-3. 一个 Pred 表格一旦被某个 GT 使用，不能再被其他 GT 使用
+1. 以每张 Pred 表格为检索起点，在全部 GT 表格中寻找候选，不按表格出现顺序强制对齐
+2. 候选检索联合使用表头/首列关键词锚点与行列结构，再以单表结构和内容得分确认最佳候选
+3. Pred 与 GT 严格一对一；任意一侧表格一旦匹配，不能再次使用
 4. 不允许多个 Pred 表格合并后匹配一个 GT 表格
-5. 同分或近似同分时优先选择文档位置更接近的 Pred 表格，避免重复形状表格交叉匹配
+5. 全部候选边按匹配置信度排序后执行全局贪心分配；低于语义阈值的候选保持未匹配
 6. 如果 GT 表格更多，多出的 GT 表格计为 missing，按 0 分进入分母
 7. 如果 Pred 表格更多，多出的 Pred 表格计为 extra，按 0 分进入分母
 ```
 
-该顺序感知的一对一匹配保证 GT 对 GT 时表格分为 100，同时仍能惩罚跨页表格未合并导致的 missing / extra 片段。
+这种基于结构与关键词的最高分一对一匹配允许跳过缺失表格，避免前部漏表导致后续表格连锁错配，同时仍会惩罚跨页表格未合并造成的 missing / extra 片段。
 
-表格总分：
+文档级表格篇幅仅依据 Gold Markdown 矩阵计算：
 
 ```text
-final_table_score = sum(matched_table_pair_score) / max(gt_table_count, pred_table_count, 1)
+grid_slots = expanded_rows * expanded_cols
+character_units = max(normalized_cell_characters, grid_slots)
+table_footprint = sqrt(grid_slots * character_units)
+gt_table_weight = table_footprint / sum(all_gt_table_footprints)
+```
+
+几何平均同时考虑表格结构规模和文字密度，避免大量空单元格或单个超长文字单元格独自主导权重。缺失的 Gold 表格在其整个篇幅上记0分；未匹配的 Prediction 表格以自身篇幅增大分母。
+
+默认表格总分：
+
+```text
+final_table_score =
+    sum(matched_table_pair_score * matched_gt_table_footprint)
+    / (sum(all_gt_table_footprints) + sum(unmatched_pred_table_footprints))
+```
+
+用 `--table-aggregation uniform` 可复现旧的每表等权口径：
+
+```text
+sum(matched_table_pair_score) / max(gt_table_count, pred_table_count, 1)
 ```
 
 如果 GT 和 Pred 都没有表格，则表格分为 100。如果只有一侧有表格，则表格分为 0。
@@ -175,7 +206,9 @@ alt:     使用第二套 GT 表格分
 max:     对每一个 Pred 表格分别与 primary / alt GT 进行一对一匹配，保留更高的单表分
 ```
 
-`max` 策略的计分分母为：
+`max` 策略在默认篇幅加权下，先将 primary / alt 中的表格篇幅分别在各自 GT 内归一化，再对每张 Prediction 保留更高分的匹配。未匹配 Prediction 仍按自身篇幅扩大分母。
+
+使用 `--table-aggregation uniform` 时，`max` 策略的旧计分分母为：
 
 ```text
 max(pred_table_count, min(primary_gt_table_count, alt_gt_table_count), 1)
@@ -302,7 +335,26 @@ text_score = (1 - average_edit_distance) * 100
 
 如果 GT 正文为空而 Pred 非空，或 Pred 正文为空而 GT 非空，正文分会按完整文本缺失/冗余处理；如果两边正文都为空，正文分为 100。
 
-## 8. 输出报告
+### 公式表示归一化
+
+公式仍属于正文事实内容。评分器只统一不改变数学含义的表示差异，例如 `$...$` / `\(...\)` 外壳、`​\frac{a}{b}` 与等价的展示层空白、`​\left` / `\right` 和 Unicode 数学符号；变量、数字、上下标、运算符和正负号均保留。`r-g` 与 `r+g`、`16.5%` 与 `165%` 仍会产生实质扣分。
+
+## 8. 信息图表评分
+
+001–004 Gold 使用 `?[]` 标记有信息价值的图表，标记后的结构化文字直到下一个文档对象边界构成图表 payload。普通 `![]` 图片不进入图表评分。
+
+`--score-charts off` 时，Gold 与 Prediction 的图表块在表格、标题和正文抽取前被对称移除。`--score-charts on` 时：
+
+```text
+1. 按文档顺序对 Gold / Prediction 图表做一对一匹配
+2. 单图优先比较数值 token，再比较规范化文字 token
+3. 漏图和冗余图按 0 分进入图表序列
+4. 图表分按 Gold 图表 token 在有效正文中的占比混入正文模块
+```
+
+图表中以 HTML/Markdown 表格转写的内容，如果 Gold 显式标记为 chart-table，可作为辅助表格参与普通表格匹配；一旦路由成功，该 payload 从图表匹配中移除，确保同一信息不重复得分。未标记的普通业务表格不能通过图题文字自动改类。
+
+## 9. 输出报告
 
 Markdown 报告包含：
 
@@ -317,23 +369,28 @@ Markdown 报告包含：
 
 JSON 报告包含同样核心字段，适合后续批量评测。
 
-## 9. 可配置参数
+## 10. 可配置参数
 
 脚本默认启用共享语义等价归一化，并默认关闭旧式 Prediction 专属页眉页脚清洗。也可以通过 CLI 调试或调整表格 pair 权重：
 
 ```text
 --remove-pred-header-footer on/off
 --normalize-images on/off
+--score-charts on/off
 --normalize-zh t2s/none
 --normalize-footnotes on/off
 --normalize-punctuation on/off
+--normalize-formulas on/off
 --table-structure-weight 0.60
 --table-content-weight 0.40
+--table-aggregation footprint
+--module-weighting content
+--title-layout-weight 0.20
 ```
 
-其中 `--remove-pred-header-footer on` 仅为旧结果复核/调试保留，不得用于正式主榜。表格 pair 权重会自动归一化；例如 `0.60 + 0.40` 和 `6 + 4` 等价。
+其中 `--remove-pred-header-footer on` 仅为旧结果复核/调试保留，不得用于正式主榜。表格 pair 权重会自动归一化；例如 `0.60 + 0.40` 和 `6 + 4` 等价。`--table-aggregation uniform` 仅用于复现旧版每表等权结果；`--module-weighting fixed` 可复现旧版总分固定 `40% / 20% / 40%` 权重。
 
-## 10. 依赖说明
+## 11. 依赖说明
 
 脚本核心逻辑使用 Python 标准库：
 
@@ -346,17 +403,15 @@ pathlib
 re
 ```
 
-不强依赖第三方库。
-
-如果需要启用繁简归一化，建议安装可选依赖：
+正式复现应安装锁定的评分依赖：
 
 ```bash
-python -m pip install opencc-python-reimplemented
+python -m pip install -r requirements.txt
 ```
 
-脚本会优先尝试 `opencc.OpenCC("t2s")`，安装后可将繁体和简体统一到简体；未安装时会自动跳过该步骤。
+其中 `python-Levenshtein` 用于高速计算整篇正文和单表归一化内容的精确距离，`opencc-python-reimplemented` 用于繁简归一化。缺少原生 Levenshtein 时，评分器只允许退回结果一致但速度较慢的纯 Python 精确实现，不再使用会因换行、段落或表格切块边界而改变分数的分段近似。
 
-## 11. 当前局限
+## 12. 当前局限
 
 当前实现是轻量评分器，不是完整的文档语义判别器，主要局限包括：
 
@@ -364,8 +419,9 @@ python -m pip install opencc-python-reimplemented
 1. HTML 嵌套表格只做近似处理
 2. 严重损坏的 HTML table 可能解析不完整
 3. rowspan / colspan 通过复制文本展开，不能完全表达树结构
-4. 表格匹配是 GT-driven 顺序感知一对一匹配，不把多个 Pred 表格拼接成一个 GT 表格
+4. 表格匹配是 Pred-driven 的结构与关键词最高分一对一匹配，不把多个 Pred 表格拼接成一个 GT 表格
 5. 正文评分为严格字符序列评分，不会容忍段落拆分/合并差异
 6. 标题布局使用标题文字做锚点，但不直接评价标题文字语义是否正确
 7. 表格语义等价、单位换算、同义改写等高级语义不在当前范围内
+8. 图表评分只比较人工转写后可读出的数字和文字，不评估颜色、线型、几何位置或视觉美观
 ```

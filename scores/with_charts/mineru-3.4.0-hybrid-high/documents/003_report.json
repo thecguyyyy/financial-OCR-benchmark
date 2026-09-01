@@ -1,0 +1,1699 @@
+{
+  "inputs": {
+    "gt": "data/gt/primary/003.md",
+    "pred": "normalized_predictions/mineru-3.4.0-hybrid-high/003.md",
+    "gt_table_alt": null,
+    "table_gt_strategy": "max",
+    "gt_sha256": "7f2640a2b67e6101ff2a875c7e26c06196ae020f850fd9e4660fd06df25a4420",
+    "pred_sha256": "10dbb7b2b60573d574e002581fd8524c00290eeb11c78932ee14e76d87277c11",
+    "normalization_adapter": "normalize_mineru_hybrid.py",
+    "normalization_manifest": "normalized_predictions/mineru-3.4.0-hybrid-high/normalization_manifest.json",
+    "score_charts": "on"
+  },
+  "pred_cleanup": {
+    "mode": "prediction_only_header_footer_cleanup",
+    "removed_line_count": 0,
+    "removed_line_examples": []
+  },
+  "chart_evaluation": {
+    "score_charts": true,
+    "mode": "included_as_order_aware_numeric_first_token_score",
+    "gt_chart_block_count": 44,
+    "alt_gt_chart_block_count": 0,
+    "pred_chart_block_count": 44,
+    "pred_chart_payload_count_after_chart_table_routing": 44,
+    "routed_chart_table_count": 0,
+    "gt_removed_block_count": 0,
+    "alt_gt_removed_block_count": 0,
+    "pred_removed_block_count": 0,
+    "chart_score": {
+      "chart_score": 94.7324,
+      "gt_chart_count": 44,
+      "pred_chart_count": 44,
+      "matched_chart_count": 44,
+      "missing_chart_count": 0,
+      "extra_chart_count": 0,
+      "matches": [
+        {
+          "gt_index": 0,
+          "pred_index": 0,
+          "pair_score": 85.211,
+          "numeric_f1": 82.1429,
+          "lexical_f1": 90.9091
+        },
+        {
+          "gt_index": 1,
+          "pred_index": 1,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 2,
+          "pred_index": 2,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 3,
+          "pred_index": 3,
+          "pair_score": 98.0882,
+          "numeric_f1": 97.0588,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 4,
+          "pred_index": 4,
+          "pair_score": 96.25,
+          "numeric_f1": 94.2308,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 5,
+          "pred_index": 5,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 6,
+          "pred_index": 6,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 7,
+          "pred_index": 7,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 8,
+          "pred_index": 8,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 9,
+          "pred_index": 9,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 10,
+          "pred_index": 10,
+          "pair_score": 90.0,
+          "numeric_f1": 84.6154,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 11,
+          "pred_index": 11,
+          "pair_score": 94.697,
+          "numeric_f1": 100.0,
+          "lexical_f1": 84.8485
+        },
+        {
+          "gt_index": 12,
+          "pred_index": 12,
+          "pair_score": 79.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 40.0
+        },
+        {
+          "gt_index": 13,
+          "pred_index": 13,
+          "pair_score": 52.8793,
+          "numeric_f1": 60.7595,
+          "lexical_f1": 38.2445
+        },
+        {
+          "gt_index": 14,
+          "pred_index": 14,
+          "pair_score": 88.5354,
+          "numeric_f1": 88.8889,
+          "lexical_f1": 87.8788
+        },
+        {
+          "gt_index": 15,
+          "pred_index": 15,
+          "pair_score": 86.4171,
+          "numeric_f1": 94.9153,
+          "lexical_f1": 70.6349
+        },
+        {
+          "gt_index": 16,
+          "pred_index": 16,
+          "pair_score": 71.4841,
+          "numeric_f1": 88.8889,
+          "lexical_f1": 39.1608
+        },
+        {
+          "gt_index": 17,
+          "pred_index": 17,
+          "pair_score": 89.0578,
+          "numeric_f1": 97.8417,
+          "lexical_f1": 72.7449
+        },
+        {
+          "gt_index": 18,
+          "pred_index": 18,
+          "pair_score": 96.8407,
+          "numeric_f1": 96.9697,
+          "lexical_f1": 96.6011
+        },
+        {
+          "gt_index": 19,
+          "pred_index": 19,
+          "pair_score": 95.1852,
+          "numeric_f1": 92.5926,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 20,
+          "pred_index": 20,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 21,
+          "pred_index": 21,
+          "pair_score": 84.4872,
+          "numeric_f1": 91.6667,
+          "lexical_f1": 71.1538
+        },
+        {
+          "gt_index": 22,
+          "pred_index": 22,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 23,
+          "pred_index": 23,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 24,
+          "pred_index": 24,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 25,
+          "pred_index": 25,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 26,
+          "pred_index": 26,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 27,
+          "pred_index": 27,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 28,
+          "pred_index": 28,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 29,
+          "pred_index": 29,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 30,
+          "pred_index": 30,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 31,
+          "pred_index": 31,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 32,
+          "pred_index": 32,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 33,
+          "pred_index": 33,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 34,
+          "pred_index": 34,
+          "pair_score": 69.6667,
+          "numeric_f1": 100.0,
+          "lexical_f1": 13.3333
+        },
+        {
+          "gt_index": 35,
+          "pred_index": 35,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 36,
+          "pred_index": 36,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 37,
+          "pred_index": 37,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 38,
+          "pred_index": 38,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 39,
+          "pred_index": 39,
+          "pair_score": 97.6744,
+          "numeric_f1": 97.6744,
+          "lexical_f1": 97.6744
+        },
+        {
+          "gt_index": 40,
+          "pred_index": 40,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 41,
+          "pred_index": 41,
+          "pair_score": 100.0,
+          "numeric_f1": 100.0,
+          "lexical_f1": 100.0
+        },
+        {
+          "gt_index": 42,
+          "pred_index": 42,
+          "pair_score": 97.6744,
+          "numeric_f1": 97.6744,
+          "lexical_f1": 97.6744
+        },
+        {
+          "gt_index": 43,
+          "pred_index": 43,
+          "pair_score": 95.0758,
+          "numeric_f1": 92.4242,
+          "lexical_f1": 100.0
+        }
+      ]
+    },
+    "gt_body_token_count": 13500,
+    "gt_chart_token_count": 8217,
+    "chart_token_share": 0.3784
+  },
+  "weights": {
+    "table": 0.1512229732252885,
+    "title_layout": 0.2,
+    "text": 0.6487770267747116
+  },
+  "weighting_evaluation": {
+    "mode": "gt_content_information_share",
+    "title_layout_reserve": 0.2,
+    "content_budget": 0.8,
+    "table_semantic_tokens": 4420,
+    "table_grid_slots": 642,
+    "table_information_units": 5062,
+    "body_information_units": 13500,
+    "chart_information_units": 8217,
+    "text_information_units": 21717,
+    "total_content_information_units": 26779,
+    "table_content_share": 0.1890287165316106
+  },
+  "config": {
+    "remove_pred_header_footer": false,
+    "normalize_images": true,
+    "score_charts": true,
+    "normalize_zh": "t2s",
+    "normalize_footnotes": true,
+    "normalize_punctuation": true,
+    "normalize_formulas": true,
+    "table_structure_weight": 0.6,
+    "table_content_weight": 0.4,
+    "table_aggregation": "footprint",
+    "module_weighting": "content",
+    "title_layout_weight": 0.2
+  },
+  "scores": {
+    "final_score": 95.1458,
+    "table_score": 98.1856,
+    "title_layout_score": 87.7845,
+    "text_score": 96.7066
+  },
+  "table_evaluation": {
+    "selected_gt": "primary",
+    "selected_table_score": {
+      "table_content_score": 96.6324,
+      "table_structure_score": 99.2211,
+      "table_matrix_score": 98.1856,
+      "table_alignment_strategy": "pred_semantic_best_one_to_one_gt_footprint_weighted",
+      "table_aggregation": "footprint",
+      "matched_table_count": 8,
+      "missing_table_count": 0,
+      "extra_table_count": 1,
+      "gt_table_count": 8,
+      "pred_table_count": 9,
+      "auxiliary_chart_table_count": 44,
+      "auxiliary_chart_table_matched_count": 0,
+      "gt_chart_table_eligible_count": 1,
+      "gt_table_footprints": [
+        {
+          "gt_index": 0,
+          "rows": 8,
+          "cols": 8,
+          "grid_slots": 64,
+          "normalized_characters": 272,
+          "footprint_units": 131.93938001976514,
+          "document_weight": 0.06685894512890192
+        },
+        {
+          "gt_index": 1,
+          "rows": 17,
+          "cols": 15,
+          "grid_slots": 255,
+          "normalized_characters": 1485,
+          "footprint_units": 615.3657449029804,
+          "document_weight": 0.3118303615380855
+        },
+        {
+          "gt_index": 2,
+          "rows": 9,
+          "cols": 4,
+          "grid_slots": 36,
+          "normalized_characters": 2252,
+          "footprint_units": 284.7314524249121,
+          "document_weight": 0.14428478102063186
+        },
+        {
+          "gt_index": 3,
+          "rows": 17,
+          "cols": 8,
+          "grid_slots": 136,
+          "normalized_characters": 954,
+          "footprint_units": 360.1999444752872,
+          "document_weight": 0.1825276753574184
+        },
+        {
+          "gt_index": 4,
+          "rows": 10,
+          "cols": 6,
+          "grid_slots": 60,
+          "normalized_characters": 1114,
+          "footprint_units": 258.534330408942,
+          "document_weight": 0.13100965464715258
+        },
+        {
+          "gt_index": 5,
+          "rows": 6,
+          "cols": 3,
+          "grid_slots": 18,
+          "normalized_characters": 804,
+          "footprint_units": 120.29962593458053,
+          "document_weight": 0.060960617581973256
+        },
+        {
+          "gt_index": 6,
+          "rows": 7,
+          "cols": 7,
+          "grid_slots": 49,
+          "normalized_characters": 319,
+          "footprint_units": 125.02399769644227,
+          "document_weight": 0.06335464514483985
+        },
+        {
+          "gt_index": 7,
+          "rows": 8,
+          "cols": 3,
+          "grid_slots": 24,
+          "normalized_characters": 249,
+          "footprint_units": 77.30459236035075,
+          "document_weight": 0.03917331958099663
+        }
+      ],
+      "gt_footprint_total": 1973.3991,
+      "extra_pred_footprint_total": 15.4919,
+      "final_table_score": 98.1856,
+      "matches": [
+        {
+          "gt_index": 0,
+          "pred_index": 1,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 8,
+            "cols": 8
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 8
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
+          "table_keyword_score": 100.0,
+          "table_match_score": 100.0,
+          "pred_position": 1,
+          "gt_position": 0,
+          "gt_footprint": {
+            "rows": 8,
+            "cols": 8,
+            "grid_slots": 64,
+            "normalized_characters": 272,
+            "footprint_units": 131.93938001976514,
+            "document_weight": 0.06685894512890192
+          },
+          "pred_footprint": {
+            "rows": 8,
+            "cols": 8,
+            "grid_slots": 64,
+            "normalized_characters": 272,
+            "footprint_units": 131.93938001976514
+          }
+        },
+        {
+          "gt_index": 1,
+          "pred_index": 2,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 15
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 15
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
+          "table_keyword_score": 100.0,
+          "table_match_score": 100.0,
+          "pred_position": 2,
+          "gt_position": 1,
+          "gt_footprint": {
+            "rows": 17,
+            "cols": 15,
+            "grid_slots": 255,
+            "normalized_characters": 1485,
+            "footprint_units": 615.3657449029804,
+            "document_weight": 0.3118303615380855
+          },
+          "pred_footprint": {
+            "rows": 17,
+            "cols": 15,
+            "grid_slots": 255,
+            "normalized_characters": 1487,
+            "footprint_units": 615.7799931793822
+          }
+        },
+        {
+          "gt_index": 2,
+          "pred_index": 3,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 98.041,
+          "table_pair_score": 99.2164,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.7649,
+          "pred_position": 3,
+          "gt_position": 2,
+          "gt_footprint": {
+            "rows": 9,
+            "cols": 4,
+            "grid_slots": 36,
+            "normalized_characters": 2252,
+            "footprint_units": 284.7314524249121,
+            "document_weight": 0.14428478102063186
+          },
+          "pred_footprint": {
+            "rows": 9,
+            "cols": 4,
+            "grid_slots": 36,
+            "normalized_characters": 2213,
+            "footprint_units": 282.25520367213784
+          }
+        },
+        {
+          "gt_index": 3,
+          "pred_index": 4,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 8
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 8
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 94.0217,
+          "table_pair_score": 97.6087,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.2826,
+          "pred_position": 4,
+          "gt_position": 3,
+          "gt_footprint": {
+            "rows": 17,
+            "cols": 8,
+            "grid_slots": 136,
+            "normalized_characters": 954,
+            "footprint_units": 360.1999444752872,
+            "document_weight": 0.1825276753574184
+          },
+          "pred_footprint": {
+            "rows": 17,
+            "cols": 8,
+            "grid_slots": 136,
+            "normalized_characters": 970,
+            "footprint_units": 363.2079294288603
+          }
+        },
+        {
+          "gt_index": 4,
+          "pred_index": 5,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 6
+          },
+          "pred_shape": {
+            "rows": 10,
+            "cols": 6
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 96.5458,
+          "table_pair_score": 98.6183,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.5855,
+          "pred_position": 5,
+          "gt_position": 4,
+          "gt_footprint": {
+            "rows": 10,
+            "cols": 6,
+            "grid_slots": 60,
+            "normalized_characters": 1114,
+            "footprint_units": 258.534330408942,
+            "document_weight": 0.13100965464715258
+          },
+          "pred_footprint": {
+            "rows": 10,
+            "cols": 6,
+            "grid_slots": 60,
+            "normalized_characters": 1074,
+            "footprint_units": 253.85034961567416
+          }
+        },
+        {
+          "gt_index": 5,
+          "pred_index": 6,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 6,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 6,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 96.6543,
+          "table_pair_score": 98.6617,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.5985,
+          "pred_position": 6,
+          "gt_position": 5,
+          "gt_footprint": {
+            "rows": 6,
+            "cols": 3,
+            "grid_slots": 18,
+            "normalized_characters": 804,
+            "footprint_units": 120.29962593458053,
+            "document_weight": 0.060960617581973256
+          },
+          "pred_footprint": {
+            "rows": 6,
+            "cols": 3,
+            "grid_slots": 18,
+            "normalized_characters": 777,
+            "footprint_units": 118.26242006656214
+          }
+        },
+        {
+          "gt_index": 6,
+          "pred_index": 7,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 7
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 95.6403,
+          "table_pair_score": 98.2561,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.4768,
+          "pred_position": 7,
+          "gt_position": 6,
+          "gt_footprint": {
+            "rows": 7,
+            "cols": 7,
+            "grid_slots": 49,
+            "normalized_characters": 319,
+            "footprint_units": 125.02399769644227,
+            "document_weight": 0.06335464514483985
+          },
+          "pred_footprint": {
+            "rows": 7,
+            "cols": 7,
+            "grid_slots": 49,
+            "normalized_characters": 303,
+            "footprint_units": 121.84826629870447
+          }
+        },
+        {
+          "gt_index": 7,
+          "pred_index": 8,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 8,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 92.2794,
+          "table_pair_score": 96.9118,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.0735,
+          "pred_position": 8,
+          "gt_position": 7,
+          "gt_footprint": {
+            "rows": 8,
+            "cols": 3,
+            "grid_slots": 24,
+            "normalized_characters": 249,
+            "footprint_units": 77.30459236035075,
+            "document_weight": 0.03917331958099663
+          },
+          "pred_footprint": {
+            "rows": 8,
+            "cols": 3,
+            "grid_slots": 24,
+            "normalized_characters": 228,
+            "footprint_units": 73.97296803562772
+          }
+        }
+      ]
+    },
+    "primary_table_score": {
+      "table_content_score": 96.6324,
+      "table_structure_score": 99.2211,
+      "table_matrix_score": 98.1856,
+      "table_alignment_strategy": "pred_semantic_best_one_to_one_gt_footprint_weighted",
+      "table_aggregation": "footprint",
+      "matched_table_count": 8,
+      "missing_table_count": 0,
+      "extra_table_count": 1,
+      "gt_table_count": 8,
+      "pred_table_count": 9,
+      "auxiliary_chart_table_count": 44,
+      "auxiliary_chart_table_matched_count": 0,
+      "gt_chart_table_eligible_count": 1,
+      "gt_table_footprints": [
+        {
+          "gt_index": 0,
+          "rows": 8,
+          "cols": 8,
+          "grid_slots": 64,
+          "normalized_characters": 272,
+          "footprint_units": 131.93938001976514,
+          "document_weight": 0.06685894512890192
+        },
+        {
+          "gt_index": 1,
+          "rows": 17,
+          "cols": 15,
+          "grid_slots": 255,
+          "normalized_characters": 1485,
+          "footprint_units": 615.3657449029804,
+          "document_weight": 0.3118303615380855
+        },
+        {
+          "gt_index": 2,
+          "rows": 9,
+          "cols": 4,
+          "grid_slots": 36,
+          "normalized_characters": 2252,
+          "footprint_units": 284.7314524249121,
+          "document_weight": 0.14428478102063186
+        },
+        {
+          "gt_index": 3,
+          "rows": 17,
+          "cols": 8,
+          "grid_slots": 136,
+          "normalized_characters": 954,
+          "footprint_units": 360.1999444752872,
+          "document_weight": 0.1825276753574184
+        },
+        {
+          "gt_index": 4,
+          "rows": 10,
+          "cols": 6,
+          "grid_slots": 60,
+          "normalized_characters": 1114,
+          "footprint_units": 258.534330408942,
+          "document_weight": 0.13100965464715258
+        },
+        {
+          "gt_index": 5,
+          "rows": 6,
+          "cols": 3,
+          "grid_slots": 18,
+          "normalized_characters": 804,
+          "footprint_units": 120.29962593458053,
+          "document_weight": 0.060960617581973256
+        },
+        {
+          "gt_index": 6,
+          "rows": 7,
+          "cols": 7,
+          "grid_slots": 49,
+          "normalized_characters": 319,
+          "footprint_units": 125.02399769644227,
+          "document_weight": 0.06335464514483985
+        },
+        {
+          "gt_index": 7,
+          "rows": 8,
+          "cols": 3,
+          "grid_slots": 24,
+          "normalized_characters": 249,
+          "footprint_units": 77.30459236035075,
+          "document_weight": 0.03917331958099663
+        }
+      ],
+      "gt_footprint_total": 1973.3991,
+      "extra_pred_footprint_total": 15.4919,
+      "final_table_score": 98.1856,
+      "matches": [
+        {
+          "gt_index": 0,
+          "pred_index": 1,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 8,
+            "cols": 8
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 8
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
+          "table_keyword_score": 100.0,
+          "table_match_score": 100.0,
+          "pred_position": 1,
+          "gt_position": 0,
+          "gt_footprint": {
+            "rows": 8,
+            "cols": 8,
+            "grid_slots": 64,
+            "normalized_characters": 272,
+            "footprint_units": 131.93938001976514,
+            "document_weight": 0.06685894512890192
+          },
+          "pred_footprint": {
+            "rows": 8,
+            "cols": 8,
+            "grid_slots": 64,
+            "normalized_characters": 272,
+            "footprint_units": 131.93938001976514
+          }
+        },
+        {
+          "gt_index": 1,
+          "pred_index": 2,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 15
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 15
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 100.0,
+          "table_pair_score": 100.0,
+          "table_keyword_score": 100.0,
+          "table_match_score": 100.0,
+          "pred_position": 2,
+          "gt_position": 1,
+          "gt_footprint": {
+            "rows": 17,
+            "cols": 15,
+            "grid_slots": 255,
+            "normalized_characters": 1485,
+            "footprint_units": 615.3657449029804,
+            "document_weight": 0.3118303615380855
+          },
+          "pred_footprint": {
+            "rows": 17,
+            "cols": 15,
+            "grid_slots": 255,
+            "normalized_characters": 1487,
+            "footprint_units": 615.7799931793822
+          }
+        },
+        {
+          "gt_index": 2,
+          "pred_index": 3,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "pred_shape": {
+            "rows": 9,
+            "cols": 4
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 98.041,
+          "table_pair_score": 99.2164,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.7649,
+          "pred_position": 3,
+          "gt_position": 2,
+          "gt_footprint": {
+            "rows": 9,
+            "cols": 4,
+            "grid_slots": 36,
+            "normalized_characters": 2252,
+            "footprint_units": 284.7314524249121,
+            "document_weight": 0.14428478102063186
+          },
+          "pred_footprint": {
+            "rows": 9,
+            "cols": 4,
+            "grid_slots": 36,
+            "normalized_characters": 2213,
+            "footprint_units": 282.25520367213784
+          }
+        },
+        {
+          "gt_index": 3,
+          "pred_index": 4,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": true,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 17,
+            "cols": 8
+          },
+          "pred_shape": {
+            "rows": 17,
+            "cols": 8
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 94.0217,
+          "table_pair_score": 97.6087,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.2826,
+          "pred_position": 4,
+          "gt_position": 3,
+          "gt_footprint": {
+            "rows": 17,
+            "cols": 8,
+            "grid_slots": 136,
+            "normalized_characters": 954,
+            "footprint_units": 360.1999444752872,
+            "document_weight": 0.1825276753574184
+          },
+          "pred_footprint": {
+            "rows": 17,
+            "cols": 8,
+            "grid_slots": 136,
+            "normalized_characters": 970,
+            "footprint_units": 363.2079294288603
+          }
+        },
+        {
+          "gt_index": 4,
+          "pred_index": 5,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 10,
+            "cols": 6
+          },
+          "pred_shape": {
+            "rows": 10,
+            "cols": 6
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 96.5458,
+          "table_pair_score": 98.6183,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.5855,
+          "pred_position": 5,
+          "gt_position": 4,
+          "gt_footprint": {
+            "rows": 10,
+            "cols": 6,
+            "grid_slots": 60,
+            "normalized_characters": 1114,
+            "footprint_units": 258.534330408942,
+            "document_weight": 0.13100965464715258
+          },
+          "pred_footprint": {
+            "rows": 10,
+            "cols": 6,
+            "grid_slots": 60,
+            "normalized_characters": 1074,
+            "footprint_units": 253.85034961567416
+          }
+        },
+        {
+          "gt_index": 5,
+          "pred_index": 6,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 6,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 6,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 96.6543,
+          "table_pair_score": 98.6617,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.5985,
+          "pred_position": 6,
+          "gt_position": 5,
+          "gt_footprint": {
+            "rows": 6,
+            "cols": 3,
+            "grid_slots": 18,
+            "normalized_characters": 804,
+            "footprint_units": 120.29962593458053,
+            "document_weight": 0.060960617581973256
+          },
+          "pred_footprint": {
+            "rows": 6,
+            "cols": 3,
+            "grid_slots": 18,
+            "normalized_characters": 777,
+            "footprint_units": 118.26242006656214
+          }
+        },
+        {
+          "gt_index": 6,
+          "pred_index": 7,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 7,
+            "cols": 7
+          },
+          "pred_shape": {
+            "rows": 7,
+            "cols": 7
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 95.6403,
+          "table_pair_score": 98.2561,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.4768,
+          "pred_position": 7,
+          "gt_position": 6,
+          "gt_footprint": {
+            "rows": 7,
+            "cols": 7,
+            "grid_slots": 49,
+            "normalized_characters": 319,
+            "footprint_units": 125.02399769644227,
+            "document_weight": 0.06335464514483985
+          },
+          "pred_footprint": {
+            "rows": 7,
+            "cols": 7,
+            "grid_slots": 49,
+            "normalized_characters": 303,
+            "footprint_units": 121.84826629870447
+          }
+        },
+        {
+          "gt_index": 7,
+          "pred_index": 8,
+          "gt_kind": "html",
+          "pred_kind": "html",
+          "gt_accepts_chart_representation": false,
+          "pred_from_chart_block": false,
+          "pred_chart_payload_index": null,
+          "pred_chart_table_index": null,
+          "gt_span_pages": null,
+          "pred_span_pages": null,
+          "gt_is_cross_page": false,
+          "pred_is_cross_page": false,
+          "gt_shape": {
+            "rows": 8,
+            "cols": 3
+          },
+          "pred_shape": {
+            "rows": 8,
+            "cols": 3
+          },
+          "table_structure_score": 100.0,
+          "table_content_score": 92.2794,
+          "table_pair_score": 96.9118,
+          "table_keyword_score": 100.0,
+          "table_match_score": 99.0735,
+          "pred_position": 8,
+          "gt_position": 7,
+          "gt_footprint": {
+            "rows": 8,
+            "cols": 3,
+            "grid_slots": 24,
+            "normalized_characters": 249,
+            "footprint_units": 77.30459236035075,
+            "document_weight": 0.03917331958099663
+          },
+          "pred_footprint": {
+            "rows": 8,
+            "cols": 3,
+            "grid_slots": 24,
+            "normalized_characters": 228,
+            "footprint_units": 73.97296803562772
+          }
+        }
+      ]
+    },
+    "alt_table_score": null
+  },
+  "title_layout_evaluation": {
+    "title_scoring_method": "anchor_heading_f1_level_accuracy_order",
+    "title_layout_weights": {
+      "heading_f1": 0.8,
+      "level_accuracy": 0.1,
+      "order": 0.1
+    },
+    "gt_raw_heading_levels": [
+      1,
+      2,
+      3,
+      3,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      4,
+      2,
+      3,
+      4,
+      4,
+      4,
+      4,
+      3,
+      2,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2
+    ],
+    "pred_raw_heading_levels": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "gt_relative_heading_levels": [
+      1,
+      2,
+      3,
+      3,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      4,
+      2,
+      3,
+      4,
+      4,
+      4,
+      4,
+      3,
+      2,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2
+    ],
+    "pred_relative_heading_levels": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "title_layout_score": 87.7845,
+    "heading_f1_score": 93.617,
+    "level_accuracy_score": 40.9091,
+    "order_score": 88.0,
+    "alignment_cost": 4.4422,
+    "missing_heading_count": 3,
+    "extra_heading_count": 0,
+    "level_mismatch_count": 21,
+    "issues": [
+      "21 aligned headings have different relative levels.",
+      "3 GT headings are missing."
+    ],
+    "alignment": [
+      {
+        "op": "match",
+        "cost": 1.1,
+        "gt_index": 0,
+        "pred_index": 0,
+        "gt_level": 1,
+        "pred_level": 1,
+        "text_similarity": 0.0,
+        "gt_text_preview": "聚焦创新药产业链，静待消费医疗改善",
+        "pred_text_preview": "相关报告"
+      },
+      {
+        "op": "match",
+        "cost": 0.19999999999999996,
+        "gt_index": 1,
+        "pred_index": 1,
+        "gt_level": 2,
+        "pred_level": 1,
+        "text_similarity": 0.8,
+        "gt_text_preview": "投资要点",
+        "pred_text_preview": "投资要点："
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 2,
+        "gt_level": 3,
+        "gt_text_preview": "行业涨跌幅比较"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 3,
+        "gt_level": 3,
+        "gt_text_preview": "相关报告"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 4,
+        "pred_index": 2,
+        "gt_level": 2,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "内容目录",
+        "pred_text_preview": "内容目录"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 5,
+        "pred_index": 3,
+        "gt_level": 2,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "图表目录",
+        "pred_text_preview": "图表目录"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 6,
+        "pred_index": 4,
+        "gt_level": 2,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "1 行业回顾",
+        "pred_text_preview": "1 行业回顾"
+      },
+      {
+        "op": "match",
+        "cost": 0.05405405405405406,
+        "gt_index": 7,
+        "pred_index": 5,
+        "gt_level": 3,
+        "pred_level": 1,
+        "text_similarity": 0.9459,
+        "gt_text_preview": "1.1 市场表现：明显跑输沪深300指数，原料药、化学制剂板块表现较好",
+        "pred_text_preview": "1.1 市场表现：明显跑输沪深 300 指数，原料药、化学制剂板块表现较好"
+      },
+      {
+        "op": "match",
+        "cost": 0.0625,
+        "gt_index": 8,
+        "pred_index": 6,
+        "gt_level": 3,
+        "pred_level": 1,
+        "text_similarity": 0.9375,
+        "gt_text_preview": "1.2 行业估值：相对沪深300的溢价率位于近10年低位水平",
+        "pred_text_preview": "1.2 行业估值：相对沪深 300的溢价率位于近 10年低位水平"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 9,
+        "pred_index": 7,
+        "gt_level": 3,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "1.3 经营回顾：整体业绩增长承压，出口好于内需",
+        "pred_text_preview": "1.3 经营回顾：整体业绩增长承压，出口好于内需"
+      },
+      {
+        "op": "match",
+        "cost": 0.02564102564102566,
+        "gt_index": 10,
+        "pred_index": 8,
+        "gt_level": 4,
+        "pred_level": 1,
+        "text_similarity": 0.9744,
+        "gt_text_preview": "医药生物行业2024年三季报简析：整体业绩增长承压，创新药械、CXO存在亮点",
+        "pred_text_preview": "医药生物行业 2024年三季报简析：整体业绩增长承压，创新药械、CXO存在亮点"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 11,
+        "pred_index": 9,
+        "gt_level": 2,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2 创新药产业链",
+        "pred_text_preview": "2 创新药产业链"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 12,
+        "pred_index": 10,
+        "gt_level": 3,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2.1 创新药：政策支持力度大，研发成果开始兑现",
+        "pred_text_preview": "2.1 创新药：政策支持力度大，研发成果开始兑现"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 13,
+        "pred_index": 11,
+        "gt_level": 4,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2.1.1 仿制药集采压力不减，创新药获全链条政策支持",
+        "pred_text_preview": "2.1.1 仿制药集采压力不减，创新药获全链条政策支持"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 14,
+        "pred_index": 12,
+        "gt_level": 4,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2.1.2 国家医保支付向创新药倾斜，商业医保赋能医药创新可期",
+        "pred_text_preview": "2.1.2 国家医保支付向创新药倾斜，商业医保赋能医药创新可期"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 15,
+        "pred_index": 13,
+        "gt_level": 4,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2.1.3 国产创新药迎来收获期，“真创新”药企业绩增长强劲",
+        "pred_text_preview": "2.1.3 国产创新药迎来收获期，“真创新”药企业绩增长强劲"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 16,
+        "pred_index": 14,
+        "gt_level": 4,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2.1.4 创新质量获国际认可，国际化成效初显",
+        "pred_text_preview": "2.1.4 创新质量获国际认可，国际化成效初显"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 17,
+        "pred_index": 15,
+        "gt_level": 3,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "2.2 CXO：海外客户收入增长稳健，新签订单增长良好",
+        "pred_text_preview": "2.2 CXO：海外客户收入增长稳健，新签订单增长良好"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 18,
+        "pred_index": 16,
+        "gt_level": 2,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "3 消费医疗",
+        "pred_text_preview": "3 消费医疗"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 19,
+        "pred_index": 17,
+        "gt_level": 3,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "3.1 零售药店：政策预期逐渐稳定，集中度提升有望加速",
+        "pred_text_preview": "3.1 零售药店：政策预期逐渐稳定，集中度提升有望加速"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 20,
+        "pred_index": 18,
+        "gt_level": 3,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "3.2 医学检测：应收账款回款有望改善，2025年业绩改善可期",
+        "pred_text_preview": "3.2 医学检测：应收账款回款有望改善，2025年业绩改善可期"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 21,
+        "pred_index": 19,
+        "gt_level": 3,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "3.3 医院：诊疗人次保持稳健增长，政策刺激下业绩有望改善",
+        "pred_text_preview": "3.3 医院：诊疗人次保持稳健增长，政策刺激下业绩有望改善"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 22,
+        "pred_index": 20,
+        "gt_level": 2,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "4 投资策略",
+        "pred_text_preview": "4 投资策略"
+      },
+      {
+        "op": "match",
+        "cost": 0.0,
+        "gt_index": 23,
+        "pred_index": 21,
+        "gt_level": 2,
+        "pred_level": 1,
+        "text_similarity": 1.0,
+        "gt_text_preview": "5 风险提示",
+        "pred_text_preview": "5 风险提示"
+      },
+      {
+        "op": "missing",
+        "cost": 1.0,
+        "gt_index": 24,
+        "gt_level": 2,
+        "gt_text_preview": "投资评级系统说明"
+      }
+    ]
+  },
+  "text_evaluation": {
+    "text_mode": "body_edit_distance_plus_representation_neutral_chart_tokens",
+    "text_score": 96.7066,
+    "matched_block_count": 1,
+    "missing_block_count": 0,
+    "extra_block_count": 0,
+    "average_edit_distance": 0.0209,
+    "gt_block_count": 1,
+    "pred_block_count": 1,
+    "worst_matches": [
+      {
+        "op": "match",
+        "distance": 0.0209,
+        "gt_start": 0,
+        "gt_count": 1,
+        "pred_start": 0,
+        "pred_count": 1,
+        "gt_preview": "聚焦创新药产业链静待消费医疗改善\\n\\n2025年01月08日\\n\\n评级:领先大市\\n\\n评级变动:维持\\n\\n投资要点\\n\\n行业回顾:2024年医药生物(申万)板块涨幅为-4.05%,在申万31个一级行业中排名第31位明显跑输沪深300指数。截至2024年12月27日...",
+        "pred_preview": "2025年01月08日\\n\\n评级\\n\\n领先大市\\n\\n评级变动:维持\\n\\n行业涨跌幅比较\\n\\n相关报告\\n\\n1医药生物行业2024年11月月报:业绩增长承压重点关注创新药产业链消费医疗2024-11-05\\n\\n聚焦创新药产业链静待消费医疗改善\\n\\n投资要点:\\..."
+      }
+    ],
+    "body_only_text_score": 97.9083,
+    "chart_score": 94.7324,
+    "gt_body_token_count": 13500,
+    "gt_chart_token_count": 8217,
+    "chart_token_share": 0.3784
+  }
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "system": "mineru-3.4.0-hybrid-high",
+    "system_name": "MinerU 3.4.0 — Hybrid backend (effort=high; MinerU2.5-Pro-2605-1.2B)",
+    "document_count": 10,
+    "final_score": 92.3993,
+    "table_score": 93.1942,
+    "title_layout_score": 84.7874,
+    "text_score": 95.2495,
+    "chart_score": 69.5315,
+    "rank": 1
+  },
+  {
+    "system": "mineru-3.4.4-vlm",
+    "system_name": "MinerU 3.4.4 — VLM backend (MinerU2.5-Pro-2605-1.2B)",
+    "document_count": 10,
+    "final_score": 92.0641,
+    "table_score": 93.1681,
+    "title_layout_score": 83.6767,
+    "text_score": 95.097,
+    "chart_score": 68.7543,
+    "rank": 2
+  },
+  {
+    "system": "paddleocr-vl-1.6-cross-page",
+    "system_name": "PaddleOCR-VL-1.6-0.9B — cross-page merge",
+    "document_count": 10,
+    "final_score": 83.9781,
+    "table_score": 92.9391,
+    "title_layout_score": 87.7626,
+    "text_score": 82.407,
+    "chart_score": 0.0,
+    "rank": 3
+  },
+  {
+    "system": "mineru-3.4.0-pipeline",
+    "system_name": "MinerU 3.4.0 — Pipeline backend (method=auto, lang=ch)",
+    "document_count": 10,
+    "final_score": 82.9962,
+    "table_score": 86.51,
+    "title_layout_score": 87.4307,
+    "text_score": 82.4436,
+    "chart_score": 0.0,
+    "rank": 4
+  },
+  {
+    "system": "self-developed-parser",
+    "system_name": "自研解析模型（版本未记录）",
+    "document_count": 10,
+    "final_score": 81.8994,
+    "table_score": 79.4073,
+    "title_layout_score": 90.2917,
+    "text_score": 82.4905,
+    "chart_score": 0.0883,
+    "rank": 5
+  },
+  {
+    "system": "paddleocr-vl-1.6-pagewise",
+    "system_name": "PaddleOCR-VL-1.6-0.9B — no cross-page merge",
+    "document_count": 10,
+    "final_score": 80.7604,
+    "table_score": 79.8942,
+    "title_layout_score": 86.8023,
+    "text_score": 82.407,
+    "chart_score": 0.0,
+    "rank": 6
+  }
+]

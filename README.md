@@ -1,117 +1,140 @@
-# 金融公告 OCR 基准
+# 金融文档 OCR 基准 2.0
 
-一个面向中文金融公告 PDF 的 OCR 评测集。项目关注的不是摘要质量，而是 OCR 结果能否忠实还原原文中的正文、标题层级与表格结构，尤其覆盖长文档、密集表格和跨页表等实际场景。各系统统一输出 Markdown，以便进行结构化评分和复现。
+[English](README_EN.md) · [评分协议](SCORING_PROTOCOL.md) · [Prediction 归一化](PREDICTION_NORMALIZATION.md) · [模型信息](MODEL_METADATA.md)
 
-本仓库包含 6 份金融公告 PDF、两套人工复核的 Markdown 标注，以及 6 组已完成的解析结果和评分产物。所有主榜成绩均来自这 6 份文档的完整评分；未完成的实验不会纳入榜单。
+本项目用于评测金融 PDF 到结构化 Markdown 的 OCR 与版面重建质量。2.0 版包含 4 份脱敏券商行研报告和 6 份公开金融公告，覆盖长文档正文、标题层级、复杂表格、跨页表、公式及信息图表。
+
+PDF 是 Gold Markdown 的唯一事实来源。Gold 不从任一模型输出直接继承格式，人工校对时只保留文档真实内容和必要结构，不含解析器坐标、分页标记、文件路径或工具元数据。
 
 ## 数据集
 
-| ID | 文档 |
-|---|---|
-| 005 | 中国平安 2023 年中期报告 |
-| 006 | 阿里巴巴 2026 财年中期报告 |
-| 007 | 美团 2024 年年度报告 |
-| 008 | 先锋新材 2025 年年度报告 |
-| 009 | 紫天科技 2022 年年度报告 |
-| 010 | 万和电气 2020 年年度报告 |
+| 编号 | 类型 | 文档 | 页数 | Gold 特点 |
+|---:|---|---|---:|---|
+| 001 | 行研报告 | 食品饮料行业深度报告 | 29 | 62 个信息图表、公式、复杂表格 |
+| 002 | 行研报告 | 传媒行业深度报告 | 17 | 17 个信息图表、6 张表格 |
+| 003 | 行研报告 | 创新药产业链深度报告 | 28 | 44 个信息图表、9 张表格 |
+| 004 | 行研报告 | 创新药国际化深度报告 | 17 | 12 个信息图表、8 张表格 |
+| 005 | 金融公告 | 中国平安 2023 年中期报告 | 168 | 双表格 Gold、长篇年度报告结构 |
+| 006 | 金融公告 | 阿里巴巴 2026 财年中期报告 | 83 | 双表格 Gold、中英文混排 |
+| 007 | 金融公告 | 美团 2024 年年度报告 | 345 | 双表格 Gold、大量复杂表格 |
+| 008 | 金融公告 | 先锋新材 2025 年年度报告 | 167 | 双表格 Gold、A 股公告格式 |
+| 009 | 金融公告 | 紫天科技 2022 年年度报告 | 157 | 双表格 Gold、A 股公告格式 |
+| 010 | 金融公告 | 万和电气 2020 年年度报告 | 210 | 双表格 Gold、跨页表密集 |
 
-每份文档提供一对 GT（ground truth）Markdown：
-
-- **Primary GT**：保留人工确认的原始表格边界。
-- **Semi-semantic GT**：针对跨页表补充“可独立理解”的判断。若续页具备自己的题目和表头、拆开后仍能完整表达，则将其视作独立表，而不强制跨页合并。
-
-这种双 GT 设计避免把所有跨页版式都机械地归为“必须合并”，也不会奖励将无关表格错误拼接的结果。
-
-## 评测协议
-
-评分器分别衡量表格、标题布局与正文保真度，最终得分为：
+001–004 PDF 为脱敏版本；005–010 来自公开披露文件。数据布局如下：
 
 ```text
-总分 = 表格 × 40% + 标题布局 × 20% + 正文 × 40%
+data/pdf/                         # 001–010 原始 PDF
+data/gt/primary/                  # 001–010 主 Gold Markdown
+data/gt/semi_semantic/            # 005–010 半语义表格 Gold
+predictions/<system>/             # 原始 OCR 输出
+normalized_predictions/<system>/  # 特异归一化后的评分输入
+scores/with_charts/               # 计入图表质量
+scores/without_charts/            # 不计图表质量
+normalizers/                      # 各系统独立适配器及公共引擎
 ```
 
-| 模块 | 评测方法 |
-|---|---|
-| 表格 | 支持 HTML 和 Markdown pipe table，统一解析为二维单元格矩阵。每张预测表与两个 GT 版本的候选表进行结构与关键词联合匹配，取较优候选；匹配严格一对一，漏表和冗余表均计入惩罚。单表分由结构（60%）和单元格内容（40%）组成。 |
-| 标题布局 | 标题 F1 占 80%，相对层级准确率和顺序分各占 10%。标题文字仍保留在正文模块中评分。 |
-| 正文 | 移除已抽取表格后，对归一化全文计算编辑距离；标题文字和有信息量的图表文本保留。 |
+001–004 使用一份人工审核 Gold。005–010 同时提供主 Gold 和半语义表格 Gold：当跨页后续表具有独立题目、表头且拆开后仍可完整理解时，半语义版本保留为独立表；评分时每个 Prediction 表分别在两份 Gold 的一对一匹配结果中取较高分。
 
-表格匹配以两个 GT 的**单表最高匹配分**为准，而不是将多个预测表拼接为一张 GT 表。这使得未正确处理的跨页切分、重复输出和错误合并都能反映在分数中。
+## Gold Markdown 标准
 
-完整算法、归一化规则与已知局限见 [SCORING_PROTOCOL.md](SCORING_PROTOCOL.md)。
+Gold 以 parser-neutral 为原则：
 
-GT 已转换为不依赖具体解析器的素 Markdown：删除分页协议、内部图片路径和图表容器，同时保留可评分的正文、标题、表格与图表信息。处理原则见 [GT_NORMALIZATION.md](GT_NORMALIZATION.md)。
+- 保留正文原意、标题层级、金融数字、单位、公式和表格结构；
+- 普通装饰图片写作 `![]`；
+- 有信息价值的图表写作 `?[]`，并保留可从 PDF 读取的标题、图例、坐标、单位和数据转写；
+- 同时可合理表示为表格的图表使用显式 chart-table 标记，允许 Prediction 的表格结构与 Gold 图表转写等价匹配，但同一内容只计分一次；
+- 不保留页码、重复页眉页脚、解析器标签、页面坐标或本地路径；
+- 不为提高某个模型分数而修改事实内容。
 
-Prediction 也不直接进入评分器。每个模型/版本必须提供一个独立、GT 无关的格式适配器，先生成 `normalized_predictions/` 中的素 Markdown，再使用统一评分器。适配器不得读取 GT/PDF、按文档特判或改变表格边界；完整规则、当前 6 个脚本及校验方法见 [PREDICTION_NORMALIZATION.md](PREDICTION_NORMALIZATION.md)。
+## 已评测系统
 
-## 已完成系统与结果
+本仓库只列入已经完成 001–010 全量解析的系统。具体版本和运行参数见 [MODEL_METADATA.md](MODEL_METADATA.md)。
 
-下表为各系统在全部 6 份文档上的算术平均分，范围均为 0–100。所有结果均使用上文同一评分协议，表格匹配启用双 GT 最高匹配策略。
+1. MinerU 3.4.0 — Hybrid backend（effort=high；MinerU2.5-Pro-2605-1.2B）
+2. MinerU 3.4.4 — VLM backend（MinerU2.5-Pro-2605-1.2B）
+3. MinerU 3.4.0 — Pipeline backend（method=auto，lang=ch）
+4. PaddleOCR-VL-1.6-0.9B — cross-page merge
+5. PaddleOCR-VL-1.6-0.9B — no cross-page merge
+6. 自研解析模型（版本未记录）
 
-| 排名 | 系统 | 总分 | 表格 | 标题布局 | 正文 |
+## 2.0 结果
+
+### 不考虑图表质量
+
+该模式对 Gold 和 Prediction 中标记的信息图表转写进行对称移除，适合只比较正文、标题和普通表格的场景。
+
+| 排名 | 系统 | 总分 | 表格 | 标题 | 正文 |
 |---:|---|---:|---:|---:|---:|
-| 1 | MinerU 3.4.0 — Hybrid backend（`effort=high`；MinerU2.5-Pro-2605-1.2B） | **92.73** | **94.25** | 81.98 | **96.58** |
-| 2 | MinerU 3.4.4 — VLM backend（MinerU2.5-Pro-2605-1.2B） | 92.19 | 94.19 | 80.64 | 95.97 |
-| 3 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 91.80 | 91.94 | **83.88** | 95.61 |
-| 4 | 自研解析模型（版本未记录） | 90.67 | 89.36 | 83.46 | 95.60 |
-| 5 | MinerU 3.4.0 — Pipeline backend（`method=auto`，`lang=ch`） | 90.31 | 88.76 | 83.70 | 95.17 |
-| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 86.77 | 80.10 | 82.43 | 95.61 |
+| 1 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 93.14 | 92.94 | 87.76 | 95.80 |
+| 2 | MinerU 3.4.4 — VLM backend | 93.05 | 93.17 | 83.68 | 96.76 |
+| 3 | MinerU 3.4.0 — Hybrid backend（effort=high） | 93.01 | 93.19 | 84.79 | 96.38 |
+| 4 | MinerU 3.4.0 — Pipeline backend | 91.64 | 86.51 | 87.43 | 95.44 |
+| 5 | 自研解析模型 | 90.06 | 79.41 | 90.29 | 95.21 |
+| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 89.60 | 79.89 | 86.80 | 95.80 |
 
-各系统的命名与运行配置依据见 [MODEL_METADATA.md](MODEL_METADATA.md)。
+### 考虑图表质量
 
-PaddleOCR-VL-1.6-0.9B 的跨页合并结果相比逐页结果，表格平均分提高 **11.84** 分，总分提高 **5.03** 分。两组正文平均分同为 95.61，差异来自跨页表后处理。
+该模式把 `?[]` 内的图表转写作为正文信息模块的一部分；数字优先、兼顾文字，并按出现顺序一对一匹配。005–010 没有独立的 `?[]` 图表对象，因此开关只改变 001–004 的计分。
 
-上述排名仅用于比较本仓库中的固定文档、GT 与评分版本；不应直接外推为不同版式、语言或下游任务中的通用模型排名。
+| 排名 | 系统 | 总分 | 表格 | 标题 | 正文及图表 |
+|---:|---|---:|---:|---:|---:|
+| 1 | MinerU 3.4.0 — Hybrid backend（effort=high） | 92.40 | 93.19 | 84.79 | 95.25 |
+| 2 | MinerU 3.4.4 — VLM backend | 92.06 | 93.17 | 83.68 | 95.10 |
+| 3 | PaddleOCR-VL-1.6-0.9B — cross-page merge | 83.98 | 92.94 | 87.76 | 82.41 |
+| 4 | MinerU 3.4.0 — Pipeline backend | 83.00 | 86.51 | 87.43 | 82.44 |
+| 5 | 自研解析模型 | 81.90 | 79.41 | 90.29 | 82.49 |
+| 6 | PaddleOCR-VL-1.6-0.9B — no cross-page merge | 80.76 | 79.89 | 86.80 | 82.41 |
 
-## 仓库结构
+完整逐文档报告和机器可读结果位于 [`scores/`](scores/)。上述排名只反映本数据集及当前评分协议，不代表模型在所有 OCR 场景中的通用排名。
+
+## 评分方法
+
+标题布局固定占 20%。其余 80% 根据每份 Gold 的有效信息量在表格和正文之间动态分配：
 
 ```text
-data/
-  pdf/                         # 6 份源 PDF
-  gt/primary/                  # Primary GT
-  gt/semi_semantic/            # Semi-semantic GT
-predictions/<system>/          # 每个系统的 6 份 Markdown 输出
-normalized_predictions/<system>/ # 适配后的素 Markdown 与 manifest
-scores/<system>/               # summary 与逐文档评分报告
-normalizers/                    # 6 个独立模型适配器、公共工具和新模型模板
-normalize_all_predictions.py    # 生成并校验全部归一化 Prediction
-benchmark_scorer.py             # 单文档核心评分器
-score_prediction_directory.py   # 评分一个新的解析系统
-score_all_benchmark_systems.py  # 重跑仓库内全部正式系统
-benchmark_systems.py            # 正式系统名称表
-normalize_gt_markdown.py         # GT 素 Markdown 规范化与检查
-MODEL_METADATA.md               # 模型名称与运行参数核验记录
-GT_NORMALIZATION.md              # GT 规范化原则与复现说明
-PREDICTION_NORMALIZATION.md      # Prediction 独立适配器协议
-README.md
-README_EN.md
-SCORING_PROTOCOL.md
+表格信息量 = 表格语义 token 数 + 展开后的逻辑网格单元数
+表格权重 = 80% × 表格信息量 /（表格信息量 + 有效正文信息量）
+正文权重 = 80% - 表格权重
 ```
 
-## 环境要求
+计图表模式下，Gold 图表转写 token 进入有效正文信息量。这样表格密集文档不会被固定权重低估，正文密集文档也不会因少量小表被过度支配。
 
-Python 3.10 或更高版本。评分脚本提供纯 Python 回退，无强制第三方依赖；为启用主榜使用的繁简归一化并加快全量评分，建议安装 `opencc-python-reimplemented` 和 `python-Levenshtein`。
+- 表格：结构 60% + 单元格内容 40%；候选由结构和关键词共同约束，再进行全局一对一最高质量匹配。单表聚合按 `sqrt(逻辑网格单元数 × max(规范化单元格字符数, 逻辑网格单元数))` 计算占比，漏表按 Gold footprint 计零分，冗余表扩大分母。
+- 标题：标题 F1 80% + 相对层级准确率 10% + 顺序 10%。
+- 正文：移除业务表格并保留标题文字，对完整规范化正文计算精确 Levenshtein 相似度；公式只做不改变数学含义的表示归一化。
+- 图表：只评 `?[]` 标记的信息图表转写，数字匹配优先；chart-table 在表格模块和图表模块之间只路由一次。
 
-## 复现评分
+完整定义、参数和限制见 [SCORING_PROTOCOL.md](SCORING_PROTOCOL.md)。
 
-评分一个新系统时，将 6 份原始 Markdown 命名为 `005.md` 至 `010.md` 并放入同一目录。复制 `normalizers/normalize_parser_template.py`，为该系统实现独立适配器，然后先生成带 manifest 的素 Markdown：
+## 特异归一化
+
+不同解析器会输出各自的展示协议，例如 MinerU `details/summary`、PaddleOCR 对齐 `div`、自研解析器坐标注释和不同图片路径。直接比较会把协议差异误当成 OCR 错误，因此每个系统先运行自己的适配器，再进入统一评分器。
+
+适配器只能根据该系统输出本身清理可证明的协议噪声。它不得读取 PDF、Gold、其他模型结果、文档编号或历史分数；不得修复 OCR 字词、改写数字、拆并业务表格或重排正文。每次运行都会生成 manifest，记录规则、输入输出哈希、变换计数、幂等性和结构保持校验。详见 [PREDICTION_NORMALIZATION.md](PREDICTION_NORMALIZATION.md)。
+
+## 复现
+
+推荐 Python 3.10 或以上版本：
 
 ```bash
-python normalizers/normalize_my_parser.py --input-dir predictions/my_parser --output-dir normalized_predictions/my_parser
+python -m pip install -r requirements.txt
+python normalize_all_predictions.py
+python score_all_benchmark_systems.py --skip-normalization
 ```
 
-再评分归一化目录：
+命令会生成 `scores/with_charts/` 和 `scores/without_charts/` 两套榜单。评分一个新解析器时，先基于 `normalizers/normalize_parser_template.py` 编写只针对其输出协议的适配器，再运行：
 
 ```bash
-python score_prediction_directory.py --pred-dir normalized_predictions/my_parser --system-name "My Parser 1.0" --output-dir scores/my_parser
+python score_prediction_directory.py \
+  --pred-dir normalized_predictions/your-parser \
+  --system-name "Your Parser" \
+  --score-charts on \
+  --allow-unmanifested
 ```
 
-标准脚本要求 `normalization_manifest.json`，固定启用双 GT 单表最高匹配，并关闭隐藏的 Prediction 专属清洗。要重新生成 6 组归一化结果并评分全部 36 份文档，可运行：
+`--allow-unmanifested` 仅用于本地调试；正式提交必须附带通过约束检查的 `normalization_manifest.json`。
 
-```powershell
-python score_all_benchmark_systems.py
-```
+## 版本
 
----
-
-English version: [README_EN.md](README_EN.md)
+2.0.0 首次加入脱敏行研报告、信息图表评分、内容感知动态模块权重、表格 footprint 聚合及统一的 001–010 特异归一化流程。版本变化见 [CHANGELOG.md](CHANGELOG.md)。

@@ -8,12 +8,12 @@
 - 正文保留原文内容与自然段，不加入模型名称、页码协议或解析过程说明。
 - 简单表格可使用 Markdown pipe table；包含 `rowspan` 或 `colspan` 的复杂表格使用标准 HTML `table/tr/td`，并采用统一的多行排版。
 - 普通图片统一写成 `![]`，不保留文件哈希、相对目录或模型生成的图片说明。
-- 流程图、控制关系图等在 `![]` 后保留普通文字关系；包含可核验数据的图表可转写为普通表格。
+- 有信息价值的图表使用 `?[]` 并保留经 PDF 核验的标题、图例、坐标、单位和数据；可合理表示为表格的图表允许显式 chart-table 等价标记。
 - 脚注正文与引用数字保留，但去掉仅用于显示样式的 `<sup>` 标签。
 
 ## 从旧 GT 到当前 GT 的变换
 
-`normalize_gt_markdown.py` 对 6 份 Primary GT 和 6 份 Semi-semantic GT 执行同一套确定性变换：
+`normalize_gt_markdown.py` 对 005–010 的 6 份 Primary GT 和 6 份 Semi-semantic GT 执行同一套确定性变换。001–004 由脱敏 PDF 逐页人工建立和审核，不经过旧 GT 的批量迁移：
 
 1. 删除 `<pagebreak>`、表格跨页注释等解析器元数据。
 2. 将带路径的 Markdown 图片替换为 `![]`；表格单元格中已有文字标签的装饰图标直接去除。
@@ -22,7 +22,7 @@
 5. 统一复杂 HTML 表格的缩进、属性顺序、空白和换行，不改变表格边界或合并单元格。
 6. 统一 UTF-8、LF 换行、行尾空格和块间空行。
 
-当前 12 份 GT 均已通过 `normalize_gt_markdown.py --check`：不含分页控制标签、内部注释、`details/summary` 容器或带路径图片。Primary GT 共 1,004 张表，Semi-semantic GT 共 1,069 张表；格式规范化不改变任一表格的二维单元格矩阵、标题序列或正文评分输入。
+005–010 的 12 份 GT 均已通过 `normalize_gt_markdown.py --check`：不含分页控制标签、内部注释、`details/summary` 容器或带路径图片。其 Primary GT 共 1,004 张表，Semi-semantic GT 共 1,069 张表；格式规范化不改变任一表格的二维单元格矩阵、标题序列或正文评分输入。加上 001–004 单 Gold，2.0 共公开 10 份 Primary Gold 和 6 份 Semi-semantic Gold。
 
 ## 双 GT 的约束
 
@@ -61,4 +61,4 @@ python normalize_gt_markdown.py
 python normalize_gt_markdown.py --check
 ```
 
-规范化脚本是幂等的。当前 6 份 Primary GT 对自身并启用 Semi-semantic 备选表格的自检结果均为：总分、表格、标题布局、正文四项 100.00。
+规范化脚本是幂等的。005–010 的 6 次双表格 GT 自检均为 100.00；001–004 在计图表和不计图表两种模式下共 8 次 Gold 对自身评分也均为 100.00。

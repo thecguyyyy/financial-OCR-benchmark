@@ -1,0 +1,2 @@
+python-Levenshtein==0.27.4
+opencc-python-reimplemented>=0.1.7,<0.2

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-"""Score one parser's six normalized Markdown outputs against this benchmark.
+"""Score one parser's ten normalized Markdown outputs against benchmark v2.0.
 
-Expected prediction identifiers are 005 through 010. The preferred file names
-are 005.md, ..., 010.md; longer names beginning with the same identifier are
+Expected prediction identifiers are 001 through 010. The preferred file names
+are 001.md, ..., 010.md; longer names beginning with the same identifier are
 also accepted when the match is unique.
 """
 
@@ -22,6 +22,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 SCORER = ROOT / "benchmark_scorer.py"
 DOCUMENTS = [
+    ("001", "食品饮料行业深度报告"),
+    ("002", "传媒行业深度报告"),
+    ("003", "创新药产业链深度报告"),
+    ("004", "创新药国际化深度报告"),
     ("005", "中国平安"),
     ("006", "阿里巴巴"),
     ("007", "美团"),
@@ -30,6 +34,10 @@ DOCUMENTS = [
     ("010", "万和电气"),
 ]
 ALIASES = {
+    "001": ("food", "食品饮料"),
+    "002": ("media", "传媒", "银幕"),
+    "003": ("innovative_drug", "创新药", "消费医疗"),
+    "004": ("bd", "关税", "国际化"),
     "005": ("pingan", "平安"),
     "006": ("alibaba", "阿里"),
     "007": ("meituan", "美团"),
@@ -70,6 +78,12 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=4,
         help="Number of documents scored in parallel (default: 4).",
+    )
+    parser.add_argument(
+        "--score-charts",
+        choices=["on", "off"],
+        default="on",
+        help="Include informative ?[] chart transcriptions in scoring (default: on).",
     )
     parser.add_argument(
         "--allow-unmanifested",
@@ -120,7 +134,7 @@ def one(paths: list[Path], description: str) -> Path:
     return unique[0]
 
 
-def find_gt(dataset_root: Path, doc_id: str, semi_semantic: bool) -> Path:
+def find_gt(dataset_root: Path, doc_id: str, semi_semantic: bool) -> Path | None:
     standard_subdir = "semi_semantic" if semi_semantic else "primary"
     standard_path = dataset_root / standard_subdir / f"{doc_id}.md"
     if standard_path.is_file():
@@ -131,8 +145,11 @@ def find_gt(dataset_root: Path, doc_id: str, semi_semantic: bool) -> Path:
     suffix = (
         "*_gold_md_semi_semantic_tables.md" if semi_semantic else "*_gold_md.md"
     )
+    fallback = list(dataset_root.rglob(f"{doc_id}{suffix}"))
+    if semi_semantic and not fallback:
+        return None
     return one(
-        list(dataset_root.rglob(f"{doc_id}{suffix}")),
+        fallback,
         f"{doc_id} {'Semi-semantic' if semi_semantic else 'Primary'} GT",
     )
 
@@ -192,9 +209,12 @@ def run_document(
     document_name: str,
     normalization_adapter: str,
     normalization_manifest: str,
+    score_charts: str,
 ) -> dict:
     primary_gt = find_gt(dataset_root, doc_id, semi_semantic=False)
     semi_gt = find_gt(dataset_root, doc_id, semi_semantic=True)
+    if primary_gt is None:
+        raise FileNotFoundError(f"missing primary GT for {doc_id}")
     prediction = find_prediction(pred_dir, doc_id)
 
     report_dir = output_dir / "documents"
@@ -207,19 +227,24 @@ def run_document(
         str(SCORER),
         "--gt",
         portable_path(primary_gt),
-        "--gt-table-alt",
-        portable_path(semi_gt),
         "--pred",
         portable_path(prediction),
         "--table-gt-strategy",
         "max",
         "--remove-pred-header-footer",
         "off",
+        "--score-charts",
+        score_charts,
         "--json-out",
         portable_path(json_report),
         "--md-out",
         portable_path(markdown_report),
     ]
+    if semi_gt is not None:
+        command[command.index("--pred"):command.index("--pred")] = [
+            "--gt-table-alt",
+            portable_path(semi_gt),
+        ]
     completed = subprocess.run(
         command,
         capture_output=True,
@@ -232,18 +257,23 @@ def run_document(
         raise RuntimeError(f"scorer failed; see {log_path}")
 
     result = json.loads(json_report.read_text(encoding="utf-8"))
-    result["inputs"].update(
-        {
+    published_inputs = {
             "gt": f"data/gt/primary/{doc_id}.md",
-            "gt_table_alt": f"data/gt/semi_semantic/{doc_id}.md",
             "pred": portable_path(prediction),
             "gt_sha256": sha256_file(primary_gt),
-            "gt_table_alt_sha256": sha256_file(semi_gt),
             "pred_sha256": sha256_file(prediction),
             "normalization_adapter": normalization_adapter,
             "normalization_manifest": normalization_manifest,
-        }
-    )
+            "score_charts": score_charts,
+    }
+    if semi_gt is not None:
+        published_inputs.update(
+            {
+                "gt_table_alt": f"data/gt/semi_semantic/{doc_id}.md",
+                "gt_table_alt_sha256": sha256_file(semi_gt),
+            }
+        )
+    result["inputs"].update(published_inputs)
     json_report.write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
@@ -258,13 +288,24 @@ def run_document(
         "table_score": scores["table_score"],
         "title_layout_score": scores["title_layout_score"],
         "text_score": scores["text_score"],
+        "chart_score": result.get("chart_evaluation", {})
+        .get("chart_score", {})
+        .get("chart_score", 0.0),
+        "gt_chart_count": result.get("chart_evaluation", {})
+        .get("chart_score", {})
+        .get("gt_chart_count", 0),
+        "table_weight": result.get("weights", {}).get("table", 0.0),
+        "title_layout_weight": result.get("weights", {}).get("title_layout", 0.0),
+        "text_weight": result.get("weights", {}).get("text", 0.0),
         "table_structure_score": tables["table_structure_score"],
         "table_content_score": tables["table_content_score"],
         "matched_table_count": tables["matched_table_count"],
         "missing_table_count": tables["missing_table_count"],
         "extra_table_count": tables["extra_table_count"],
-        "primary_selected_pair_count": tables["primary_selected_pair_count"],
-        "semi_semantic_selected_pair_count": tables["alt_selected_pair_count"],
+        "primary_selected_pair_count": tables.get(
+            "primary_selected_pair_count", tables["matched_table_count"]
+        ),
+        "semi_semantic_selected_pair_count": tables.get("alt_selected_pair_count", 0),
         "prediction": portable_path(prediction),
         "normalization_adapter": normalization_adapter,
         "normalization_manifest": normalization_manifest,
@@ -272,13 +313,21 @@ def run_document(
     }
 
 
-def write_outputs(output_dir: Path, system_name: str, rows: list[dict], errors: list[str]) -> None:
+def write_outputs(
+    output_dir: Path,
+    system_name: str,
+    rows: list[dict],
+    errors: list[str],
+    score_charts: str,
+) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     rows.sort(key=lambda row: row["id"])
     if errors:
         (output_dir / "errors.json").write_text(
             json.dumps(errors, ensure_ascii=False, indent=2), encoding="utf-8"
         )
+    elif (output_dir / "errors.json").exists():
+        (output_dir / "errors.json").unlink()
     (output_dir / "summary.json").write_text(
         json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8"
     )
@@ -293,23 +342,30 @@ def write_outputs(output_dir: Path, system_name: str, rows: list[dict], errors: 
     lines = [
         f"# {system_name} 评分报告",
         "",
-        "评分协议：双 GT 单表最高匹配；总分 = 表格 40% + 标题布局 20% + 正文 40%；"
-        "标题布局 = F1 80% + 相对层级 10% + 顺序 10%。",
+        "评分协议：表格采用一对一最高分匹配；005–010 的两份表格 GT 按单表择高；"
+        "标题布局 = F1 80% + 相对层级 10% + 顺序 10%；总分按 Gold 表格与正文信息量动态分配。",
+        f"图表模式：{'计入 ?[] 图表转写质量' if score_charts == 'on' else '对称移除 ?[] 图表转写'}。",
         "输入协议：先执行该系统的独立、GT 无关归一化脚本；评分器不再做隐藏的 Prediction 专属页眉页脚清洗。",
         "",
     ]
     if rows:
         average = lambda key: sum(float(row[key]) for row in rows) / len(rows)
+        chart_rows = [row for row in rows if int(row.get("gt_chart_count", 0))]
+        chart_average = (
+            sum(float(row["chart_score"]) for row in chart_rows) / len(chart_rows)
+            if chart_rows
+            else 0.0
+        )
         lines.extend(
             [
                 "## 平均分",
                 "",
-                "| 文件数 | 总分 | 表格 | 标题布局 | 正文 |",
-                "|---:|---:|---:|---:|---:|",
+                "| 文件数 | 总分 | 表格 | 标题布局 | 正文及图表 | 图表 |",
+                "|---:|---:|---:|---:|---:|---:|",
                 f"| {len(rows)} | {average('final_score'):.2f} | "
                 f"{average('table_score'):.2f} | "
                 f"{average('title_layout_score'):.2f} | "
-                f"{average('text_score'):.2f} |",
+                f"{average('text_score'):.2f} | {chart_average:.2f} |",
                 "",
                 "## 逐文档结果",
                 "",
@@ -363,6 +419,7 @@ def main() -> int:
                 document_name,
                 normalization_adapter,
                 normalization_manifest_path,
+                args.score_charts,
             ): doc_id
             for doc_id, document_name in DOCUMENTS
         }
@@ -381,7 +438,7 @@ def main() -> int:
                 errors.append(message)
                 print(f"ERROR {message}", flush=True)
 
-    write_outputs(output_dir, args.system_name, rows, errors)
+    write_outputs(output_dir, args.system_name, rows, errors, args.score_charts)
     print(f"Summary: {output_dir / 'summary.md'}", flush=True)
     return 1 if errors else 0
 

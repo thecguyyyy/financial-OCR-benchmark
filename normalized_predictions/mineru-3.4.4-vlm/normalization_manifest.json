@@ -1,6 +1,18 @@
 {
   "system": "mineru-3.4.4-vlm",
   "adapter": "normalize_mineru_vlm.py",
+  "document_ids": [
+    "001",
+    "002",
+    "003",
+    "004",
+    "005",
+    "006",
+    "007",
+    "008",
+    "009",
+    "010"
+  ],
   "constraints": {
     "uses_ground_truth": false,
     "uses_pdf": false,
@@ -9,43 +21,185 @@
     "reorders_content": false
   },
   "rules": [
-    "unwrap MinerU details/summary containers while retaining text_image and chart text",
+    "unwrap MinerU details/summary containers while retaining text_image content and marking chart boundaries from MinerU summary types",
+    "keep the figure title as text while attaching its adjacent image marker, source, and note lines to the MinerU-derived chart boundary",
+    "retain explicit contents/list-of-figures headings but remove their directory entries, including partial entries and entries mis-promoted to headings",
+    "undo MinerU backslash escapes for literal range, multiplication, list, underscore, and currency symbols outside tables while retaining LaTeX commands",
+    "remove line-boundary Table_ or Tale_ classification fragments while retaining surrounding visible text and all table cells",
     "replace natural images, flowcharts, Mermaid blocks, and image paths with ![]",
     "remove generated decorative-image captions and presentation-only sup/sub wrappers",
     "remove duplicate running headers and isolated page numbers using prediction-only repetition"
   ],
   "totals": {
+    "chart_image_markers_attached": 158,
+    "chart_note_lines_attached": 28,
+    "chart_source_lines_attached": 96,
+    "chart_titles_recognized": 129,
     "comments_removed": 0,
-    "details_wrappers_removed": 208,
+    "details_wrappers_removed": 342,
+    "directory_payload_lines_removed": 170,
+    "directory_sections_cleaned": 6,
     "duplicate_running_headers_removed": 37,
     "html_images_normalized": 17,
-    "markdown_images_normalized": 211,
-    "mermaid_blocks_normalized": 0,
+    "informative_chart_boundaries_preserved": 158,
+    "markdown_images_normalized": 347,
+    "markdown_punctuation_escapes_removed": 61,
+    "mermaid_blocks_normalized": 15,
     "standalone_page_numbers_removed": 5,
     "sub_wrappers_removed": 0,
     "sup_wrappers_removed": 0,
-    "text_details_unwrapped": 27,
-    "visual_details_to_image_marker": 181
+    "text_details_unwrapped": 9,
+    "visual_details_to_image_marker": 175
   },
   "files": [
+    {
+      "id": "001",
+      "source": "predictions/mineru-3.4.4-vlm/001.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/001.md",
+      "source_sha256": "add415bb7b9b656e6dd6ed1e85f6086f83bdae415d51d77a3502373f615a5f46",
+      "output_sha256": "e94d4681ca902ddbf4c01c2a62a7f09872a8f63233dd403703438495c4476e43",
+      "changes": {
+        "chart_image_markers_attached": 62,
+        "chart_note_lines_attached": 13,
+        "chart_source_lines_attached": 61,
+        "chart_titles_recognized": 61,
+        "comments_removed": 0,
+        "details_wrappers_removed": 62,
+        "directory_payload_lines_removed": 77,
+        "directory_sections_cleaned": 2,
+        "html_images_normalized": 0,
+        "informative_chart_boundaries_preserved": 62,
+        "markdown_images_normalized": 62,
+        "markdown_punctuation_escapes_removed": 47,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 64,
+        "heading_count": 30,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "002",
+      "source": "predictions/mineru-3.4.4-vlm/002.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/002.md",
+      "source_sha256": "ab7c7c73c3859846b30bd0e0407513003b881680a8df8b43f04960517269aa0e",
+      "output_sha256": "0beb6af7848a2780ce31ec1c6faf8c727bc2042bfeb7b9dd0463ef7799d17191",
+      "changes": {
+        "chart_image_markers_attached": 16,
+        "chart_note_lines_attached": 5,
+        "chart_source_lines_attached": 16,
+        "chart_titles_recognized": 15,
+        "comments_removed": 0,
+        "details_wrappers_removed": 16,
+        "html_images_normalized": 0,
+        "informative_chart_boundaries_preserved": 16,
+        "markdown_images_normalized": 17,
+        "markdown_punctuation_escapes_removed": 0,
+        "mermaid_blocks_normalized": 5,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 17,
+        "heading_count": 32,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "003",
+      "source": "predictions/mineru-3.4.4-vlm/003.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/003.md",
+      "source_sha256": "d8b906730729ec06747d3760fcc96b30924661eda6adc63462334fcab4068683",
+      "output_sha256": "2c010880bde11f38fd40d3c1ccdc9f8e851274091c74fe736b5767e996073ed2",
+      "changes": {
+        "chart_image_markers_attached": 44,
+        "chart_note_lines_attached": 6,
+        "chart_source_lines_attached": 9,
+        "chart_titles_recognized": 43,
+        "comments_removed": 0,
+        "details_wrappers_removed": 44,
+        "directory_payload_lines_removed": 66,
+        "directory_sections_cleaned": 2,
+        "html_images_normalized": 0,
+        "informative_chart_boundaries_preserved": 44,
+        "markdown_images_normalized": 44,
+        "markdown_punctuation_escapes_removed": 1,
+        "mermaid_blocks_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 53,
+        "heading_count": 22,
+        "artifact_headings_removed": 5,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "004",
+      "source": "predictions/mineru-3.4.4-vlm/004.md",
+      "output": "normalized_predictions/mineru-3.4.4-vlm/004.md",
+      "source_sha256": "ac4a274bc379f32a82d31608bf46bd174aa5e982fbdb9a3baf148690eb96707a",
+      "output_sha256": "47a4542c96791876167b17eb53467c72eb3319efcb03ad0544d16913b9478def",
+      "changes": {
+        "chart_image_markers_attached": 12,
+        "chart_note_lines_attached": 1,
+        "chart_source_lines_attached": 10,
+        "chart_titles_recognized": 10,
+        "comments_removed": 0,
+        "details_wrappers_removed": 12,
+        "directory_payload_lines_removed": 27,
+        "directory_sections_cleaned": 2,
+        "html_images_normalized": 0,
+        "informative_chart_boundaries_preserved": 12,
+        "markdown_images_normalized": 13,
+        "markdown_punctuation_escapes_removed": 2,
+        "mermaid_blocks_normalized": 4,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 16,
+        "heading_count": 17,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
     {
       "id": "005",
       "source": "predictions/mineru-3.4.4-vlm/005.md",
       "output": "normalized_predictions/mineru-3.4.4-vlm/005.md",
       "source_sha256": "e9e379f6b309ea5375660ca0d0f647b05a7c04f5c0660e2458f1e7b256f42a7c",
-      "output_sha256": "df3c938dd344c52bbcc8c41c7392012782327329b98b216ad4091fc7e5316b41",
+      "output_sha256": "ad5b0777b2546a4f90c5d544a67d9d0a396642826e15c51903f888d9b060a92c",
       "changes": {
+        "chart_image_markers_attached": 20,
+        "chart_note_lines_attached": 3,
         "comments_removed": 0,
         "details_wrappers_removed": 28,
         "duplicate_running_headers_removed": 1,
         "html_images_normalized": 17,
+        "informative_chart_boundaries_preserved": 20,
         "markdown_images_normalized": 28,
-        "mermaid_blocks_normalized": 0,
+        "markdown_punctuation_escapes_removed": 2,
+        "mermaid_blocks_normalized": 3,
         "standalone_page_numbers_removed": 1,
         "sub_wrappers_removed": 0,
         "sup_wrappers_removed": 0,
-        "text_details_unwrapped": 23,
-        "visual_details_to_image_marker": 5
+        "text_details_unwrapped": 6,
+        "visual_details_to_image_marker": 2
       },
       "validation": {
         "table_count": 209,
@@ -61,12 +215,13 @@
       "source": "predictions/mineru-3.4.4-vlm/006.md",
       "output": "normalized_predictions/mineru-3.4.4-vlm/006.md",
       "source_sha256": "8302d449b8d274c7a670475d9f3fa8236c24a66e830c2693feb25a23d70faccf",
-      "output_sha256": "e74b9addc5178805765eb8569b89cb1a00c3ecd378a9d06a20bc62428d2aa86f",
+      "output_sha256": "a942c170ddb422b61cdd606dd4f647a9e13e2418b485f43d378d51dbb75d40bd",
       "changes": {
         "comments_removed": 0,
         "duplicate_running_headers_removed": 5,
         "html_images_normalized": 0,
         "markdown_images_normalized": 2,
+        "markdown_punctuation_escapes_removed": 1,
         "mermaid_blocks_normalized": 0,
         "sub_wrappers_removed": 0,
         "sup_wrappers_removed": 0
@@ -85,18 +240,21 @@
       "source": "predictions/mineru-3.4.4-vlm/007.md",
       "output": "normalized_predictions/mineru-3.4.4-vlm/007.md",
       "source_sha256": "c2709bb5e4d3b7102c82913a2aad936b282f3d0510ec578ad07921e94317eceb",
-      "output_sha256": "d210dc993f006ebb16c7f86f7506237a4ca5910826338d2e0b51b3e1203438fd",
+      "output_sha256": "b282248493be7018fbf4e35cd42cc115a6c8f355b4d547b020b8abe92886a8be",
       "changes": {
+        "chart_image_markers_attached": 2,
         "comments_removed": 0,
         "details_wrappers_removed": 176,
         "html_images_normalized": 0,
+        "informative_chart_boundaries_preserved": 2,
         "markdown_images_normalized": 177,
-        "mermaid_blocks_normalized": 0,
+        "markdown_punctuation_escapes_removed": 8,
+        "mermaid_blocks_normalized": 1,
         "standalone_page_numbers_removed": 4,
         "sub_wrappers_removed": 0,
         "sup_wrappers_removed": 0,
-        "text_details_unwrapped": 3,
-        "visual_details_to_image_marker": 173
+        "text_details_unwrapped": 2,
+        "visual_details_to_image_marker": 172
       },
       "validation": {
         "table_count": 177,
@@ -118,6 +276,7 @@
         "duplicate_running_headers_removed": 13,
         "html_images_normalized": 0,
         "markdown_images_normalized": 0,
+        "markdown_punctuation_escapes_removed": 0,
         "mermaid_blocks_normalized": 0,
         "sub_wrappers_removed": 0,
         "sup_wrappers_removed": 0
@@ -136,17 +295,20 @@
       "source": "predictions/mineru-3.4.4-vlm/009.md",
       "output": "normalized_predictions/mineru-3.4.4-vlm/009.md",
       "source_sha256": "e84437d7983522966297711c48d08164050057cc35f0456a13a8c52f02de384b",
-      "output_sha256": "c71182c615cbca9639dc66df92ec563a5863dbffa24d23aadb0a51ee18d846c3",
+      "output_sha256": "52ad0e96ff45c0734bcad75a2dac16d62db8e8052f54920e83bae7cda1e2b3f2",
       "changes": {
+        "chart_image_markers_attached": 1,
         "comments_removed": 0,
         "details_wrappers_removed": 2,
         "duplicate_running_headers_removed": 1,
         "html_images_normalized": 0,
+        "informative_chart_boundaries_preserved": 1,
         "markdown_images_normalized": 2,
-        "mermaid_blocks_normalized": 0,
+        "markdown_punctuation_escapes_removed": 0,
+        "mermaid_blocks_normalized": 1,
         "sub_wrappers_removed": 0,
         "sup_wrappers_removed": 0,
-        "visual_details_to_image_marker": 2
+        "visual_details_to_image_marker": 1
       },
       "validation": {
         "table_count": 182,
@@ -162,18 +324,20 @@
       "source": "predictions/mineru-3.4.4-vlm/010.md",
       "output": "normalized_predictions/mineru-3.4.4-vlm/010.md",
       "source_sha256": "654a41ed8c0262c9f7cd325d8ee1cb027bf059a766432d70cc742a809023937d",
-      "output_sha256": "0cf52976db00676d247d7729ef89a6a1f3cbe6ed0e60a65967f49a608927f9c6",
+      "output_sha256": "9836234fcb5b5c09525276a0918bcf0cd17c9e2af88dc356b7cc3cde154ed805",
       "changes": {
+        "chart_image_markers_attached": 1,
         "comments_removed": 0,
         "details_wrappers_removed": 2,
         "duplicate_running_headers_removed": 17,
         "html_images_normalized": 0,
+        "informative_chart_boundaries_preserved": 1,
         "markdown_images_normalized": 2,
-        "mermaid_blocks_normalized": 0,
+        "markdown_punctuation_escapes_removed": 0,
+        "mermaid_blocks_normalized": 1,
         "sub_wrappers_removed": 0,
         "sup_wrappers_removed": 0,
-        "text_details_unwrapped": 1,
-        "visual_details_to_image_marker": 1
+        "text_details_unwrapped": 1
       },
       "validation": {
         "table_count": 236,

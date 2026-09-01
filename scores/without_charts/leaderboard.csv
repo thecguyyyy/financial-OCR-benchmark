@@ -1,0 +1,7 @@
+﻿rank,system,system_name,document_count,final_score,table_score,title_layout_score,text_score,chart_score
+1,paddleocr-vl-1.6-cross-page,PaddleOCR-VL-1.6-0.9B — cross-page merge,10,93.143,92.9391,87.7626,95.7951,0.0
+2,mineru-3.4.4-vlm,MinerU 3.4.4 — VLM backend (MinerU2.5-Pro-2605-1.2B),10,93.0486,93.1681,83.6767,96.7556,68.7543
+3,mineru-3.4.0-hybrid-high,MinerU 3.4.0 — Hybrid backend (effort=high; MinerU2.5-Pro-2605-1.2B),10,93.014,93.1942,84.7874,96.3822,69.5315
+4,mineru-3.4.0-pipeline,"MinerU 3.4.0 — Pipeline backend (method=auto, lang=ch)",10,91.636,86.51,87.4307,95.4407,0.0
+5,self-developed-parser,自研解析模型（版本未记录）,10,90.0564,79.4073,90.2917,95.2087,0.0883
+6,paddleocr-vl-1.6-pagewise,PaddleOCR-VL-1.6-0.9B — no cross-page merge,10,89.6013,79.8942,86.8023,95.7951,0.0

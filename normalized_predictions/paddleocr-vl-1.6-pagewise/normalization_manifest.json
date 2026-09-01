@@ -1,6 +1,18 @@
 {
   "system": "paddleocr-vl-1.6-pagewise",
   "adapter": "normalize_paddleocr_pagewise.py",
+  "document_ids": [
+    "001",
+    "002",
+    "003",
+    "004",
+    "005",
+    "006",
+    "007",
+    "008",
+    "009",
+    "010"
+  ],
   "constraints": {
     "uses_ground_truth": false,
     "uses_pdf": false,
@@ -11,20 +23,127 @@
   "rules": [
     "unwrap PaddleOCR alignment divs while retaining text",
     "replace image paths with ![]",
+    "keep figure titles while removing adjacent image-only markers, sources, and notes",
     "unwrap presentation-only sup/sub tags and remove parser comments",
     "remove duplicate running headers and isolated page numbers; do not merge page-wise tables"
   ],
   "totals": {
     "comments_removed": 0,
-    "div_wrappers_removed": 277,
+    "div_wrappers_removed": 565,
     "duplicate_running_headers_removed": 22,
-    "html_images_normalized": 108,
+    "html_images_normalized": 243,
+    "image_only_chart_markers_removed": 125,
+    "image_only_chart_note_lines_removed": 20,
+    "image_only_chart_source_lines_removed": 84,
     "markdown_images_normalized": 0,
     "standalone_page_numbers_removed": 1,
     "sub_wrappers_removed": 0,
     "sup_wrappers_removed": 0
   },
   "files": [
+    {
+      "id": "001",
+      "source": "predictions/paddleocr-vl-1.6-pagewise/001.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-pagewise/001.md",
+      "source_sha256": "c8aa68edfbd5499257458dd53ed3c88e9170bd0104d1b5bf1a53b3ebae90f76a",
+      "output_sha256": "8fcfd7337afdd33968fca8349c2f5d9dfe01cb74e9806abc78de61639a34c77d",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 125,
+        "html_images_normalized": 62,
+        "image_only_chart_markers_removed": 58,
+        "image_only_chart_note_lines_removed": 9,
+        "image_only_chart_source_lines_removed": 54,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 3,
+        "heading_count": 31,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "002",
+      "source": "predictions/paddleocr-vl-1.6-pagewise/002.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-pagewise/002.md",
+      "source_sha256": "d1c529137cde0b25e5c152cb0bcedf33d96669c2280ad105be93aebcd287b490",
+      "output_sha256": "bf0122383dce7fff7b9f7daaf2500697cc8595375da12dff46d7729c6508b82d",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 39,
+        "html_images_normalized": 17,
+        "image_only_chart_markers_removed": 16,
+        "image_only_chart_note_lines_removed": 5,
+        "image_only_chart_source_lines_removed": 15,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 6,
+        "heading_count": 29,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "003",
+      "source": "predictions/paddleocr-vl-1.6-pagewise/003.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-pagewise/003.md",
+      "source_sha256": "30e9ed62d0da404c0998a49b0b4f496e478965c4bd5ae0c59811b28d0a4f3bf9",
+      "output_sha256": "0b6a65f40406397f046296e6a185f268c79104cfde8b5f3020a9b80c6796cb6b",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 93,
+        "html_images_normalized": 44,
+        "image_only_chart_markers_removed": 43,
+        "image_only_chart_note_lines_removed": 6,
+        "image_only_chart_source_lines_removed": 9,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 11,
+        "heading_count": 24,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "004",
+      "source": "predictions/paddleocr-vl-1.6-pagewise/004.md",
+      "output": "normalized_predictions/paddleocr-vl-1.6-pagewise/004.md",
+      "source_sha256": "47c0a6da9f192aa36186a53224e3bedbcd24b81676583f0807f7fef2ab1f10df",
+      "output_sha256": "9a4078bce8c00a3bf783d78f3634230d99821fbe16266d4c3b07b385e8aeae7d",
+      "changes": {
+        "comments_removed": 0,
+        "div_wrappers_removed": 31,
+        "html_images_normalized": 12,
+        "image_only_chart_markers_removed": 8,
+        "image_only_chart_source_lines_removed": 6,
+        "markdown_images_normalized": 0,
+        "sub_wrappers_removed": 0,
+        "sup_wrappers_removed": 0
+      },
+      "validation": {
+        "table_count": 8,
+        "heading_count": 18,
+        "artifact_headings_removed": 0,
+        "table_matrices_preserved": true,
+        "heading_sequence_preserved": true,
+        "idempotent": true
+      }
+    },
     {
       "id": "005",
       "source": "predictions/paddleocr-vl-1.6-pagewise/005.md",

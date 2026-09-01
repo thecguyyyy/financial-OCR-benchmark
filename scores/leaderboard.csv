@@ -1,7 +1,0 @@
-﻿rank,system,system_name,document_count,final_score,table_score,title_layout_score,text_score
-1,mineru-3.4.0-hybrid-high,MinerU 3.4.0 — Hybrid backend (effort=high; MinerU2.5-Pro-2605-1.2B),6,92.7271,94.2506,81.9764,96.579
-2,mineru-3.4.4-vlm,MinerU 3.4.4 — VLM backend (MinerU2.5-Pro-2605-1.2B),6,92.1919,94.1915,80.6397,95.9684
-3,paddleocr-vl-1.6-cross-page,PaddleOCR-VL-1.6-0.9B — cross-page merge,6,91.7974,91.9404,83.8832,95.6116
-4,self-developed-parser,自研解析模型（版本未记录）,6,90.6745,89.3581,83.4573,95.5996
-5,mineru-3.4.0-pipeline,"MinerU 3.4.0 — Pipeline backend (method=auto, lang=ch)",6,90.3126,88.758,83.7004,95.1732
-6,paddleocr-vl-1.6-pagewise,PaddleOCR-VL-1.6-0.9B — no cross-page merge,6,86.7724,80.1049,82.4293,95.6116

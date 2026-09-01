@@ -236,7 +236,15 @@ def discover_files(gt_root: Path) -> list[Path]:
     files: list[Path] = []
     for variant in GT_VARIANTS:
         variant_dir = gt_root / variant
-        files.extend(sorted(variant_dir.glob("*.md")))
+        files.extend(
+            variant_dir / f"{doc_id}.md"
+            for doc_id in ("005", "006", "007", "008", "009", "010")
+        )
+    missing = [path for path in files if not path.is_file()]
+    if missing:
+        raise FileNotFoundError(
+            "missing announcement GT files: " + ", ".join(str(path) for path in missing)
+        )
     if len(files) != 12:
         raise RuntimeError(f"expected 12 GT Markdown files under {gt_root}, found {len(files)}")
     return files
